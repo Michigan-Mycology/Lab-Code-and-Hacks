@@ -1,0 +1,24 @@
+Amazon Web Services and SMRT Portal
+1) Sign into AWS, restart "instance".  
+    ****If this is the first time you are creating an instance in AWS, follow steps here, including downloading permissions file (.pem): https://github.com/PacificBiosciences/Bioinformatics-Training/wiki/%22Installing%22-SMRT-Portal-the-easy-way---Launching-A-SMRT-Portal-AMI
+
+2) From command line (on your computer) upload new data (smrt cells):
+        scp  -r -i /path/to/your/permissions_file.pem /path/to/your/smrt_cells  ubuntu@##########:/opt/smrtanalysis/userdata/inputs_dropbox
+        Where ########## is your public DNS from AWS instance (this often has to be refreshed every time you log into AWS)
+
+3) Sign into SMRTPortal with new "instance" address:  http://##########:8080/smrtportal
+        Where ########## is your public DNS from AWS instance
+
+4) In SMRTPortal, go to "Home" or "Design Job" --> "Import and Manage"
+
+      You should now see your SMRT cells there, click "Import SMRTcells"
+      Click "Scan"
+      Then "Add"  (you don't need a path)
+      
+5) Go to "Design Job" --> "Create New"
+      Enter a name
+      Select protocol to use for this job e.g. RS_HGAP_Assembly.2, or RS_ReadsofInsert.1
+      Change any settings or parameters (e.g. "Barcode.1.xml", "Remove control sequences" in Protocol Parameter, threshold for how many reads are needed to keep them in output, or length cutoffs, etc.)
+      Add SMRTcell(s) to analyze with "play" button
+      Click "save" to save for later
+      Click "start" to start
