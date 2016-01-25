@@ -1,0 +1,13 @@
+#PBS -N 20node_your_maker_run
+#PBS -V
+#PBS -A lsa_flux
+#PBS -l qos=flux
+#PBS -q flux
+#PBS -l procs=20,mem=2gb,walltime=80:00:00
+#PBS -M uniqname@umich.edu
+#PBS -m abe
+#PBS -j oe
+
+#Your Code Goes Below:
+cd /scratch/lsa_flux/uniqname/path/to/your/inputs/
+maker
