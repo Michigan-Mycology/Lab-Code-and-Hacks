@@ -5,7 +5,7 @@
 # Then it parses through a fasta file and an OTU file and for each sequence, it replaces it with an appropriate name, where the sequence name is prepended 
 # with a group name
 
-# An improvement would be to make this so that it can also make the other transition
+# An improvement would be to make this so that it can also make the other transition from qiime to mothur
 
 # Expect the file to be run as perl convert_mothur_to_qiime.pl groupfile otufile fastafile
 #---------------------------------------------------------------------------
