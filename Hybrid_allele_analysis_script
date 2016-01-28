@@ -1,0 +1,359 @@
+#!/usr/bin/perl
+
+
+
+
+
+
+
+
+# This line is needed to include the min and max functions
+use List::Util qw(min max);
+
+
+
+
+
+
+
+
+# This program identifies parental fixed SNPs
+# This program then identifies allele contributions to hybrid genomes
+
+
+
+
+
+### Change output files? ###
+open (DATAFILE, "Bd_49_SNPs.4X_GPLvsNovel_UMformat.txt");
+open (FIXEDMAT, ">results_fixedmatrix.txt");
+open ($BrazilGPLdiffs, ">GPL_VS_Brazilfixed.txt");
+open ($CapeGPLdiffs, ">Cape_VS_GPLfixed.txt");
+open ($BrazilCapediffs, ">Brazil_VS_Capefixed.txt");
+open ($GPLBrazilshared, ">GPL_and_Brazilshared.txt");
+open ($GPLCapeshared, ">Cape_and_GPLshared.txt");
+open ($BrazilCapeshared, ">Brazil_and_Capeshared.txt");
+open ($hybrid, ">Hybrid.txt");
+
+print $BrazilGPLdiffs "Contig\t Position\t GPL\t BRAZIL\n";
+print $CapeGPLdiffs "Contig\t Position\t GPL\t CAPE\n";
+print $BrazilCapediffs "Contig\t Position\t BRAZIL\t CAPE\n";
+print $GPLBrazilshared "Contig\t Position\t GPL\t BRAZIL\t CAPE\n";
+print $GPLCapeshared "Contig\t Position\t GPL\t BRAZIL\t CAPE\n";
+print $BrazilCapeshared "Contig\t Position\t GPL\t BRAZIL\t CAPE\n";
+print $hybrid "Contig\t Position\t Hybrid\n";
+
+# First and second and third ines are the number of strains followed by number of SNPs followed by number of contigs.
+$strainline = <DATAFILE>;
+chomp ($strainline);
+$numstrains= $strainline;
+$lastGPL = 42; 
+$lastBRAZIL = 44;
+$lastCAPE = 47; # Number of Contigs
+
+
+$SNPline = <DATAFILE>;
+chomp ($SNPline);
+$numsnps = $SNPline;
+
+
+$contigline = <DATAFILE>;
+chomp ($contigline);
+$numcontigs = $contigline;
+
+
+
+
+# This value is the maximum reported supercontig cutoff due to size.
+$threshold=68;
+
+
+
+
+# Read in third line to have the strains names
+$listofnames = <DATAFILE>;
+chomp ($listofnames);
+@names = split(/\t/, $listofnames);
+
+
+
+
+for ($a=0;$a<$numstrains;$a++)
+{
+                print "names[$a]=$names[$a]\n";
+}
+
+
+
+
+# Next we will read the data into the array of strains x snps ($dataset). There are two other arrays ($contig & $position) that index the location of the SNPs.
+$snp=0;
+
+
+
+
+while ($snp < $numsnps)
+{
+                $nextline = <DATAFILE>;
+                chomp ($nextline);
+                @genos = split(/\t/, $nextline);
+# This following line removes the whitespace at the end of the line.
+                $genos[$numstrains+1] =~ s/\s+$//;
+                $contig[$snp] = $genos[0];
+                $position[$snp] = $genos[1];
+                for ($a=0;$a<$numstrains;$a++)
+                {
+                                $dataset[$snp][$a] = $genos[$a+2];
+                }
+                $snp++;
+}
+
+
+
+
+### Start sub 1 to find fixed difference ###
+for ($a=0;$a<$numsnps;$a++)
+{
+            print FIXEDMAT "$contig[$a]\t$position[$a]\t";
+            $countAs=0;
+            $countCs=0;
+            $countGs=0;
+            $countTs=0;
+            $countNs=0;
+            for ($b=0;$b<$lastGPL;$b++)
+            {
+                    if ($dataset[$a][$b] eq 'A') {$countAs++;}
+                    if ($dataset[$a][$b] eq 'C') {$countCs++;}
+                    if ($dataset[$a][$b] eq 'G') {$countGs++;}
+                    if ($dataset[$a][$b] eq 'T') {$countTs++;}
+                    if ($dataset[$a][$b] eq 'N') {$countNs++;}
+            }
+            if($countNs==$lastGPL) {$fixedmatrix[$a][0]=N;}
+        	if($countNs>=$lastGPL*0.25) {$fixedmatrix[$a][0]=N;}
+            elsif($countAs+$countNs==$lastGPL) {$fixedmatrix[$a][0]=A;}
+            elsif($countCs+$countNs==$lastGPL) {$fixedmatrix[$a][0]=C;}
+            elsif($countGs+$countNs==$lastGPL) {$fixedmatrix[$a][0]=G;}
+            elsif($countTs+$countNs==$lastGPL) {$fixedmatrix[$a][0]=T;}
+            else {$fixedmatrix[$a][0]=P;}
+            #print "$contig[$a]\t$position[$a]\tN=$countNs\tA=$countAs\tC=$countCs\n";
+            print FIXEDMAT "$fixedmatrix[$a][0]\t";
+
+
+            $countAs=0;
+            $countCs=0;
+            $countGs=0;
+            $countTs=0;
+            $countNs=0;
+            for ($b=$lastGPL;$b<$lastBRAZIL;$b++)
+            {
+                    if ($dataset[$a][$b] eq 'A') {$countAs++;}
+                    if ($dataset[$a][$b] eq 'C') {$countCs++;}
+                    if ($dataset[$a][$b] eq 'G') {$countGs++;}
+                    if ($dataset[$a][$b] eq 'T') {$countTs++;}
+                    if ($dataset[$a][$b] eq 'N') {$countNs++;}
+            }
+            if($countNs==$lastBRAZIL-$lastGPL) {$fixedmatrix[$a][1]=N;}
+        	if($countNs>=($lastBRAZIL-$lastGPL)*0.25) {$fixedmatrix[$a][1]=N;}
+            elsif($countAs+$countNs==$lastBRAZIL-$lastGPL) {$fixedmatrix[$a][1]=A;}
+            elsif($countCs+$countNs==$lastBRAZIL-$lastGPL) {$fixedmatrix[$a][1]=C;}
+            elsif($countGs+$countNs==$lastBRAZIL-$lastGPL) {$fixedmatrix[$a][1]=G;}
+            elsif($countTs+$countNs==$lastBRAZIL-$lastGPL) {$fixedmatrix[$a][1]=T;}
+            else {$fixedmatrix[$a][1]=P;}
+            print FIXEDMAT "$fixedmatrix[$a][1]\t";
+
+
+            $countAs=0;
+            $countCs=0;
+            $countGs=0;
+            $countTs=0;
+            $countNs=0;
+            for ($b=$lastBRAZIL;$b<$lastCAPE;$b++)
+            {
+                    if ($dataset[$a][$b] eq 'A') {$countAs++;}
+                    if ($dataset[$a][$b] eq 'C') {$countCs++;}
+                    if ($dataset[$a][$b] eq 'G') {$countGs++;}
+                    if ($dataset[$a][$b] eq 'T') {$countTs++;}
+                    if ($dataset[$a][$b] eq 'N') {$countNs++;}
+            }
+            if($countNs==$lastCAPE-$lastBRAZIL) {$fixedmatrix[$a][2]=N;}
+        	if($countNs>=($lastCAPE-$lastBRAZIL)*0.25) {$fixedmatrix[$a][2]=N;}
+            elsif($countAs+$countNs==$lastCAPE-$lastBRAZIL) {$fixedmatrix[$a][2]=A;}
+            elsif($countCs+$countNs==$lastCAPE-$lastBRAZIL) {$fixedmatrix[$a][2]=C;}
+            elsif($countGs+$countNs==$lastCAPE-$lastBRAZIL) {$fixedmatrix[$a][2]=G;}
+            elsif($countTs+$countNs==$lastCAPE-$lastBRAZIL) {$fixedmatrix[$a][2]=T;}
+            else {$fixedmatrix[$a][2]=P;}
+            print FIXEDMAT "$fixedmatrix[$a][2]\n";
+}
+
+
+### sub 2 find informative SNPS ###
+
+
+$fixeddiffsGPLBrazil=0;
+for ($a=0;$a<$numsnps;$a++)
+{
+    if (($fixedmatrix[$a][0] eq 'A') && ($fixedmatrix[$a][1] eq 'T')) {printtofile($BrazilGPLdiffs,$a,0,1);  $fixeddiffsGPLBrazil++;}
+    elsif (($fixedmatrix[$a][0] eq 'A') && ($fixedmatrix[$a][1] eq 'G')) {printtofile($BrazilGPLdiffs,$a,0,1);  $fixeddiffsGPLBrazil++;}
+    elsif (($fixedmatrix[$a][0] eq 'A') && ($fixedmatrix[$a][1] eq 'C')) {printtofile($BrazilGPLdiffs,$a,0,1);  $fixeddiffsGPLBrazil++;}
+    elsif (($fixedmatrix[$a][0] eq 'T') && ($fixedmatrix[$a][1] eq 'A')) {printtofile($BrazilGPLdiffs,$a,0,1);  $fixeddiffsGPLBrazil++;}
+    elsif (($fixedmatrix[$a][0] eq 'T') && ($fixedmatrix[$a][1] eq 'G')) {printtofile($BrazilGPLdiffs,$a,0,1);  $fixeddiffsGPLBrazil++;}
+    elsif (($fixedmatrix[$a][0] eq 'T') && ($fixedmatrix[$a][1] eq 'C')) {printtofile($BrazilGPLdiffs,$a,0,1);  $fixeddiffsGPLBrazil++;}
+    elsif (($fixedmatrix[$a][0] eq 'G') && ($fixedmatrix[$a][1] eq 'A')) {printtofile($BrazilGPLdiffs,$a,0,1);  $fixeddiffsGPLBrazil++;}
+    elsif (($fixedmatrix[$a][0] eq 'G') && ($fixedmatrix[$a][1] eq 'T')) {printtofile($BrazilGPLdiffs,$a,0,1);  $fixeddiffsGPLBrazil++;}
+    elsif (($fixedmatrix[$a][0] eq 'G') && ($fixedmatrix[$a][1] eq 'C')) {printtofile($BrazilGPLdiffs,$a,0,1);  $fixeddiffsGPLBrazil++;}
+    elsif (($fixedmatrix[$a][0] eq 'C') && ($fixedmatrix[$a][1] eq 'G')) {printtofile($BrazilGPLdiffs,$a,0,1);  $fixeddiffsGPLBrazil++;}
+    elsif (($fixedmatrix[$a][0] eq 'C') && ($fixedmatrix[$a][1] eq 'A')) {printtofile($BrazilGPLdiffs,$a,0,1);  $fixeddiffsGPLBrazil++;}
+    elsif (($fixedmatrix[$a][0] eq 'C') && ($fixedmatrix[$a][1] eq 'T')) {printtofile($BrazilGPLdiffs,$a,0,1);  $fixeddiffsGPLBrazil++;}
+}
+
+
+$fixeddiffsCapeGPL=0;
+for ($a=0;$a<$numsnps;$a++)
+{
+    if (($fixedmatrix[$a][0] eq 'A') && ($fixedmatrix[$a][2] eq 'T')) {printtofile($CapeGPLdiffs,$a,0,2);  $fixeddiffsCapeGPL++;}
+    elsif (($fixedmatrix[$a][0] eq 'A') && ($fixedmatrix[$a][2] eq 'G')) {printtofile($CapeGPLdiffs,$a,0,2);  $fixeddiffsCapeGPL++;}
+    elsif (($fixedmatrix[$a][0] eq 'A') && ($fixedmatrix[$a][2] eq 'C')) {printtofile($CapeGPLdiffs,$a,0,2);  $fixeddiffsCapeGPL++;}
+    elsif (($fixedmatrix[$a][0] eq 'T') && ($fixedmatrix[$a][2] eq 'A')) {printtofile($CapeGPLdiffs,$a,0,2);  $fixeddiffsCapeGPL++;}
+    elsif (($fixedmatrix[$a][0] eq 'T') && ($fixedmatrix[$a][2] eq 'G')) {printtofile($CapeGPLdiffs,$a,0,2);  $fixeddiffsCapeGPL++;}
+    elsif (($fixedmatrix[$a][0] eq 'T') && ($fixedmatrix[$a][2] eq 'C')) {printtofile($CapeGPLdiffs,$a,0,2);  $fixeddiffsCapeGPL++;}
+    elsif (($fixedmatrix[$a][0] eq 'G') && ($fixedmatrix[$a][2] eq 'A')) {printtofile($CapeGPLdiffs,$a,0,2);  $fixeddiffsCapeGPL++;}
+    elsif (($fixedmatrix[$a][0] eq 'G') && ($fixedmatrix[$a][2] eq 'T')) {printtofile($CapeGPLdiffs,$a,0,2);  $fixeddiffsCapeGPL++;}
+    elsif (($fixedmatrix[$a][0] eq 'G') && ($fixedmatrix[$a][2] eq 'C')) {printtofile($CapeGPLdiffs,$a,0,2);  $fixeddiffsCapeGPL++;}
+    elsif (($fixedmatrix[$a][0] eq 'C') && ($fixedmatrix[$a][2] eq 'G')) {printtofile($CapeGPLdiffs,$a,0,2);  $fixeddiffsCapeGPL++;}
+    elsif (($fixedmatrix[$a][0] eq 'C') && ($fixedmatrix[$a][2] eq 'A')) {printtofile($CapeGPLdiffs,$a,0,2);  $fixeddiffsCapeGPL++;}
+    elsif (($fixedmatrix[$a][0] eq 'C') && ($fixedmatrix[$a][2] eq 'T')) {printtofile($CapeGPLdiffs,$a,0,2);  $fixeddiffsCapeGPL++;}
+}
+
+
+$fixeddiffsCapeBrazil=0;
+for ($a=0;$a<$numsnps;$a++)
+{
+    if (($fixedmatrix[$a][1] eq 'A') && ($fixedmatrix[$a][2] eq 'T')) {printtofile($BrazilCapediffs,$a,1,2);  $fixeddiffsCapeBrazil++;}
+    elsif (($fixedmatrix[$a][1] eq 'A') && ($fixedmatrix[$a][2] eq 'G')) {printtofile($BrazilCapediffs,$a,1,2);  $fixeddiffsCapeBrazil++;}
+    elsif (($fixedmatrix[$a][1] eq 'A') && ($fixedmatrix[$a][2] eq 'C')) {printtofile($BrazilCapediffs,$a,1,2);  $fixeddiffsCapeBrazil++;}
+    elsif (($fixedmatrix[$a][1] eq 'T') && ($fixedmatrix[$a][2] eq 'A')) {printtofile($BrazilCapediffs,$a,1,2);  $fixeddiffsCapeBrazil++;}
+    elsif (($fixedmatrix[$a][1] eq 'T') && ($fixedmatrix[$a][2] eq 'G')) {printtofile($BrazilCapediffs,$a,1,2);  $fixeddiffsCapeBrazil++;}
+    elsif (($fixedmatrix[$a][1] eq 'T') && ($fixedmatrix[$a][2] eq 'C')) {printtofile($BrazilCapediffs,$a,1,2);  $fixeddiffsCapeBrazil++;}
+    elsif (($fixedmatrix[$a][1] eq 'G') && ($fixedmatrix[$a][2] eq 'A')) {printtofile($BrazilCapediffs,$a,1,2);  $fixeddiffsCapeBrazil++;}
+    elsif (($fixedmatrix[$a][1] eq 'G') && ($fixedmatrix[$a][2] eq 'T')) {printtofile($BrazilCapediffs,$a,1,2);  $fixeddiffsCapeBrazil++;}
+    elsif (($fixedmatrix[$a][1] eq 'G') && ($fixedmatrix[$a][2] eq 'C')) {printtofile($BrazilCapediffs,$a,1,2);  $fixeddiffsCapeBrazil++;}
+    elsif (($fixedmatrix[$a][1] eq 'C') && ($fixedmatrix[$a][2] eq 'G')) {printtofile($BrazilCapediffs,$a,1,2);  $fixeddiffsCapeBrazil++;}
+    elsif (($fixedmatrix[$a][1] eq 'C') && ($fixedmatrix[$a][2] eq 'A')) {printtofile($BrazilCapediffs,$a,1,2);  $fixeddiffsCapeBrazil++;}
+    elsif (($fixedmatrix[$a][1] eq 'C') && ($fixedmatrix[$a][2] eq 'T')) {printtofile($BrazilCapediffs,$a,1,2);  $fixeddiffsCapeBrazil++;}
+}
+
+
+sub printtofile {
+
+my ($filename, $snpnumber, $group1, $group2) = @_;
+
+print $filename "$contig[$snpnumber]\t $position[$snpnumber]\t $fixedmatrix[$a][$group1]\t $fixedmatrix[$a][$group2]\n"
+}
+
+
+
+### Identify SNPs fixed in all three strains ###
+
+$sharedGPLBrazil=0;
+$sharedGPLCape=0;
+$sharedBrazilCape=0;
+$missedSNPs=0;
+for ($a=0;$a<$numsnps;$a++)
+{
+	if (($fixedmatrix[$a][0] =~ /N|P/) | ($fixedmatrix[$a][1] =~ /N|P/) | ($fixedmatrix[$a][2] =~ /N|P/)) {next;}
+	elsif (($fixedmatrix[$a][0] eq $fixedmatrix[$a][1]) && ($fixedmatrix[$a][0] ne $fixedmatrix[$a][2])) 
+	{print $GPLBrazilshared "$contig[$a]\t $position[$a]\t $fixedmatrix[$a][0]\t $fixedmatrix[$a][1]\t $fixedmatrix[$a][2]\n"; $sharedGPLBrazil++;}
+	elsif (($fixedmatrix[$a][0] eq $fixedmatrix[$a][2]) && ($fixedmatrix[$a][0] ne $fixedmatrix[$a][1])) 
+	{print $GPLCapeshared "$contig[$a]\t $position[$a]\t $fixedmatrix[$a][0]\t $fixedmatrix[$a][1]\t $fixedmatrix[$a][2]\n"; $sharedGPLCape++;}
+	elsif (($fixedmatrix[$a][1] eq $fixedmatrix[$a][2]) && ($fixedmatrix[$a][1] ne $fixedmatrix[$a][0])) 
+	{print $BrazilCapeshared "$contig[$a]\t $position[$a]\t $fixedmatrix[$a][0]\t $fixedmatrix[$a][1]\t $fixedmatrix[$a][2]\n"; $sharedBrazilCape++;}
+	else  {$missedSNPs++;} #print "$contig[$a]\t $position[$a]\t $fixedmatrix[$a][0]\t $fixedmatrix[$a][1]\t $fixedmatrix[$a][2]\n";}
+}
+
+print "GPL&BrazilSNPs\t $sharedGPLBrazil\n";
+print "GPL&CapeSNPs\t $sharedGPLCape\n";
+print "Brazil&CapeSNPs\t $sharedBrazilCape\n";
+print "Missing\t $missedSNPs\n";
+
+
+$sharedpolymorphGPLBrazil=0;
+$sharedpolymorphGPLCape=0;
+$sharedpolymorphBrazilCape=0;
+$sharedGPLBrazilvsP=0;
+$sharedGPLCapevsP=0;
+$sharedBrazilCapevsP=0;
+$allpolymorphic=0;
+$polymorphmissedSNPs=0;
+$missingdata=0;
+for ($a=0;$a<$numsnps;$a++)
+{
+	if (($fixedmatrix[$a][0] =~ /N/) | ($fixedmatrix[$a][1] =~ /N/) | ($fixedmatrix[$a][2] =~ /N/)) {$missingdata++;}
+	elsif (($fixedmatrix[$a][0] eq 'A') && ($fixedmatrix[$a][1] eq 'P') && ($fixedmatrix[$a][2] eq 'P')) {$sharedpolymorphBrazilCape++;}
+	elsif (($fixedmatrix[$a][0] eq 'P') && ($fixedmatrix[$a][1] eq 'A') && ($fixedmatrix[$a][2] eq 'P')) {$sharedpolymorphGPLCape++;}
+	elsif (($fixedmatrix[$a][0] eq 'P') && ($fixedmatrix[$a][1] eq 'P') && ($fixedmatrix[$a][2] eq 'A')) {$sharedpolymorphGPLBrazil++;}
+	elsif (($fixedmatrix[$a][0] eq 'A') && ($fixedmatrix[$a][1] eq 'A') && ($fixedmatrix[$a][2] eq 'P')) {$sharedGPLBrazilvsP++;}
+	elsif (($fixedmatrix[$a][0] eq 'A') && ($fixedmatrix[$a][1] eq 'P') && ($fixedmatrix[$a][2] eq 'A')) {$sharedGPLCapevsP++;}
+	elsif (($fixedmatrix[$a][0] eq 'P') && ($fixedmatrix[$a][1] eq 'A') && ($fixedmatrix[$a][2] eq 'A')) {$sharedBrazilCapevsP++;}
+	elsif (($fixedmatrix[$a][0] eq 'T') && ($fixedmatrix[$a][1] eq 'P') && ($fixedmatrix[$a][2] eq 'P')) {$sharedpolymorphBrazilCape++;}
+	elsif (($fixedmatrix[$a][0] eq 'P') && ($fixedmatrix[$a][1] eq 'T') && ($fixedmatrix[$a][2] eq 'P')) {$sharedpolymorphGPLCape++;}
+	elsif (($fixedmatrix[$a][0] eq 'P') && ($fixedmatrix[$a][1] eq 'P') && ($fixedmatrix[$a][2] eq 'T')) {$sharedpolymorphGPLBrazil++;}
+	elsif (($fixedmatrix[$a][0] eq 'T') && ($fixedmatrix[$a][1] eq 'T') && ($fixedmatrix[$a][2] eq 'P')) {$sharedGPLBrazilvsP++;}
+	elsif (($fixedmatrix[$a][0] eq 'T') && ($fixedmatrix[$a][1] eq 'P') && ($fixedmatrix[$a][2] eq 'T')) {$sharedGPLCapevsP++;}
+	elsif (($fixedmatrix[$a][0] eq 'P') && ($fixedmatrix[$a][1] eq 'A') && ($fixedmatrix[$a][2] eq 'A')) {$sharedBrazilCapevsP++;}
+	elsif (($fixedmatrix[$a][0] eq 'G') && ($fixedmatrix[$a][1] eq 'P') && ($fixedmatrix[$a][2] eq 'P')) {$sharedpolymorphBrazilCape++;}
+	elsif (($fixedmatrix[$a][0] eq 'P') && ($fixedmatrix[$a][1] eq 'G') && ($fixedmatrix[$a][2] eq 'P')) {$sharedpolymorphGPLCape++;}
+	elsif (($fixedmatrix[$a][0] eq 'P') && ($fixedmatrix[$a][1] eq 'P') && ($fixedmatrix[$a][2] eq 'G')) {$sharedpolymorphGPLBrazil++;}
+	elsif (($fixedmatrix[$a][0] eq 'G') && ($fixedmatrix[$a][1] eq 'G') && ($fixedmatrix[$a][2] eq 'P')) {$sharedGPLBrazilvsP++;}
+	elsif (($fixedmatrix[$a][0] eq 'G') && ($fixedmatrix[$a][1] eq 'P') && ($fixedmatrix[$a][2] eq 'G')) {$sharedGPLCapevsP++;}
+	elsif (($fixedmatrix[$a][0] eq 'P') && ($fixedmatrix[$a][1] eq 'G') && ($fixedmatrix[$a][2] eq 'G')) {$sharedBrazilCapevsP++;}
+	elsif (($fixedmatrix[$a][0] eq 'C') && ($fixedmatrix[$a][1] eq 'P') && ($fixedmatrix[$a][2] eq 'P')) {$sharedpolymorphBrazilCape++;}
+	elsif (($fixedmatrix[$a][0] eq 'P') && ($fixedmatrix[$a][1] eq 'C') && ($fixedmatrix[$a][2] eq 'P')) {$sharedpolymorphGPLCape++;}
+	elsif (($fixedmatrix[$a][0] eq 'P') && ($fixedmatrix[$a][1] eq 'P') && ($fixedmatrix[$a][2] eq 'C')) {$sharedpolymorphGPLBrazil++;}
+	elsif (($fixedmatrix[$a][0] eq 'C') && ($fixedmatrix[$a][1] eq 'C') && ($fixedmatrix[$a][2] eq 'P')) {$sharedGPLBrazilvsP++;}
+	elsif (($fixedmatrix[$a][0] eq 'C') && ($fixedmatrix[$a][1] eq 'P') && ($fixedmatrix[$a][2] eq 'C')) {$sharedGPLCapevsP++;}
+	elsif (($fixedmatrix[$a][0] eq 'P') && ($fixedmatrix[$a][1] eq 'C') && ($fixedmatrix[$a][2] eq 'C')) {$sharedBrazilCapevsP++;}
+	elsif (($fixedmatrix[$a][0] eq 'P') && ($fixedmatrix[$a][1] eq 'P') && ($fixedmatrix[$a][2] eq 'P')) {$allpolymorphic++;}
+	else {$polymorphmissedSNPs++; print "$contig[$a]\t $position[$a]\t $fixedmatrix[$a][0]\t $fixedmatrix[$a][1]\t $fixedmatrix[$a][2]\n";}
+}
+
+print "\n";
+print "Missing Data\t $missingdata\n";
+print "GPL&BrazilvsP\t $sharedGPLBrazilvsP\n";
+print "GPL&CapevsP\t $sharedGPLCapevsP\n";
+print "Brazil&CapevsP\t $sharedBrazilCapevsP\n\n";
+print "GPL=P & Brazil=P\t $sharedpolymorphGPLBrazil\n";
+print "GPL=P & Cape=P\t\t $sharedpolymorphGPLCape\n";
+print "BRazil=P & Cape=P\t $sharedpolymorphBrazilCape\n\n";
+print "All Polymorphic\t $allpolymorphic\n";
+print "missed SNPs polymorphic $polymorphmissedSNPs\n";
+
+#APT
+#ATP
+#PAT
+
+### Identify parental contribution of Hybrid SNPS ###
+# Build a negative control
+
+$uninf=0;
+$noinfo=0;
+$homozygousGPL=0;
+$homozygousBrazil=0;
+$heterozygousGPLBrazil=0;
+for ($a=0;$a<$numsnps;$a++)
+{
+	if (($fixedmatrix[$a][0] =~ /N|P/) | ($fixedmatrix[$a][1] =~ /N|P/) | ($dataset[$a][47] =~ /N/)) {$noinfo++; next;}
+	elsif ($fixedmatrix[$a][0] eq $fixedmatrix[$a][1]) {$uninf++; next;}
+	elsif ($dataset[$a][47] eq $fixedmatrix[$a][0]) {print $hybrid "$contig[$a]\t $position[$a]\t 1\t $fixedmatrix[$a][0]\t $fixedmatrix[$a][1]\t $dataset[$a][47]\n"; $homozygousGPL++;}
+	elsif ($dataset[$a][47] eq $fixedmatrix[$a][1]) {print $hybrid "$contig[$a]\t $position[$a]\t -1\t $fixedmatrix[$a][0]\t $fixedmatrix[$a][1]\t $dataset[$a][47]\n"; $homozygousBrazil++;}
+	elsif ($dataset[$a][47] ne $fixedmatrix[$a][1]) {print $hybrid "$contig[$a]\t $position[$a]\t 0\t $fixedmatrix[$a][0]\t $fixedmatrix[$a][1]\t $dataset[$a][47]\n"; $heterozygousGPLBrazil++;}
+}
+
+print "\n";
+print "Uninformative\t $uninf\n";
+print "No Info\t $noinfo\n";
+print "homozygousGPL\t $homozygousGPL\n";
+print "homozygousBrazil\t $homozygousBrazil\n";
+print "heterozygous\t $heterozygousGPLBrazil\n";
+
+
+exit;
