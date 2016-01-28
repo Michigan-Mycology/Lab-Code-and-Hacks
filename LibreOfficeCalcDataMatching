@@ -1,0 +1,18 @@
+# Libre Office Calc mini script to match data from worksheet 1 to worksheet 2
+
+=match(A1, $Sheet2.$A$1:$A$100, 0)
+
+# Calc will search sheet 2 column A between rows 1 and 100 for a matching value to the value in cell A1. 
+# The "0" indicates you want an exact match. 
+# This script will return the row number in sheet 2 that contains the matching value.
+
+# To return the value of that row to worksheet 1:
+# In the next open column, concatenate "A" (or whatever column the value resides in) with the row number you just obtained.
+
+=concatenate("A", B1)
+
+# Copy/paste this value as just number and text into the next column. Then highlight the column and do a find/replace:
+# Replace: A
+# New value: =$Sheet2.A
+
+# This will return the matching value from the row number you've found.
