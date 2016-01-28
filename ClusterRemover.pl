@@ -1,3 +1,7 @@
+#This is a perl script that results in a file of .fasta sequences of orthologous cluster determined by OrthoMCL.  
+#The script matches names of sequences in a cluster in the OrthoMCL output file (.end) with your original sequence file (.fa),
+# and makes a new file with the .fasta sequences of those in a cluster. 
+
 #HOW TO RUN: perl ClusterRemover.pl endfile.end fasta.fa
 use Data::Dumper;
 #reads in the Table
