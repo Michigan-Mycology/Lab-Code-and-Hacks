@@ -1,5 +1,6 @@
 #!/bin/perl
 
+# Author: T.Y. James
 # Qiime needs fasta names that are prefixed with the group origin, while mothur uses sequence names, but then associates them with a group file.
 # This script takes a mothur group file and then converts that into a hash that gives for each sequence name, the corresponding group
 # Then it parses through a fasta file and an OTU file and for each sequence, it replaces it with an appropriate name, where the sequence name is prepended 
