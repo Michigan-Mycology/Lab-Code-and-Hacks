@@ -95,7 +95,7 @@ sub parsethroughOTUs {
  		  	print NEWOTUFILE "\t$newname";
  		  	$i++;
   		}
-  		print "excited";
+  		print "exited";
   		print NEWOTUFILE "\n";
   		@list = ();
    	}    
