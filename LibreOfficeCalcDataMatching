@@ -6,13 +6,13 @@
 # The "0" indicates you want an exact match. 
 # This script will return the row number in sheet 2 that contains the matching value.
 
-# To return the value of that row to worksheet 1:
-# In the next open column, concatenate "A" (or whatever column the value resides in) with the row number you just obtained.
+# To return a value from that row (from a separate column) to worksheet 1:
+# In the next open column, concatenate "C" (or whatever column the value resides in) with the row number you just obtained.
 
-=concatenate("A", B1)
+=concatenate("C", B1)
 
 # Copy/paste this value as just number and text into the next column. Then highlight the column and do a find/replace:
-# Replace: A
-# New value: =$Sheet2.A
+# Replace: C
+# New value: =$Sheet2.C
 
 # This will return the matching value from the row number you've found.
