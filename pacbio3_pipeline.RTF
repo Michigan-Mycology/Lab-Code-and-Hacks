@@ -1,0 +1,615 @@
+#PacBio Mothur Pipeline by Buck Castillo. Dec, 2013
+
+Mothur log in
+Bucks-MacBook-Air:~ buckcastillo$ /Applications/mothur/mothur 
+
+#Note: can view what sequences look like at any time by running command summary.seqs(fasta=xx) command
+1) Set input/output director (mothur doesn't like spaces in folder names)
+	mother > set.dir(input=/Users/buckcastillo/Desktop/pacbio3)
+
+
+First clean up of the data is to only use sequences that did a full 6 passes in the ccs. >5 or more passes leads to a 99% accuracy or better. 
+
+
+Extract fast and qual files from fastq file
+	use fastq.info command
+		mothur > fastq.info(fastq=6passes.fastq, fasta=t, qfile=t, pacbio=t)
+Use summary.seqs command to check outputs. Do regularly and not sequence #
+	mothur > summary.seqs(fasta=6passes.fasta)
+			Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	140	140	0	3	1
+	2.5%-tile:	1	377	377	0	4	1570
+	25%-tile:	1	403	403	0	4	15698
+	Median: 	1	407	407	0	4	31395
+	75%-tile:	1	411	411	0	5	47092
+	97.5%-tile:	1	435	435	0	6	61219
+	Maximum:	1	1638	1638	0	18	62788
+	Mean:	1	407.954	407.954	0	4.44141
+	# of Seqs:	62788
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio/6passes.summary
+
+reverse sequences.. make sure that after reversing sequences to go into the rc files and find/replace ccs with ccs-rc
+	mothur > reverse.seqs(fasta=6passes.fasta, qfile=6passes.qual)
+		output files  = Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio/6passes.rc.fasta
+			/Users/buckcastillo/Desktop/pacbio/6passes.rc.qual
+Merge to make combined 6passes file
+	mothur > merge.files(input=6passes.fasta-6passes.rc.fasta, output=6.passes.combined.fasta)
+		Output File Names:  6.passes.combined.fasta
+	mothur > merge.files(input=6passes.qual-6passes.rc.qual, output=6passes.combined.qual)
+		Output File Names: 6passes.combined.qual
+summary.seqs
+	mothur > summary.seqs(fasta=6passes.combined.fasta)
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	140	140	0	3	1
+	2.5%-tile:	1	377	377	0	4	3140
+	25%-tile:	1	403	403	0	4	31395
+	Median: 	1	407	407	0	4	62789
+	75%-tile:	1	411	411	0	5	94183
+	97.5%-tile:	1	435	435	0	6	122437
+	Maximum:	1	1638	1638	0	18	125576
+	Mean:	1	407.954	407.954	0	4.44141
+	# of Seqs:	125576
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio/6passes.combined.summary
+
+Trim Seqs.. decided to run qaverage=65 (out of a possible 72 quality score) as it is a stringent filtering parameter but still gives an abundant number of sequences to use downstream. Also important to use qtrim=false (the default is qtrim=true. In this case if a sequence falls below the threshold it is simply trimmed and kept in the trim file). With qtrim=false any sequence that falls below the threshold ail be put into the scrap file. Oligos file was created in text edit.
+	mothur > trim.seqs(fasta=6passes.combined.fasta, oligos=barcodes2.txt, qfile=6passes.combined.qual, qaverage=65, checkorient=t, 	maxambig=1, maxhomop=8, bdiffs=1, pdiffs=1, qtrim=false, processors=2)
+		Total of all groups is 30184
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio1/6passes.combined.trim.fasta
+			/Users/buckcastillo/Desktop/pacbio1/6passes.combined.scrap.fasta
+			/Users/buckcastillo/Desktop/pacbio1/6passes.combined.trim.qual
+			/Users/buckcastillo/Desktop/pacbio1/6passes.combined.scrap.qual
+			/Users/buckcastillo/Desktop/pacbio1/6passes.combined.groups
+summary.seqs
+	mothur > summary.seqs(fasta=6passes.combined.trim.fasta)
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	201	201	0	3	1
+	2.5%-tile:	1	355	355	0	4	755
+	25%-tile:	1	361	361	0	4	7547
+	Median: 	1	363	363	0	4	15093
+	75%-tile:	1	366	366	0	5	22639
+	97.5%-tile:	1	378	378	0	5	29430
+	Maximum:	1	1595	1595	0	8	30184
+	Mean:	1	364.997	364.997	0	4.38693
+	# of Seqs:	30184
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio/6passes.combined.trim.summary
+Unique seqs
+	first run unique.seqs with the fasta file to generate the names file and a unique fasta file
+		unique.seqs(fasta=6passes.combined.trim.fasta)
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio/6passes.combined.trim.names
+				/Users/buckcastillo/Desktop/pacbio/6passes.combined.trim.unique.fasta
+summary.seqs	
+	mothur > summary.seqs(fasta=6passes.combined.trim.unique.fasta)
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	201	201	0	3	1
+	2.5%-tile:	1	354	354	0	4	467
+	25%-tile:	1	362	362	0	4	4670
+	Median: 	1	364	364	0	4	9339
+	75%-tile:	1	367	367	0	5	14008
+	97.5%-tile:	1	380	380	0	5	18210
+	Maximum:	1	1595	1595	0	8	18676
+	Mean:	1	366.502	366.502	0	4.36539
+	# of Seqs:	18676
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio/6passes.combined.trim.unique.summary
+Next use unique.seqs again to match the names file with the current fasta file
+		mothur > unique.seqs(fasta=6passes.combined.trim.unique.fasta, name=6passes.combined.trim.names)
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio/6passes.combined.trim.unique.names
+				/Users/buckcastillo/Desktop/pacbio/6passes.combined.trim.unique.unique.fasta
+On online alignment using MAFFT was then ran in place of the align.seqs command in mothur pipeline. Align.seqs command was giving an (ok) general alignment but was inflating OTU numbers by slightly misaligning similar sequences. Use automatic alignment for parameter 
+	online output file.
+		onlinealign_output.pir.txt
+summary.seqs
+	mothur > summary.seqs(fasta=onlinealign_output.pir.txt)
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	5277	201	0	3	1
+	2.5%-tile:	1154	5396	354	0	4	467
+	25%-tile:	1154	5396	362	0	4	4670
+	Median: 	1154	5396	364	0	4	9339
+	75%-tile:	1154	5396	367	0	5	14008
+	97.5%-tile:	1154	6629	380	0	5	18210
+	Maximum:	1208	7053	1595	0	8	18676
+	Mean:	1150.51	5479.1	366.502	0	4.36539
+	# of Seqs:	18676
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.summary
+Screen seqs (important notes: end needs to be set at or below a number that covers the majority of the sequences (i.e. if most go to 482 and i put 483 I will lose almost all sequences. Also, set start position=1. Can set determinate bookmarks since I have pacbio data, ccs. Finally, because I have bookends I don't need a criteria either.) start and end point were determined by the summary.seqs output from the fasta and group inputs.
+	mothur > screen.seqs(fast=onlinealign_output.pir.txt, name=6passes.combined.trim.unique.names, group=6passes.combined.groups, 	end=5396, start=1154, processors=2)
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio1/onlinealign_output.pir.good.txt
+			/Users/buckcastillo/Desktop/pacbio1/onlinealign_output.pir.bad.accnos
+			/Users/buckcastillo/Desktop/pacbio1/6passes.combined.trim.unique.good.names
+			/Users/buckcastillo/Desktop/pacbio1/6passes.combined.good.groups
+summary.seqs
+	mothur > summary.seqs(fasta=onlinealign_output.pir.good.txt)
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	5396	316	0	3	1
+	2.5%-tile:	1154	5396	354	0	4	467
+	25%-tile:	1154	5396	362	0	4	4662
+	Median: 	1154	5396	364	0	4	9323
+	75%-tile:	1154	5396	367	0	5	13984
+	97.5%-tile:	1154	6629	380	0	5	18179
+	Maximum:	1154	7053	1595	0	8	18645
+	Mean:	1150.68	5479.25	366.548	0	4.36476
+	# of Seqs:	18645
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.summary
+Next run filter seqs command. Filter.seqs removes columns from alignments based on defined parameters. Alignments generated against a reference alignment often have columns where every character is either a . or a -. by removing these columns calculations of the distance files is accelerated. 
+	mothur > filter.seqs(fasta=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.txt, vertical=T, trump=.)
+		Length of filtered alignment: 4242
+		Number of columns removed: 2811
+		Length of the original alignment: 7053
+		Number of sequences used to construct filter: 18645
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.filter
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.fasta
+summary.seqs
+	mothur > summary.seqs(fasta=onlinealign_output.pir.good.filter.fasta)
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	4242	316	0	3	1
+	2.5%-tile:	1	4242	354	0	4	467
+	25%-tile:	1	4242	361	0	4	4662
+	Median: 	1	4242	364	0	4	9323
+	75%-tile:	1	4242	367	0	5	13984
+	97.5%-tile:	1	4242	379	0	5	18179
+	Maximum:	1	4242	785	0	8	18645
+	Mean:	1	4242	364.791	0	4.36412
+	# of Seqs:	18645
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.summary
+Run Unique.seqs again.. this should shrink the dataset some more.. won't delete files??
+	mothur > unique.seqs(fasta=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.fasta, name=/Users/buckcastillo/Desktop/	pacbio3/6passes.combined.trim.unique.good.names)
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.names
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.fasta
+summary.seqs
+	mothur > summary.seqs(fasta=onlinealign_output.pir.good.filter.unique.fasta)
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	4242	316	0	3	1
+	2.5%-tile:	1	4242	354	0	4	464
+	25%-tile:	1	4242	361	0	4	4635
+	Median: 	1	4242	364	0	4	9269
+	75%-tile:	1	4242	367	0	5	13903
+	97.5%-tile:	1	4242	379	0	5	18073
+	Maximum:	1	4242	785	0	8	18536
+	Mean:	1	4242	364.803	0	4.36437
+	# of Seqs:	18536
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.summary
+Now I'll run pre.cluster command. This will merge sequence counts that are within 2 bp of a more abundant species. Rule of thumb is a 1bp per 100bp. Pre.cluster algorithm works under the assumption that abundant sequences are more likely to generate erroneous sequences than rare. So the algorithm ranks sequences in order of their abundance. rarer sequences that are within the threshold of more abundant sequences are then merged with the larger sequence.
+	mothur > pre.cluster(fasta=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.fasta, name=/Users/buckcastillo/	Desktop/pacbio3/onlinealign_output.pir.good.filter.names, group=/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.groups, diffs=2)
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.fasta
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.names
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.FA4.map
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.FC3.map
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.FD9.map
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.FE3.map
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.FG3.map
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.FG8.map
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.Mock.map
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.RA4.map
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.RC3.map
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.RD9.map
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.RE3.map
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.RG3.map
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.RG8.map
+Summary.seqs command for status check
+	mothur > summary.seqs(fasta=onlinealign_output.pir.good.filter.unique.precluster.fasta)
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	4242	316	0	3	1
+	2.5%-tile:	1	4242	354	0	4	274
+	25%-tile:	1	4242	362	0	4	2739
+	Median: 	1	4242	365	0	4	5477
+	75%-tile:	1	4242	369	0	5	8215
+	97.5%-tile:	1	4242	382	0	5	10679
+	Maximum:	1	4242	785	0	8	10952
+	Mean:	1	4242	366.233	0	4.33044
+	# of Seqs:	10952
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.summary
+
+On to trimming chimeras.. There are 2 ways to proceed with this step. One is to use a reference alignment (not my path). The second is to spit the sequences into groups and then uses the more abundant sequences as reference sequences. the idea is that chimeras should be rarer than their more abundant parent sequences. 
+	use chimera.uchime command in mothur
+		mothur > chimera.uchime(fasta=onlinealign_output.pir.good.filter.unique.precluster.fasta, name=onlinealign_output.pir.good.filter.unique.precluster.names, group=6passes.combined.good.groups, processors=2)
+		It took 156 secs to check 11577 sequences. 0 chimeras were found.
+		The number of sequences checked may be larger than the number of unique sequences because some sequences are found in several 		samples.
+			output files
+				onlinealign_output.pir.good.filter.unique.precluster.uchime.accnos
+				onlinealign_output.pir.good.filter.unique.precluster.uchime.chimeras
+ After trimming chimeras I want to remove seqs. 
+	mothur > remove.seqs(accnos=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.uchime.accnos, fasta=/	Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.fasta, name=/Users/buckcastillo/Desktop/pacbio3/	onlinealign_output.pir.good.filter.unique.precluster.names, group=/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.groups, dups=T)
+		Removed 482 sequences from your name file.
+		Removed 431 sequences from your fasta file.
+		Removed 482 sequences from your group file.
+
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.names
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.fasta
+			/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.groups
+summary.seqs
+	mothur > summary.seqs(fasta=onlinealign_output.pir.good.filter.unique.precluster.pick.fasta)
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	4242	316	0	3	1
+	2.5%-tile:	1	4242	354	0	4	264
+	25%-tile:	1	4242	362	0	4	2631
+	Median: 	1	4242	365	0	4	5261
+	75%-tile:	1	4242	370	0	5	7891
+	97.5%-tile:	1	4242	382	0	5	10258
+	Maximum:	1	4242	785	0	8	10521
+	Mean:	1	4242	366.356	0	4.32991
+	# of Seqs:	10521
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.summary
+Next step is to classify sequences using a reference database. I took my ref database from RDP reference file provided by mother 28S Fungi
+	mothur > classify.seqs(fasta=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.fasta, name=/Users/	buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.names, group=/Users/buckcastillo/Desktop/	pacbio3/6passes.combined.good.pick.groups, template=/Users/buckcastillo/Desktop/pacbio3/FungiLSU_train_1400bp_8506_mod.fasta, 	taxonomy=/Users/buckcastillo/Desktop/pacbio3/FungiLSU_train_1400bp_8506_mod.tax, cutoff=80, processors=2)		It took 201 secs to classify 10521 sequences.
+
+		Reading /Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.names...  Done.
+
+		It took 1 secs to create the summary file for 10521 sequences.
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.FungiLSU_train_1400bp_8506_mod.wang.taxonomy
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.FungiLSU_train_1400bp_8506_mod.wang.tax.summary
+I now want to use remove.lineage. This will remove all bacteria, chloroplast, mitochondria and unknown sequences. Unknown seqs are those not able to classify to kingdom level.
+	mothur > remove.lineage(fasta=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.fasta, name=/Users/buckcastillo/Desktop/pacbio3/	onlinealign_output.pir.good.filter.unique.precluster.pick.names, taxonomy=/Users/buckcastillo/Desktop/pacbio3/	onlinealign_output.pir.good.filter.unique.precluster.pick.FungiLSU_train_1400bp_8506_mod.wang.taxonomy, taxon=Mitochondria-Chloroplast-Archaea-Bacteria-Unknown)
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.FungiLSU_train_1400bp_8506_mod.wang.pick.taxonomy
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.names
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.fasta
+			/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.groups
+summary.seqs
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	4242	316	0	3	1
+	2.5%-tile:	1	4242	354	0	4	264
+	25%-tile:	1	4242	362	0	4	2631
+	Median: 	1	4242	365	0	4	5261
+	75%-tile:	1	4242	370	0	5	7891
+	97.5%-tile:	1	4242	382	0	5	10258
+	Maximum:	1	4242	785	0	8	10521
+	Mean:	1	4242	366.356	0	4.32991
+	# of Seqs:	10521
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.summary
+Get groups command.. necessary step so we can remove the mock community in down stream analysis
+	mothur > get.groups(fasta=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.fasta, group=/Users/buckcastillo/Desktop/	pacbio3/6passes.combined.good.pick.pick.groups, name=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.names, groups=Mock)
+
+	Selected 1360 sequences from your name file.
+	Selected 179 sequences from your fasta file.
+	Selected 1360 sequences from your group file.
+
+		Output File names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.names
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.fasta
+			/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.groups
+summary.seqs
+	mothur > summary.seqs(fasta=onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.fasta)
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	4242	316	0	3	1
+	2.5%-tile:	1	4242	354	0	4	259
+	25%-tile:	1	4242	362	0	4	2587
+	Median: 	1	4242	365	0	4	5173
+	75%-tile:	1	4242	370	0	5	7759
+	97.5%-tile:	1	4242	382	0	5	10087
+	Maximum:	1	4242	785	0	8	10345
+	Mean:	1	4242	366.401	0	4.32015
+	# of Seqs:	10345
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.summary
+
+Return to pipeline here for analysis of Error Rate *** need to assemble the mock reference base**
+
+Next step is to remove groups *particularly removing the mock community from rest of the dataset*.. Mke sure to use outputs from remove.lineage command and NOT get.groups 
+	mothur > remove.groups(fasta=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.fasta, group=/Users/buckcastillo/Desktop/	pacbio3/6passes.combined.good.pick.pick.groups, name=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.names, taxonomy=/Users/	buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.FungiLSU_train_1400bp_8506_mod.wang.pick.taxonomy, groups=Mock)
+
+	Removed 1360 sequences from your name file.
+	Removed 176 sequences from your fasta file.
+	Removed 1360 sequences from your group file.
+	Removed 176 sequences from your taxonomy file.
+
+		Output File names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.names
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.fasta
+			/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.groups
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.FungiLSU_train_1400bp_8506_mod.wang.pick.pick.taxonomy
+
+Next step is to create a distance matrix in order to build OTU's
+		use pairwise.seqs….
+			onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.dist
+
+The next step is to cluster the sequences provided from the distance matrix into OTU's based on newly created distances
+	use cluster command
+		mothur > cluster(column=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.dist, name=/Users/buckcastillo/Desktop/pacbio3/		onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.names)
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.sabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.list
+Now that I've clustered I want to remove/separate the abundant sequences (found more than once) from those that are signally represented. cutoff of 1
+	in order to separate outs i want to use split.abund command
+		mothur > split.abund(fasta=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.fasta, list=/Users/buckcastillo/Desktop/pacbio3/		onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.list, cutoff=1, group=/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.groups			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.unique.rare.list
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.unique.abund.list
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.unique.rare.groups
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.unique.abund.groups
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.unique.rare.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.unique.abund.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.01.rare.list
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.01.abund.list
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.01.rare.groups
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.01.abund.groups
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.01.rare.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.01.abund.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.02.rare.list
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.02.abund.list
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.02.rare.groups
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.02.abund.groups
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.02.rare.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.02.abund.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.rare.list
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.list
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.03.rare.groups
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.03.abund.groups
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.rare.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.abund.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.04.rare.list
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.04.abund.list
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.04.rare.groups
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.04.abund.groups
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.04.rare.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.04.abund.fasta
+summary.seqs.. particularly interested in 0.03.abund.fasta file. 0.03 is recognized cutoff=97% similarity
+	mothur > summary.seqs(fasta=onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.abund.fasta)
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	4242	316	0	4	1
+	2.5%-tile:	1	4242	354	0	4	187
+	25%-tile:	1	4242	361	0	4	1870
+	Median: 	1	4242	364	0	4	3739
+	75%-tile:	1	4242	367	0	5	5608
+	97.5%-tile:	1	4242	374	0	5	7291
+	Maximum:	1	4242	782	0	8	7477
+	Mean:	1	4242	364.324	0	4.37528
+	# of Seqs:	7477
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.abund.summary		
+Now that I have a list file want to create a table indicating the number of times an OTU shows up.. shared file
+	use the make.shared command
+		mothur > make.shared(list=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.list, group=/Users/buckcastillo/		Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.03.abund.groups, label=0.03)
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.shared
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.FA4.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.FC3.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.FD9.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.FE3.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.FG3.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.FG8.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.RA4.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.RC3.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.RD9.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.RE3.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.RG3.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.RG8.rabund
+Final step in getting good OTU data is to normalize the number of sequences in each sample. in order to do this we will pick a minimum number of sequences that a sample has and randomly select his number of sequences from each sample. First need to know how many sequences are in each step. 
+	use the count.groups command
+		mothur > count.groups()
+			FA4 contains 1717.
+			FC3 contains 1711.
+			FD9 contains 1857.
+			FE3 contains 2397.
+			FG3 contains 2615.
+			FG8 contains 1779.
+			RA4 contains 2634.
+			RC3 contains 2550.
+			RD9 contains 1934.
+			RE3 contains 1373.
+			RG3 contains 2213.
+			RG8 contains 2662.
+			Total seqs: 25442.
+				Output File Names: 
+					count.summary
+Next step after determining minimum amount of otu's per group is to sub-sample all of the samples. This normalizes the dataset
+	use sub.sample command
+		mothur > sub.sample(shared=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.shared, size=1373)
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.0.03.subsample.shared
+Finally we can get taxonomy information for each OTU 
+	use classify.otu command
+		mothur > classify.otu(list=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.list, name=/Users/buckcastillo/Desktop/		pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.names, taxonomy=/Users/buckcastillo/Desktop/pacbio3/		onlinealign_output.pir.good.filter.unique.precluster.pick.FungiLSU_train_1400bp_8506_mod.wang.pick.pick.taxonomy, label=0.03)
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.0.03.cons.taxonomy
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.0.03.cons.tax.summary
+I next need to generate a fasta-formatted sequence file containing only a representative sequence for each OTU. This will also give me a sequence for each OTU necessary for BLAST. Before I generate this file I need to provide a distance file. Use phylip-formatted distance matrix.
+	to do this use dist.seqs command
+		mothur > dist.seqs(fasta=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.abund.fasta, output=phylip, processors=2)
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.abund.phylip.dist
+I can now use get.oturep command to generate the fasta-formatted OTU-sequence file
+	use get.oturep command
+		mothur > get.oturep(phylip=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.abund.phylip.dist, list=/Users/buckcastillo/		Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.list, fasta=/Users/buckcastillo/Desktop/pacbio3/		onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.abund.fasta)
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.0.03.rep.names
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.0.03.rep.fasta
+summary.seqs
+	mothur > summary.seqs(fasta=onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.0.03.rep.fasta)
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	4242	321	0	4	1
+	2.5%-tile:	1	4242	353	0	4	16
+	25%-tile:	1	4242	361	0	4	151
+	Median: 	1	4242	364	0	4	301
+	75%-tile:	1	4242	367	0	5	451
+	97.5%-tile:	1	4242	378	0	5	586
+	Maximum:	1	4242	404	0	8	600
+	Mean:	1	4242	364.197	0	4.28667
+	# of Seqs:	600
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.0.03.rep.summary
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+use dist.seqs command and set cutoff at 0.15
+		mothur > dist.seqs(fasta=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.fasta, cutoff=.15, processors=2)
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.dist
+				It took 946 to calculate the distances for 10345 sequences.
+The next step is to cluster the sequences provided from the distance matrix into OTU's based on newly created distances
+	use cluster command
+		mothur > cluster(column=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.dist, name=/Users/buckcastillo/Desktop/pacbio3/		onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.names)
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.sabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.list
+split abund
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.unique.rare.list
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.unique.abund.list
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.unique.rare.groups
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.unique.abund.groups
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.unique.rare.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.unique.abund.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.01.rare.list
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.01.abund.list
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.01.rare.groups
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.01.abund.groups
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.01.rare.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.01.abund.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.02.rare.list
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.02.abund.list
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.02.rare.groups
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.02.abund.groups
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.02.rare.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.02.abund.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.rare.list
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.list
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.03.rare.groups
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.03.abund.groups
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.rare.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.abund.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.04.rare.list
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.04.abund.list
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.04.rare.groups
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.04.abund.groups
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.04.rare.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.04.abund.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.05.rare.list
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.05.abund.list
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.05.rare.groups
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.05.abund.groups
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.05.rare.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.05.abund.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.06.rare.list
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.06.abund.list
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.06.rare.groups
+				/Users/buckcastillo/Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.06.abund.groups
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.06.rare.fasta
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.06.abund.fasta
+summary.seqs.. particularly interested in 0.03.abund.fasta file. 0.03 is recognized cutoff=97% similarity
+	mothur > summary.seqs(fasta=onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.abund.fasta)
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	4242	316	0	4	1
+	2.5%-tile:	1	4242	354	0	4	170
+	25%-tile:	1	4242	361	0	4	1697
+	Median: 	1	4242	364	0	4	3394
+	75%-tile:	1	4242	367	0	5	5090
+	97.5%-tile:	1	4242	373	0	5	6617
+	Maximum:	1	4242	776	0	8	6786
+	Mean:	1	4242	363.946	0	4.39213
+	# of Seqs:	6786
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.abund.summary
+Now that I have a list file want to create a table indicating the number of times an OTU shows up.. shared file
+	use the make.shared command
+		mothur > make.shared(list=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.list, group=/Users/buckcastillo/		Desktop/pacbio3/6passes.combined.good.pick.pick.pick.0.03.abund.groups, label=0.03)
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.shared
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.FA4.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.FC3.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.FD9.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.FE3.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.FG3.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.FG8.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.RA4.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.RC3.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.RD9.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.RE3.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.RG3.rabund
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.RG8.rabund
+Final step in getting good OTU data is to normalize the number of sequences in each sample. in order to do this we will pick a minimum number of sequences that a sample has and randomly select his number of sequences from each sample. First need to know how many sequences are in each step. 
+	use the count.groups command
+		mothur > count.groups()
+			FA4 contains 1654.
+			FC3 contains 1658.
+			FD9 contains 1826.
+			FE3 contains 2363.
+			FG3 contains 2537.
+			FG8 contains 1718.
+			RA4 contains 2547.
+			RC3 contains 2530.
+			RD9 contains 1854.
+			RE3 contains 1344.
+			RG3 contains 2160.
+			RG8 contains 2560.
+
+			Total seqs: 24751.
+
+			Output File Names: 
+				count.summary
+Next step after determining minimum amount of otu's per group is to sub-sample all of the samples. This normalizes the dataset
+	use sub.sample command
+		mothur > sub.sample(shared=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.shared, size=1344)
+			Sampling 1344 from each group.
+			0.03
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.0.03.subsample.shared
+Finally we can get taxonomy information for each OTU 
+	use classify.otu command
+		mothur > classify.otu(list=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.list, name=/Users/buckcastillo/Desktop/		pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.names, taxonomy=/Users/buckcastillo/Desktop/pacbio3/		onlinealign_output.pir.good.filter.unique.precluster.pick.FungiLSU_train_1400bp_8506_mod.wang.pick.pick.taxonomy, label=0.03)
+			reftaxonomy is not required, but if given will keep the rankIDs in the summary file static.
+			0.03	744
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.0.03.cons.taxonomy
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.0.03.cons.tax.summary
+I next need to generate a fasta-formatted sequence file containing only a representative sequence for each OTU. This will also give me a sequence for each OTU necessary for BLAST. Before I generate this file I need to provide a distance file. Use phylip-formatted distance matrix.
+	to do this use dist.seqs command
+		mothur > dist.seqs(fasta=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.abund.fasta, output=phylip, processors=2)
+			Output File Names: 
+				/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.abund.phylip.dist
+I can now use get.oturep command to generate the fasta-formatted OTU-sequence file
+	use get.oturep command
+		mothur > get.oturep(phylip=/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.abund.phylip.dist, list=/Users/buckcastillo/		Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.list, fasta=/Users/buckcastillo/Desktop/pacbio3/		onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.0.03.abund.fasta)
+			Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.0.03.rep.names
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.0.03.rep.fasta
+summary.seqs
+	mothur > summary.seqs(fasta=onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.0.03.rep.fasta)
+		Start	End	NBases	Ambigs	Polymer	NumSeqs
+	Minimum:	1	4242	321	0	4	1
+	2.5%-tile:	1	4242	353	0	4	19
+	25%-tile:	1	4242	361	0	4	187
+	Median: 	1	4242	364	0	4	373
+	75%-tile:	1	4242	368	0	4	559
+	97.5%-tile:	1	4242	377	0	5	726
+	Maximum:	1	4242	404	0	8	744
+	Mean:	1	4242	364.374	0	4.24866
+	# of Seqs:	744
+		Output File Names: 
+			/Users/buckcastillo/Desktop/pacbio3/onlinealign_output.pir.good.filter.unique.precluster.pick.pick.pick.an.0.03.abund.0.03.rep.summary
