@@ -1,0 +1,33 @@
+Instructions for running Maker annotation pipeline on Umich flux
+
+1) Prepare Accessory inputs  (all or some or none may be used)
+                a. Custom Repeat Library
+                          -Run RepeatScout and then RepeatMasker to create custom repeat library for your species.
+                b. Genemark-ES (not available on flux yet)
+                          - create genemark model for your species
+                          - perl /path/to/gm_es.pl your.assembly.fasta
+                c. Assemble RNA for EST evidence
+                          - Use Trinity or other assembler to create de novo RNA assembly
+
+2) Load Maker (and dependent modules) via command line
+       module remove ncbi-blast/2.2.29           ####people other than Alisha won't need to do this, I just always have this (default) version of blast+ loaded####
+       module load med BioPerl/1.6.1 gcc/4.7.0 boost/1.54.0-gcc ncbi-blast/2.2.31
+       module load lsa repeatmasker/4.0.6 exonerate/2.2.0
+       module load lsa augustus/3.1 SNAP/20131129
+       module load maker
+
+3) Produce Maker control files
+       maker -CTL
+       
+4) Edit Control files
+       Using VI or another text editor, change the maker_opts.ctl to include the full paths to your genome.fas, your repeats.fas (from RepeatScout/Masker output), your assembled RNA (e.g. from Trinity), choose a model organism for augustus, your Genemark model, etc. etc.
+       
+       Repeat for maker_bopts.ctl and maker_exe.ctl, if there are parameters you want to change, otherwise just leave these alone!
+
+5) From login node load all dependent modules (if you didn't do so in step #2!)
+        I don't know why you can't load the module within your pbs file, but I'm pretty sure it has to do with the fact that we are using mpi between different nodes and cores, and basically the program just chokes if the modules are loaded within the pbs script, so there.
+
+6) Run Maker on flux using pbs script provided (modified with your path, allocation requests, etc.)
+       qsub maker.pbs
+       The basic command within the pbs script is just "maker"  run from within the directory with your ctl files!
+       It will run mpi if you have requested multiple cores (which will greatly reduce the amount of time Maker takes to run which is at a minimum ~12 hours!)
