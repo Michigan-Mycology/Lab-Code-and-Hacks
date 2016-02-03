@@ -20,7 +20,7 @@
 # ...                                           ...
 # ...                                           ...
 #
-# We want to search Worksheet 2 for specimen numbers that appear in spreadsheet 1
+# We want to search Worksheet 2 for specimen numbers that appear in Worksheet 1
 #
 # In worksheet 1, column D row 1, enter:
 
@@ -30,15 +30,16 @@
 # The "0" indicates you want an exact match. 
 # This script will return the row number within your range you define in sheet 2 that contains the matching value.
 # Always define your parameters starting with row 1, even with headers.
+# Drag the lower right corner of this cell down the entire column to run the forumula on every specimen number.
 #
 # So now in Column D you have row numbers where there is a matching value. Now you want to return values from column B.
-# In the column E, concatenate "B" (or whatever column the value resides in) with the row number you just obtained.
+# In worksheet 1 column E, concatenate "B" (or whatever column the value resides in) with the row number you just obtained.
 
 =concatenate("B", D1)
 
 # Worksheet 1:                                 
 # Column A    Column B    Column C         Column D   Column E
-# ITS Genbank ITS FASTA   Specimen Number  Row Match  RowMatchCat   
+# ITS Genbank ITS FASTA   Specimen Number  RowMatch   RowMatchCat   
 # MF3928393   cgatagcta   mjf450           350        B350
 # QW3345693   ctctgagaa   mjf620           N/A        
 # AZ3929678   gatcatcca   mjf394           330        B330
@@ -47,7 +48,7 @@
 
 
 # Highlight all the values in column E and copy them. Highlight them again and right click and select paste special and choose to paste
-# only number and text. This will ensure just the values are in the cells and not the concatenate formulas.
+# only number and text. This will ensure that just the values are in the cells and not the concatenate formulas.
 #
 # Highlight the values in the column again and do a find/replace routine:
 # Replace: B
