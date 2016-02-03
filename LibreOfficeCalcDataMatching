@@ -1,4 +1,4 @@
-# Libre Office Calc mini script to match data from worksheet 1 to worksheet 2
+# Libre Office Calc routine to link specimen data from different spreadsheets.
 
 # Scenario: You are working with a large number of specimens and you have two spreadsheets containing different data about the specimens.
 # The spreadsheets aren't completely equal in that one or both also contain data about specimens not found the second spreadsheet.
