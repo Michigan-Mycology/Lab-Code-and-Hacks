@@ -22,9 +22,9 @@
 #
 # We want to search Worksheet 2 for specimen numbers that appear in Worksheet 1
 #
-# In worksheet 1, column D row 1, enter:
+# In worksheet 1, column D row 2 (assuming header in row 1), enter:
 
-=match(C1, $Sheet2.$A$1:$A$500, 0)
+=match(C2, $Sheet2.$A$1:$A$500, 0)
 
 # Calc will search worksheet 2 column A between rows 1 and 500 for a matching value to the value in cell C1.
 # The "0" indicates you want an exact match. 
@@ -35,7 +35,7 @@
 # So now in Column D you have row numbers where there is a matching value. Now you want to return values from column B.
 # In worksheet 1 column E, concatenate "B" (or whatever column the value resides in) with the row number you just obtained.
 
-=concatenate("B", D1)
+=concatenate("B", D2)
 
 # Worksheet 1:                                 
 # Column A    Column B    Column C         Column D   Column E
