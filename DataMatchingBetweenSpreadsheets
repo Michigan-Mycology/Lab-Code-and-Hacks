@@ -1,0 +1,66 @@
+# Libre Office Calc routine to link specimen data from different spreadsheets.
+
+# Scenario: You are working with a large number of specimens and you have two spreadsheets containing different data about the specimens.
+# The spreadsheets aren't completely equal in that one or both also contain data about specimens not found the second spreadsheet.
+# For an example, lets say you produced DNA for a hundred specimens, and you did Microscopy on 500 and took a varying amount of images
+# per specimen. Now you want to add the image names to your DNA spreadsheet to congregate your data to prepare for publication.
+
+# Step 1: copy/paste your data into libre office calc into Sheet1 and the second into Sheet2 (tabs at the bottom left).
+#
+# Example data:
+#
+# Worksheet 1:                                  Worksheet 2:
+# Column A    Column B    Column C              Column A        Column B
+# ITS Genbank ITS FASTA   Specimen Number       Specimen Number Microscopy Images  
+# MF3928393   cgatagcta   mjf450                mjf447          Canth9545.JPG, Canth9546.JPG
+# QW3345693   ctctgagaa   mjf620                mjf450          Canth9547.JPG, Canth9548.JPG, Canth9549.JPG
+# AZ3929678   gatcatcca   mjf394                mjf462          Canth9550.JPG
+# LK1645785   cgatagcta   mjf158                mjf485          Canth9551.JPG, Canth9552.JPG, Canth9553.JPG
+# WQ1345379   cgatagcta   mjf748                mjf496          Canth9554.JPG, Canth9555.JPG
+# ...                                           ...
+# ...                                           ...
+#
+# We want to search Worksheet 2 for specimen numbers that appear in Worksheet 1
+#
+# In worksheet 1, column D row 2 (assuming header in row 1), enter:
+
+=match(C2, $Sheet2.$A$1:$A$500, 0)
+
+# Calc will search worksheet 2 column A between rows 1 and 500 for a matching value to the value in cell C1.
+# The "0" indicates you want an exact match. 
+# This script will return the row number within your range you define in sheet 2 that contains the matching value.
+# Always define your parameters starting with row 1, even with headers.
+# Drag the lower right corner of this cell down the entire column to run the forumula on every specimen number.
+#
+# So now in Column D you have row numbers where there is a matching value. Now you want to return values from column B.
+# In worksheet 1 column E, concatenate "B" (or whatever column the value resides in) with the row number you just obtained.
+
+=concatenate("B", D2)
+
+# Worksheet 1:                                 
+# Column A    Column B    Column C         Column D   Column E
+# ITS Genbank ITS FASTA   Specimen Number  RowMatch   RowMatchCat   
+# MF3928393   cgatagcta   mjf450           350        B350
+# QW3345693   ctctgagaa   mjf620           N/A        
+# AZ3929678   gatcatcca   mjf394           330        B330
+# LK1645785   cgatagcta   mjf158           125        B125
+# WQ1345379   cgatagcta   mjf748           497        B497
+
+
+# Highlight all the values in column E and copy them. Highlight them again and right click and select paste special and choose to paste
+# only number and text. This will ensure that just the values are in the cells and not the concatenate formulas.
+#
+# Highlight the values in the column again and do a find/replace routine:
+# Replace: B
+# New value: =$Sheet2.B
+#
+# This will return the values in the cell names you've specified.
+
+# Worksheet 1:                                 
+# Column A    Column B    Column C         Column D   Column E
+# ITS Genbank ITS FASTA   Specimen Number  Row Match  RowMatchCat   
+# MF3928393   cgatagcta   mjf450           350        Canth9547.JPG, Canth9548.JPG, Canth9549.JPG
+# QW3345693   ctctgagaa   mjf620           N/A        
+# AZ3929678   gatcatcca   mjf394           330        Canth8334.JPG, Canth8335.JPG
+# LK1645785   cgatagcta   mjf158           125        Canth3422.JPG, Canth3433.JPG, Canth3434.JPG
+# WQ1345379   cgatagcta   mjf748           497        Canth10123.JPG, Canth10124.JPG
