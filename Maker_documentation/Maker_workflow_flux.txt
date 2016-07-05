@@ -1,4 +1,4 @@
-Instructions for running Maker annotation pipeline on Umich flux
+Instructions for running Maker annotation pipeline on Umich flux ( by Alisha Q)
 
 1) Prepare Accessory inputs  (all or some or none may be used)
                 a. Custom Repeat Library
@@ -31,3 +31,15 @@ Instructions for running Maker annotation pipeline on Umich flux
        qsub maker.pbs
        The basic command within the pbs script is just "maker"  run from within the directory with your ctl files!
        It will run mpi if you have requested multiple cores (which will greatly reduce the amount of time Maker takes to run which is at a minimum ~12 hours!)
+       
+*****Post Processing*****
+Once Maker has run, the resulting output folder will contain a datastore index file.  Accessory scripts included in the Maker package (module load maker , if you want to use them) will allow you to use the index file to create your final fasta and gff3 output files, as well as nifty things like renaming the Maker protein headers (which are disgusting!!).  Here are ones I commonly use:
+
+fasta_merge -d datastore_indexfile -o prefix_for_output  #This creates all the protein and transcript fastas
+
+gff3_merge -d datastore_indexfile -o my_new_maker.gff3
+
+maker_map_ids --prefix YSPE_  --justify 5 --sort_order sort_order.tab my_new_maker.gff3 > genome_id.map          #First create a tab delimited file with your contig name and the order (0-N) that you want the contigs in.  The important function of this script is not the order of the contigs but the fact that proteins on a contig will be "in order" e.g. YSPE_00001 will be next to YSPE_00002 on a contig (if they are on the same contig. 
+
+map_gff_ids genome_id.map my_new_maker.gff3
+map_fasta_ids genome_id.map my_genome.proteins.fasta
