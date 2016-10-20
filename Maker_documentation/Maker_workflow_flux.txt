@@ -1,4 +1,6 @@
-Instructions for running Maker annotation pipeline on Umich flux ( by Alisha Q)
+Instructions for running Maker annotation pipeline on Umich flux ( by Alisha Q):
+
+***Please visit the Maker tutorial webpage for explanation and overview of what Maker is and how it works, before reading this*** http://weatherby.genetics.utah.edu/MAKER/wiki/index.php/MAKER_Tutorial_for_GMOD_Online_Training_2014   
 
 1) Prepare Accessory inputs  (all or some or none may be used)
                 a. Custom Repeat Library
@@ -8,6 +10,10 @@ Instructions for running Maker annotation pipeline on Umich flux ( by Alisha Q)
                           - perl /path/to/gm_es.pl your.assembly.fasta
                 c. Assemble RNA for EST evidence
                           - Use Trinity or other assembler to create de novo RNA assembly
+                d. Prepare protein fasta for protein evidence
+                          - I ususally use Swissprot db and add proteins from species that are closely related to the target
+                          - I keep a version of Swissprot db on Tim's server under the mycology/Database/ folder
+                          - Swissprot updates roughly every six months or so.
 
 2) Load Maker (and dependent modules) via command line
        module remove ncbi-blast/2.2.29           ####people other than Alisha won't need to do this, I just always have this (default) version of blast+ loaded####
@@ -20,7 +26,7 @@ Instructions for running Maker annotation pipeline on Umich flux ( by Alisha Q)
        maker -CTL
        
 4) Edit Control files
-       Using VI or another text editor, change the maker_opts.ctl to include the full paths to your genome.fas, your repeats.fas (from RepeatScout/Masker output), your assembled RNA (e.g. from Trinity), choose a model organism for augustus, your Genemark model, etc. etc.
+       Using VI or another text editor, change the maker_opts.ctl to include the full paths to your genome.fas, your repeats.fas (from RepeatScout/Masker output), your assembled RNA (e.g. from Trinity), your_protein_evidence.fas, your SNAP hmm file (if using), choose a model organism for augustus and RepeatMasker, your Genemark model, etc. etc.
        
        Repeat for maker_bopts.ctl and maker_exe.ctl, if there are parameters you want to change, otherwise just leave these alone!
 
