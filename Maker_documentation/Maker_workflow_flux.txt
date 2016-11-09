@@ -15,8 +15,7 @@ Instructions for running Maker annotation pipeline on Umich flux ( by Alisha Q):
                           - I keep a version of Swissprot db on Tim's server under the mycology/Database/ folder
                           - Swissprot updates roughly every six months or so.
 
-2) Load Maker (and dependent modules) via command line
-       module remove ncbi-blast/2.2.29           ####people other than Alisha won't need to do this, I just always have this (default) version of blast+ loaded####
+2) Load Maker (and dependent modules) via command line           
        module load med BioPerl/1.6.1 gcc/4.7.0 boost/1.54.0-gcc ncbi-blast/2.2.31
        module load lsa repeatmasker/4.0.6 exonerate/2.2.0
        module load lsa augustus/3.1 SNAP/20131129
