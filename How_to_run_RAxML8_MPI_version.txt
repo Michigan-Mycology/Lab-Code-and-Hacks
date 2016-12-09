@@ -20,4 +20,4 @@ module load raxml gcc/5.4.0 openmpi/1.10.2/gcc/5.4.0
 
 #Your Code Goes Below:
 cd /scratch/lsa_flux/alishaq/KSL3_Raw_Data/Phylogenomics/53_prots/Raxml
-mpirun -np 60 raxmlHPC-MPI -f a -s smaller_v3_53prot_ksl3.phy -n 60proc_v3_small_500bp_flux_53prot -m PROTGAMMAWAG -x 25678 -N 500 -p 8762
+mpirun -np 60 raxmlHPC-MPI -f a -s smaller_v3_53prot_ksl3.phy -n 60proc_v3_small_500bp_flux_53prot -m PROTGAMMAAUTO -x 25678 -N 500 -p 8762
