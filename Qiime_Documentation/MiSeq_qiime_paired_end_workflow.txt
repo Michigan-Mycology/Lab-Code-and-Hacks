@@ -2,18 +2,18 @@
 
 #By Alisha Quandt 5/2017
 #If you questions, start here: http://qiime.org/scripts/
-#There is VERY good documentation for all qiime scripts and the multiple options (not all written out here) for each script.
+#There is VERY good documentation for all qiime scripts and the multiple options (not all written out here) for each script on their website.
 #I make generalized pipelines. That means I do not type out full paths (which change), and I do not write out exact file names except where I can (because they change). If you are confused, try to think about what the input and output for each script should be. If you are still confused visit the qiime documentation.
 #Sometimes I forget to say "cd" into the directory that you just created.  I tried not to, but again if confused, think about what the input to your next script is, and where that is located. That will help you figure where in the file structure you will need to be.
 
 ---------------#Contig paired reads and combine into single fasta#
 mv *ITS*.fastq.gz Fungal_reads/
 
-multiple_join_paired_ends.py -i fungal_reads/. -o joined_fungal_reads
+multiple_join_paired_ends.py -i Fungal_reads/. -o joined_fungal_reads
 
 mkdir /home/qiime/Desktop/unjoined/
 
-find ./joined_fungal_reads/ -name "fastqjoin.un*" -print -exec mv {} /home/qiime/Desktop/unjoined/ \;  ##This didn't actually work to save ALL the unjoined files when I did it, but oh well.
+find ./joined_fungal_reads/ -name "fastqjoin.un*" -print -exec mv {} /home/qiime/Desktop/unjoined/ \;   ##This didn't actually work to save ALL the unjoined files when I did it, but all that matters is that your directories only have the joined (contiged) reads now, and that the unjoined reads have been removed.
 
 multiple_split_libraries_fastq.py -i joined_fungal_reads/ -o fungal_split_libs/ -m sampleid_by_file -p parameters.txt --include_input_dir_path --remove_filepath_in_name
 
@@ -26,8 +26,8 @@ split_libraries_fastq:phred_quality_threshold 19
 split_libraries_fastq:min_per_read_length_fraction 0.75
 split_libraries_fastq:max_barcode_errors 0
 
--------------#Pick OTUs#
-mv seqs.fna Fungal_paired_q20.fasta   ##Rename your file to something more informative
+-------------#Pick OTUs#                      *****From here, workflow is the same as single end*****
+mv seqs.fna Fungal_paired_q20.fasta   ##Rename your output fasta file to something more informative
 
 pick_otus.py -i Fungal_paired_q20.fasta -m usearch -z --db_filepath=/path/to/SharedFolder/Unite/unite_97.fasta -o usearch_q20_paired --word_length 64
 
