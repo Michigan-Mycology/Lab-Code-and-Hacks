@@ -1,0 +1,7 @@
+# parameters_split.txt
+
+split_libraries_fastq:max_bad_run_length	3
+split_libraries_fastq:sequence_max_n	0
+split_libraries_fastq:phred_quality_threshold	19
+split_libraries_fastq:min_per_read_length_fraction	0.75
+split_libraries_fastq:max_barcode_errors	0
