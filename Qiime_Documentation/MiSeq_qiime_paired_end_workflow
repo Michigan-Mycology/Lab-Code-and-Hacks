@@ -1,0 +1,82 @@
+########## Paired-end Workflow ##########
+
+#If you questions, start here: http://qiime.org/scripts/
+#There is VERY good documentation for all qiime scripts and the multiple options (not all written out here) for each script.
+#I make generalized pipelines. That means I do not type out full paths (which change), and I do not write out exact file names except where I can (because they change). If you are confused, try to think about what the input and output for each script should be. If you are still confused visit the qiime documentation.
+#Sometimes I forget to say "cd" into the directory that you just created.  I tried not to, but again if confused, think about what the input to your next script is, and where that is located. That will help you figure where in the file structure you will need to be.
+
+---------------#Contig paired reads and combine into single fasta#
+mv *ITS*.fastq.gz Fungal_reads/
+
+multiple_join_paired_ends.py -i fungal_reads/. -o joined_fungal_reads
+
+mkdir /home/qiime/Desktop/unjoined/
+
+find ./joined_fungal_reads/ -name "fastqjoin.un*" -print -exec mv {} /home/qiime/Desktop/unjoined/ \;  ##This didn't actually work to save ALL the unjoined files when I did it, but oh well.
+
+multiple_split_libraries_fastq.py -i joined_fungal_reads/ -o fungal_split_libs/ -m sampleid_by_file -p parameters.txt --include_input_dir_path --remove_filepath_in_name
+
+#### parameters.txt content:
+#qiime_parameters.txt
+
+split_libraries_fastq:max_bad_run_length 3
+split_libraries_fastq:sequence_max_n 0
+split_libraries_fastq:phred_quality_threshold 19
+split_libraries_fastq:min_per_read_length_fraction 0.75
+split_libraries_fastq:max_barcode_errors 0
+
+-------------#Pick OTUs#
+mv seqs.fna Fungal_paired_q20.fasta   ##Rename your file to something more informative
+
+pick_otus.py -i Fungal_paired_q20.fasta -m usearch -z --db_filepath=/path/to/SharedFolder/Unite/unite_97.fasta -o usearch_q20_paired --word_length 64
+
+cd usearch_q20_paired/
+
+pick_rep_set.py -i output_otus.txt -f ../Fungal_paired_q20.fasta -m most_abundant -o rep_set.fas
+
+assign_taxonomy.py -i rep_set.fas -o Blast_unite97 -t /path/to/SharedFolder/Unite/unite_97.tax -r /path/to/SharedFolder/Unite/unite_97.fasta -m blast
+
+cd Blast_unite97/
+
+make_otu_table.py -i ../output_otus.txt -t taxon_assign.txt -o taxon_assign.biom
+
+-----------#Visualize taxonomy#
+
+summarize_taxa.py -i taxon_assign.biom -a -L 2,3,4,5,6,7 -o taxonomy
+
+cd taxonomy/
+
+plot_taxa_summary.py -i ..L2.txt,..L3.txt,..etc -c bar
+
+
+--------------#Filtering#
+
+filter_taxa_from_otu_table.py -i taxon_assign.biom -o Fungi_only.biom -p k__Fungi   ###Only give me things in Kingdom Fungi
+
+filter_samples_from_otu_table.py -i Fungi_only.biom -o fung_only_min1000_taxon.biom -n 1000   ###Only keep samples that have at least 1000 sequences
+
+
+---------------#Other analyses#
+
+alpha_rarefaction.py -i fung_only_min1000_taxon.biom -m Conus_map_file.txt -o alpha_rare -p parameters_alpha.txt -e 15000 --min_rare_depth 10 -n 30   #Different parameters.txt file than the one above!!!!
+#Visualize .html created wihtin output directory alpha_rare/plots/
+
+#### parameters_alpha.txt content:
+alpha_diversity:metrics observed_species,chao1,chao1_ci,simpson
+
+
+alpha_diversity.py -i fung_only_min1000_taxon.biom -m chao1,observed_otus -o min1000_Alpha_div.txt  #This script calculates discrete stats for each sample.
+
+
+#Beta Diversity
+beta_diversity.py -i fung_only_min1000_taxon.biom -m bray_curtis -o Beta_div
+
+cd Beta_div/
+
+principal_coordinates.py -i bray_curtis_taxon_assign.txt -o beta_div_coords.txt
+
+make_2d_plots.py -i beta_div_coords.txt -m ../Conus_map_file.txt
+#Visualize .html created  within Beta_div/
+
+
+
