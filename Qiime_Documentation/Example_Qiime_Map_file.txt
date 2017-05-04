@@ -1,0 +1,207 @@
+#SampleID	BarcodeSequence	LinkerPrimerSequence	Species	Archipelago	Location	Date	Year	Organ	Diet
+300896			Conus abbreviatus	Hawaii	Oahu		Unknown	Int	Worm
+301669			Conus abbreviatus	Hawaii	Kahe Point, Oahu	11/6/2000	2000	Int	Worm
+301855			Conus abbreviatus	Hawaii	Oahu	10/1/2002	2002	Int	Worm
+301964			Conus abbreviatus	Hawaii	Oahu	8/8/1995	1995	Int	Worm
+302232			Conus abbreviatus	Hawaii	Malaekahana State Recreation Area	7/3/2009	2009	Int	Worm
+301670			Conus anemone	Australia	S. Australia	1-Jan	Unknown	Int	Worm
+300678			Conus antoniomonteiroi	Cape Verde	Parda, Sal	8/8/2002	2002	Int	Worm
+301966			Conus araneosus	India	Unknown		Unknown	Int	Mollusk
+301733			Conus archon	Panama	Islas Perlas	9/29/2000	2000	Int	Worm
+301856			Conus archon	Panama	Naos-tank	10/1/2002	2002	Int	Worm
+301100			Conus arcuatus	Panama	Gulf of Chiriqui	3/13/2000	2000	Int	Worm
+301579			Conus bandanus	Samoa	Front of Tusitala, W of Apia Harbor, Upolu Island	11/14/2000	2000	Int	Mollusk
+301971			Conus bandanus	Indonesia	Unknown		Unknown	Int	Mollusk
+302124			Conus bandanus	Hawaii	Oahu	7/17/1998	1998	Int	Mollusk
+302126			Conus bandanus	Hawaii	Oahu	7/17/1998	1998	Int	Mollusk
+301110			Conus brunneus	Panama	Isla Montuosa	9/26/2000	2000	Int	Worm
+301672			Conus brunneus	Panama	Punta Burica	5/15/2002	2002	Int	Worm
+301737			Conus brunneus	Panama	Islas Perlas	9/27/2000	2000	Int	Worm
+302128			Conus brunneus	Panama	Islas Perlas	7/21/1998	1998	Int	Worm
+301589			Conus canonicus	American Samoa	Anesasopu	11/16/2000	2000	Int	Mollusk
+301675			Conus capitaneus	Samoa	Falelatai, W. Upolu Island	11/15/2000	2000	Int	Worm
+301677			Conus catus	American Samoa	Sliding Rock	11/12/2000	2000	Int	Fish
+301677-DG			Conus catus	American Samoa	Sliding Rock	11/12/2000	2000	DG	Fish
+301859			Conus catus	Hawaii	Unknown	Nov-00	2000	Int	Fish
+301859-DG			Conus catus	Hawaii	Unknown	Nov-00	2000	DG	Fish
+301978-DG			Conus catus	Hawaii	Oahu	7/23/1998	1998	DG	Fish
+301981			Conus catus	Hawaii	Oahu	5/26/1996	1996	Int	Fish
+301981-DG			Conus catus	Hawaii	Oahu	5/26/1996	1996	DG	Fish
+302489			Conus catus	Guam	Pago Bay	6/11/2008	2008	Int	Fish
+302489-DG			Conus catus	Guam	Pago Bay	6/11/2008	2008	DG	Fish
+303058			Conus catus	American Samoa	Fatumafuti	3/28/2010	2010	Int	Fish
+303058-DG			Conus catus	American Samoa	Fatumafuti	3/28/2010	2010	DG	Fish
+303277			Conus catus	American Samoa	Sliding Rock	4/7/2012	2012	Int	Fish
+303277-DG			Conus catus	American Samoa	Sliding Rock	4/7/2012	2012	DG	Fish
+300901			Conus chaldaeus	Hawaii	Kahe Point, Oahu	6/29/2005	2005	Int	Worm
+301223			Conus chaldaeus	American Samoa	front of Petroleum tank area (Tank Farm), Utulei	8/2/2009	2009	Int	Worm
+301755			Conus chaldaeus	Indonesia	Palau Island	Jan-96	1996	Int	Worm
+301985			Conus chaldaeus	Guam	Unknown	10/10/1997	1997	Int	Worm
+301992			Conus chaldaeus	Papua New Guinea	Laing Island		Unknown	Int	Worm
+301992-DG			Conus chaldaeus	Papua New Guinea	Laing Island		Unknown	DG	Worm
+302491			Conus chaldaeus	Guam	Pago Bay	6/9/2008	2008	Int	Worm
+302997			Conus chaldaeus	American Samoa	Fatumafuti	3/26/2010	2010	Int	Worm
+302997-DG			Conus chaldaeus	American Samoa	Fatumafuti	3/26/2010	2010	DG	Worm
+301248			Conus coronatus	American Samoa	front of Petroleum tank area (Tank Farm), Utulei	8/2/2009	2009	Int	Worm
+301248-DG			Conus coronatus	American Samoa	front of Petroleum tank area (Tank Farm), Utulei	8/2/2009	2009	DG	Worm
+301999			Conus coronatus	Guam	Unknown	10/15/1997	1997	Int	Worm
+302002			Conus coronatus	Papua New Guinea	Madang	3/22/1995	1995	Int	Worm
+302004			Conus coronatus	Indonesia	Sulawesi		Unknown	Int	Worm
+303005			Conus coronatus	American Samoa	Fatumafuti	3/26/2010	2010	Int	Worm
+300684			Conus crotchii	Cape Verde	Gatas, Boa Vista	7/29/2002	2002	Int	Worm
+300694			Conus cuneolus	Cape Verde	Algodoeira, Sal	8/7/2002	2002	Int	Worm
+301682			Conus dalli	Panama	Isla Pacheca	11/21/2001	2001	Int	Mollusk
+301683			Conus dalli	Panama	Isla Pacheca	11/21/2001	2001	Int	Mollusk
+301683-DG			Conus dalli	Panama	Isla Pacheca	11/21/2001	2001	DG	Mollusk
+300705			Conus damottai	Cape Verde	Gatas, Boa Vista	7/29/2002	2002	Int	Worm
+300708			Conus damottai galeao	Cape Verde	Bahia de Galeao, Maio	8/2/2002	2002	Int	Worm
+302005			Conus daucus	Panama	Portobello	3/3/2000	2000	Int	Worm
+300715			Conus delanoyi	Cape Verde	Gatas, Boa Vista	7/29/2002	2002	Int	Worm
+300728			Conus derrubado	Cape Verde	Derrubado, Boa Vista	7/30/2002	2002	Int	Worm
+300947			Conus ebraeus	Hawaii	Kahuku, Oahu	6/28/2005	2005	Int	Worm
+300950			Conus ebraeus	Hawaii	Kahe Point, Oahu	6/29/2005	2005	Int	Worm
+300950-DG			Conus ebraeus	Hawaii	Kahe Point, Oahu	6/29/2005	2005	DG	Worm
+301257			Conus ebraeus	American Samoa	Area in front of Utulei Beach Park and Yacht Club (Rainmaker Reef), Utulei	7/29/2009	2009	Int	Worm
+301451-DG			Conus ebraeus	Panama	Isla Uva, Panama	2/21/2000	2000	DG	Worm
+301619			Conus ebraeus	American Samoa	Faga' Alu Island	11/7/2000	2000	Int	Worm
+301883			Conus ebraeus	Japan	Okinawa	3-Jun	Unknown	Int	Worm
+302009			Conus ebraeus	Guam	Unknown	10/3/1997	1997	Int	Worm
+302015			Conus ebraeus	Hawaii	Oahu	7/13/1998	1998	Int	Worm
+302015-DG			Conus ebraeus	Hawaii	Oahu	7/13/1998	1998	DG	Worm
+302138			Conus ebraeus	India	Unknown		Unknown	Int	Worm
+302563			Conus ebraeus	Guam	Pago Bay	6/9/2008	2008	Int	Worm
+302570-DG			Conus ebraeus	Guam	Pago Bay	6/9/2008	2008	DG	Worm
+303041			Conus ebraeus	American Samoa	Fatumafuti	3/27/2010	2010	Int	Worm
+303082			Conus ebraeus	American Samoa	Fatumafuti	3/30/2010	2010	Int	Worm
+303082-DG			Conus ebraeus	American Samoa	Fatumafuti	3/30/2010	2010	DG	Worm
+303949			Conus ebraeus	Guam	Pago Bay	3/5/2010	2010	Int	Worm
+303951			Conus ebraeus	Guam	Pago Bay	5/3/2010	2010	Int	Worm
+301645			Conus eburneus	American Samoa	Rainmaker Reef, Utelei Village	11/7/2000	2000	Int	Worm
+301769			Conus flavidus	Philippines	Visayas	4/8/1997	1997	Int	Worm
+302033-DG			Conus flavidus	Hawaii	Oahu	6/10/1996	1996	DG	Worm
+303116			Conus flavidus	American Samoa	Fatumafuti	3/31/2010	2010	Int	Worm
+304156			Conus flavidus	Guam	Pago Bay	5/10/2010	2010	Int	Worm
+301456			Conus gladiator	Panama	Culebra, Panama	10/26/1999	1999	Int	Worm
+301459			Conus gladiator	Panama	Naos, Panama	12/12/2000	2000	Int	Worm
+301526			Conus gladiator	Panama	Rio Mar, Panama	9/19/2001	2001	Int	Worm
+301692			Conus gladiator	Panama	Punta Burica	5/15/2002	2002	Int	Worm
+303352			Conus gladiator	Panama	Punta Piedra	2/19/2011	2011	Int	Worm
+300760			Conus irregularis	Cape Verde	Derrubado, Boa Vista	8/30/2007	2007	Int	Worm
+300760-DG			Conus irregularis	Cape Verde	Derrubado, Boa Vista	8/30/2007	2007	DG	Worm
+301465			Conus jaspideus	Panama	Costa Arriba, Panama	3/22/2000	2000	Int	Worm
+301338			Conus lividus	American Samoa	front of Petroleum tank area (Tank Farm), Utulei	8/2/2009	2009	Int	Worm
+302084			Conus lividus	Hawaii	Oahu	1/26/1998	1998	Int	Worm
+302087			Conus lividus	Papua New Guinea	Madang	3/22/1995	1995	Int	Worm
+300762			Conus longilineus	Cape Verde	Sal	4/19/2001	2001	Int	Worm
+300762-DG			Conus longilineus	Cape Verde	Sal	4/19/2001	2001	DG	Worm
+300771			Conus luquei	Cape Verde	Gatas (praia south of buildings), Boa Vista	7/31/2002	2002	Int	Worm
+300782			Conus maioensis	Cape Verde	Bahia de Galeao, Maio	8/2/2002	2002	Int	Worm
+300787			Conus messiasi	Cape Verde	Derrubado, Boa Vista	7/30/2002	2002	Int	Worm
+300792			Conus messiasi	Cape Verde	Derrubado, Boa Vista	7/30/2002	2002	Int	Worm
+300986			Conus miles	Hawaii	Kahe Point, Oahu	6/27/2005	2005	Int	Worm
+301700			Conus miles	American Samoa	Rainmaker Reef, Utelei Village	11/7/2000	2000	Int	Worm
+301700-DG			Conus miles	American Samoa	Rainmaker Reef, Utelei Village	11/7/2000	2000	DG	Worm
+301785			Conus miles	Kosrae	Unknown	Dec-95	1995	Int	Worm
+301785-DG			Conus miles	Kosrae	Unknown	Dec-95	1995	DG	Worm
+302092			Conus miles	Papua New Guinea	Madang	2/7/1996	1996	Int	Worm
+302456			Conus miles	Hawaii	Malaekahana State Recreation Area	7/7/2009	2009	Int	Worm
+302460			Conus miles	Hawaii	Kahe Point, Oahu	7/9/2009	2009	Int	Worm
+303120			Conus miles	American Samoa	Tank Farm in Pago Pago Harbor	4/2/2010	2010	Int	Worm
+303120-DG			Conus miles	American Samoa	Tank Farm in Pago Pago Harbor	4/2/2010	2010	DG	Worm
+301533			Conus miliaris	American Samoa	Rainmaker Reef, Utelei Village	11/7/2000	2000	Int	Worm
+301533-DG			Conus miliaris	American Samoa	Rainmaker Reef, Utelei Village	11/7/2000	2000	DG	Worm
+301786			Conus miliaris	Kosrae	Unknown	Dec-95	1995	Int	Worm
+301786-DG			Conus miliaris	Kosrae	Unknown	Dec-95	1995	DG	Worm
+302095			Conus miliaris	Indonesia	Unknown	Jan-97	1997	Int	Worm
+302095-DG			Conus miliaris	Indonesia	Unknown	Jan-97	1997	DG	Worm
+302097			Conus miliaris	Papua New Guinea	Madang	8/31/1995	1995	Int	Worm
+302693			Conus miliaris	Guam	Pago Bay	6/9/2008	2008	Int	Worm
+302693-DG			Conus miliaris	Guam	Pago Bay	6/9/2008	2008	DG	Worm
+302840			Conus miliaris	Easter Island	Hanga Roa	7-Nov	Unknown	Int	Worm
+302866			Conus miliaris	Easter Island	Hanga Roa	7-Nov	Unknown	Int	Worm
+300798			Conus mordeirae	Cape Verde	Algodoeira, Sal	8/7/2002	2002	Int	Worm
+300802			Conus mordeirae	Cape Verde	Praia do Cancalho, Moulino Bay	1/13/2001	2001	Int	Worm
+300802-DG			Conus mordeirae	Cape Verde	Praia do Cancalho, Moulino Bay	1/13/2001	2001	DG	Worm
+301361			Conus moreleti	American Samoa	West side of Fagasa Bay, Fagasa	7/31/2009	2009	Int	Worm
+302101			Conus moreleti	Papua New Guinea	Madang		Unknown	Int	Worm
+302101-DG			Conus moreleti	Papua New Guinea	Madang		Unknown	DG	Worm
+301705			Conus mus	Panama	Galeta	9/28/2001	2001	Int	Worm
+302108			Conus mus	Panama	Galeta	7/3/2000	2000	Int	Worm
+301000			Conus mustelinus	Hawaii	Kahe Point, Oahu		Unknown	Int	Worm
+301000-DG			Conus mustelinus	Hawaii	Kahe Point, Oahu		Unknown	DG	Worm
+301652			Conus mustelinus	American Samoa	Reefflat near Airport	11/19/2000	2000	Int	Worm
+302111			Conus mustelinus	Unknown	Unknown	2/7/1996	1996	Int	Worm
+302214			Conus nanus	Hawaii	Malaekahana State Recreation Area	7/5/2009	2009	Int	Worm
+302214-DG			Conus nanus	Hawaii	Malaekahana State Recreation Area	7/5/2009	2009	DG	Worm
+303176			Conus nanus	American Samoa	Tank Farm in Pago Pago Harbor	4/5/2010	2010	Int	Worm
+300809			Conus nivifer	Cape Verde	Gatas (praia south of buildings), Boa Vista	7/31/2002	2002	Int	Worm
+300810			Conus nivifer	Cape Verde	Pau Seco, Maio	8/3/2002	2002	Int	Worm
+300810-DG			Conus nivifer	Cape Verde	Pau Seco, Maio	8/3/2002	2002	DG	Worm
+301470			Conus nux	Panama	Isla Uva, Panama	2/21/2000	2000	Int	Worm
+301470-DG			Conus nux	Panama	Isla Uva, Panama	2/21/2000	2000	DG	Worm
+303381			Conus nux	Panama	Punta Piedra	2/19/2011	2011	Int	Worm
+301843			Conus orion	Panama	Isla Venado	3/1/2002	2002	Int	Worm
+302161			Conus pennaceus	Unknown	Unknown	6/17/1996	1996	Int	Mollusk
+302162			Conus pennaceus	Hawaii	Oahu	5/26/1996	1996	Int	Mollusk
+302162-DG			Conus pennaceus	Hawaii	Oahu	5/26/1996	1996	DG	Mollusk
+302166			Conus pennaceus	Hawaii	Oahu	5/29/1996	1996	Int	Mollusk
+302166-DG			Conus pennaceus	Hawaii	Oahu	5/29/1996	1996	DG	Mollusk
+301562			Conus perplexus	El Salvador	Unknown	3/26/2001	2001	Int	Worm
+301003			Conus planorbis	Hawaii	Kahe Point, Oahu	6/30/2005	2005	Int	Worm
+301846			Conus princeps apogrammatus	Panama	Unknown		Unknown	Int	Worm
+303395			Conus princeps apogrammatus	Panama	Punta Piedra	2/19/2011	2011	Int	Worm
+301847			Conus princeps lineolatus	Panama	Playa Venado	8/12/2002	2002	Int	Worm
+301004			Conus pulicarius	Hawaii	Kahe Point, Oahu	6/27/2005	2005	Int	Worm
+301362			Conus pulicarius	American Samoa	front of Petroleum tank area (Tank Farm), Utulei	8/2/2009	2009	Int	Worm
+301657			Conus pulicarius	American Samoa	Faga' Alu Island	Nov-00	2000	Int	Worm
+302172			Conus pulicarius	Hawaii	Oahu	6/17/1996	1996	Int	Worm
+301805			Conus puncticulatus	Panama	San Blas	6/18/2000	2000	Int	Worm
+301085			Conus purpurascens	Panama	Contadora	9/27/2000	2000	Int	Fish
+301087			Conus purpurascens	Panama	Isla Cavada	2/20/2000	2000	Int	Fish
+301088			Conus purpurascens	Panama	Isla Montuosa	2/19/2000	2000	Int	Fish
+301088-DG			Conus purpurascens	Panama	Isla Montuosa	2/19/2000	2000	DG	Fish
+301870			Conus purpurascens	Panama	Naos-tank	10/1/2002	2002	Int	Fish
+301574			Conus rattus	Hawaii	Oahu	11/2/2000	2000	Int	Worm
+301658			Conus rattus	American Samoa	Rainmaker Reef, Utelei Village, American Samoa	11/7/2000	2000	Int	Worm
+301808			Conus rattus	Kosrae	Unknown	Dec-95	1995	Int	Worm
+302480			Conus rattus	Hawaii	Malaekahana State Recreation Area	7/4/2009	2009	Int	Worm
+301484			Conus recurvus	Panama	Islas Perlas, Panama	9/29/2000	2000	Int	Worm
+302187			Conus recurvus	Panama	Panama	10/2/2000	2000	Int	Worm
+300824			Conus regonae	Cape Verde	Fontona, Sal	8/11/2002	2002	Int	Worm
+300838			Conus regonae	Cape Verde	Rigona, Sal	2001	2001	Int	Worm
+301013			Conus retifer	Hawaii	Kahe Point, Oahu	6/30/2005	2005	Int	Mollusk
+300839			Conus salreiensis	Cape Verde	Sal-Rei, Boa Vista	8/28/2002	2002	Int	Worm
+302810			Conus sanguinolentus	Guam	Pago Bay	6/12/2008	2008	Int	Worm
+302810-DG			Conus sanguinolentus	Guam	Pago Bay	6/12/2008	2008	DG	Worm
+303100			Conus sanguinolentus	American Samoa	Fatumafuti	3/30/2010	2010	Int	Worm
+301661			Conus sponsalis	American Samoa	Fatu Matufi	11/9/2000	2000	Int	Worm
+302194			Conus sponsalis	Papua New Guinea	Papua New Guinea	2/1/1996	1996	Int	Worm
+303050			Conus sponsalis	American Samoa	Fatumafuti	3/28/2010	2010	Int	Worm
+302196			Conus stercusmuscarum	Papua New Guinea	Madang	4/8/1995	1995	Int	Fish
+301726			Conus striatus	American Samoa	Rainmaker Reef, Utelei Village	Nov-00	2000	Int	Fish
+301812			Conus striatus	Hawaii	Oahu	7/14/1998	1998	Int	Fish
+301812-DG			Conus striatus	Hawaii	Oahu	7/14/1998	1998	DG	Fish
+301813			Conus striatus	Hawaii	Oahu	7/16/1998	1998	Int	Fish
+301813-DG			Conus striatus	Hawaii	Oahu	7/16/1998	1998	DG	Fish
+300864			Conus tabidus	Cape Verde	Baiona, Sal	8/10/2002	2002	Int	Worm
+300864-DG			Conus tabidus	Cape Verde	Baiona, Sal	8/10/2002	2002	DG	Worm
+302203			Conus textile	Hawaii	Oahu	2/18/1998	1998	Int	Mollusk
+303119			Conus textile	American Samoa	Tank Farm in Pago Pago Harbor	4/2/2010	2010	Int	Mollusk
+300869			Conus venulatus	Cape Verde	Sal-Rei, Boa Vista	7/28/2002	2002	Int	Worm
+300869-DG			Conus venulatus	Cape Verde	Sal-Rei, Boa Vista	7/28/2002	2002	DG	Worm
+301412			Conus vitulinus	American Samoa	Area in front of Utulei Beach Park and Yacht Club (Rainmaker Reef), Utulei	7/29/2009	2009	Int	Worm
+301412-DG			Conus vitulinus	American Samoa	Area in front of Utulei Beach Park and Yacht Club (Rainmaker Reef), Utulei	7/29/2009	2009	DG	Worm
+301422			Conus vitulinus	American Samoa	front of Petroleum tank area (Tank Farm), Utulei	8/4/2009	2009	Int	Worm
+301422-DG			Conus vitulinus	American Samoa	front of Petroleum tank area (Tank Farm), Utulei	8/4/2009	2009	DG	Worm
+302488			Conus vitulinus	Hawaii	Kahe Point, Oahu	7/9/2009	2009	Int	Worm
+303125			Conus vitulinus	American Samoa	Tank Farm in Pago Pago Harbor	4/2/2010	2010	Int	Worm
+303150			Conus vitulinus	American Samoa	Tank Farm in Pago Pago Harbor	4/4/2010	2010	Int	Worm
+301528			Conus ximenes	El Salvador	Unknown	3/26/2001	2001	Int	Worm
+301528-DG			Conus ximenes	El Salvador	Unknown	3/26/2001	2001	DG	Worm
+301529			Conus ximenes	El Salvador	Unknown	3/26/2001	2001	Int	Worm
+301775			Conus ximenes	Panama	Isla Venado	3/10/2001	2001	Int	Worm
+301863			Conus ximenes	Panama	Naos-tank	10/1/2002	2002	Int	Worm
+301863-DG			Conus ximenes	Panama	Naos-tank	10/1/2002	2002	DG	Worm
+302089			Conus ximenes	Panama	Islas Perlas	4/7/2000	2000	Int	Worm
+302145			Conus ximenes	Panama	Isla Venado	10/2/2000	2000	Int	Worm
+302145-DG			Conus ximenes	Panama	Isla Venado	10/2/2000	2000	DG	Worm
