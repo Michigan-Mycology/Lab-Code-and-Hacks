@@ -1,5 +1,6 @@
 ########## Paired-end Workflow ##########
 
+#By Alisha Quandt 5/2017
 #If you questions, start here: http://qiime.org/scripts/
 #There is VERY good documentation for all qiime scripts and the multiple options (not all written out here) for each script.
 #I make generalized pipelines. That means I do not type out full paths (which change), and I do not write out exact file names except where I can (because they change). If you are confused, try to think about what the input and output for each script should be. If you are still confused visit the qiime documentation.
