@@ -19,7 +19,7 @@ Thoropa.pops<-c("Barra_do_Una","Couves_Norte","Couves_Sul","Gatos","Porcos_Peque
 Thoropa.pop.pairs<-combn(Thoropa.pops,2,simplify=TRUE)
 
 #loop through all pairs and subset the original dataset
-i=1
+i = 1
 pair.names<-c()
 while (i <= ncol(Thoropa.pop.pairs)){
     x<-(subset(MHC.genotypes,population==(Thoropa.pop.pairs[1,i]) | population==(Thoropa.pop.pairs[2,i])))
