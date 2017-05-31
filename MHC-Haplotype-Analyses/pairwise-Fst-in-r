@@ -1,0 +1,59 @@
+library(pegas)
+
+#read in text file as loci
+MHC<-read.loci("~/Desktop/research_projects/MHC_analysis/MHC.loci.txt",header=TRUE)
+
+#view loci object output
+print(MHC)
+
+#view "normal" output with full details
+print(MHC,details=TRUE)
+
+#read in data as normal table to subset (can't subset loci object)
+MHC.genotypes<-read.table("~/Desktop/research_projects/MHC_analysis/MHC.loci.txt",header=TRUE)
+
+#make a list of the population names, must match those in table exactly
+Thoropa.pops<-c("Barra_do_Una","Couves_Norte","Couves_Sul","Gatos","Porcos_Pequena","Prumirim","Sununga","Tamandua","Toque_Toque")
+
+#make a list of all unique pairwise combinations of population names
+Thoropa.pop.pairs<-combn(Thoropa.pops,2,simplify=TRUE)
+
+#loop through all pairs and subset the original dataset
+i=1
+pair.names<-c()
+while (i <= ncol(Thoropa.pop.pairs)){
+    x<-(subset(MHC.genotypes,population==(Thoropa.pop.pairs[1,i]) | population==(Thoropa.pop.pairs[2,i])))
+    y<-c(Thoropa.pop.pairs[1,i], Thoropa.pop.pairs[2,i])
+    z<-paste(y,collapse="-")
+    assign(z[1],x)
+    pair.names[i]<-z
+    i = i+1
+}
+
+#make loci objects for each pair
+loci.object.name<-c()
+i = 1
+while (i <= length(pair.names)){
+  path=c()
+  x<-c("~/Desktop/research_projects/MHC_analysis/",pair.names[i],".txt")
+  path<-paste(x,collapse="")
+  write.table(get(pair.names[i]),path)
+  y<-c(pair.names[i],".loci")
+  loci.object.name[i]<-paste(y,collapse="")
+  z<-read.loci(path)
+  assign(loci.object.name[i],z)
+  i <- i+1
+}
+
+#loop through all pairwise loci objects and compute Fst value
+i=1
+Fst.values<-c()
+while (i<=length(pair.names)){
+  x<-Fst(get(loci.object.name[i]))
+  Fst.values[i]<-x
+  i = i+1
+}
+
+#make a table of values and export it as a .txt file
+Pairwise.Fsts<-as.table(setNames(Fst.values,pair.names))
+write.table(Pairwise.Fsts,"~/Desktop/research_projects/MHC_analysis/Pairwise.Fsts.txt")
