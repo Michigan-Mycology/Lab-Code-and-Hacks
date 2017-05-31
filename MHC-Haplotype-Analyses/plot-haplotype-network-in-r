@@ -1,0 +1,99 @@
+#load pegas and color brewer
+
+library(pegas)
+library(RColorBrewer)
+
+#read in fasta file
+
+x <- read.dna(file="~/Desktop/research_projects/MHC_analysis/haplotypes_complete_seqs.fasta",format="fasta")
+
+#find haplotypes
+h <- haplotype(x)
+
+#construct a network 
+net <- haploNet(h)
+
+#plot the network
+plot(net)
+
+#create vector of diameter for scaling pie charts, calculated by 2*r[=sqrt(x/pi)] where x is the relative frequency of each haplotype
+Diameter<-read.csv("~/Desktop/research_projects/MHC_analysis/midpointrooted_haplotypes_complete_metadata_16may_allfreqs.csv")$Diameter
+
+#make a matrix of relative frequencies, e.g., of island vs. mainland sites
+Island.freq<-read.csv("~/Desktop/research_projects/MHC_analysis/midpointrooted_haplotypes_complete_metadata_16may_allfreqs.csv")$Island.relative.freq
+Mainland.freq<-read.csv("~/Desktop/research_projects/MHC_analysis/midpointrooted_haplotypes_complete_metadata_16may_allfreqs.csv")$Mainland.relative.freq
+Island.Main.Matrix<-cbind(Mainland.freq,Island.freq)
+TT.freq<-read.csv("~/Desktop/research_projects/MHC_analysis/midpointrooted_haplotypes_complete_metadata_16may_allfreqs.csv")$TT.relative.freq
+SU.freq<-read.csv("~/Desktop/research_projects/MHC_analysis/midpointrooted_haplotypes_complete_metadata_16may_allfreqs.csv")$SU.relative.freq
+BU.freq<-read.csv("~/Desktop/research_projects/MHC_analysis/midpointrooted_haplotypes_complete_metadata_16may_allfreqs.csv")$BU.relative.freq
+GA.freq<-read.csv("~/Desktop/research_projects/MHC_analysis/midpointrooted_haplotypes_complete_metadata_16may_allfreqs.csv")$GA.relative.freq
+TA.freq<-read.csv("~/Desktop/research_projects/MHC_analysis/midpointrooted_haplotypes_complete_metadata_16may_allfreqs.csv")$TA.relative.freq
+CO.freq<-read.csv("~/Desktop/research_projects/MHC_analysis/midpointrooted_haplotypes_complete_metadata_16may_allfreqs.csv")$CO.relative.freq
+CN.freq<-read.csv("~/Desktop/research_projects/MHC_analysis/midpointrooted_haplotypes_complete_metadata_16may_allfreqs.csv")$CN.relative.freq
+PP.freq<-read.csv("~/Desktop/research_projects/MHC_analysis/midpointrooted_haplotypes_complete_metadata_16may_allfreqs.csv")$PP.relative.freq
+PR.freq<-read.csv("~/Desktop/research_projects/MHC_analysis/midpointrooted_haplotypes_complete_metadata_16may_allfreqs.csv")$PR.relative.freq
+South.isl.freq<-read.csv("~/Desktop/research_projects/MHC_analysis/midpointrooted_haplotypes_complete_metadata_16may_allfreqs.csv")$Southern.islands.freq
+North.island.freq <-read.csv("~/Desktop/research_projects/MHC_analysis/midpointrooted_haplotypes_complete_metadata_16may_allfreqs.csv")$Northern.islands.freq
+
+All.sites.Matrix<-cbind(TT.freq,SU.freq,BU.freq,GA.freq,TA.freq,CO.freq,CN.freq,PP.freq,PR.freq)
+
+North.South.Islands.Matrix<-cbind(BU.freq,South.isl.freq,TT.freq,SU.freq,TA.freq,North.island.freq)
+
+South.to.North.All.sites.Matrix<-cbind(BU.freq,GA.freq,CO.freq,TT.freq,SU.freq,TA.freq,PR.freq,PP.freq,CN.freq)
+North.to.South.All.sites.Matrix<-cbind(CN.freq,PP.freq,PR.freq,TA.freq,SU.freq,TT.freq,CO.freq,GA.freq,BU.freq)
+
+#plot pie charts according to a matrix of frequencies 
+#remove haplotype labels (labels=FALSE)
+#remove the mutation labels (show.mutation=0) 
+#scale size of pies by relative frequency (in this case, saved as "Diameter") 
+#remove alternative links from plot (threshold = 0)
+#change colors (bg=c(vector of colors))
+
+plot(net,pie=All.sites.Matrix, labels=FALSE, show.mutation=0, size=Diameter, threshold=0)
+legend("topright",cex=0.7,legend=c("Toque Toque","Sununga","Barra do Una","Gatos","Tamandua","Couves Sul","Couves Norte","Porcos Pequena","Prumirim"),pch=20,col=Set3(9))
+
+#size haplotype labels according to diameter too! 
+
+plot(net,pie=All.sites.Matrix, labels=TRUE, font=2, cex=0.1*Diameter+0.3, show.mutation=1, size=Diameter, threshold=0, bg=c(Set3), scale.ratio=0.5)
+legend("topright",cex=0.7,legend=c("Toque Toque","Sununga","Barra do Una","Gatos","Tamandua","Couves Sul","Couves Norte","Porcos Pequena","Prumirim"),pch=21,col=c("black"),pt.bg=c(Set3),pt.cex=1.5)
+
+#make the outline darker - change defaults (but change them back before plotting legend)
+
+#save original defaults
+opar<-par()
+
+#make lines thicker
+par(lwd=2)
+
+#pies should now have darker/thicker borders
+plot(net,pie=North.South.Islands.Matrix, labels=TRUE, font=2, cex=0.1*Diameter+0.8, show.mutation=1, size=Diameter, threshold=0, bg=c(colors11), scale.ratio=0.5)
+
+#change parameters back (don't worry about warning messages)
+par(opar)
+
+#South to north
+library(RColorBrewer)
+col1<-brewer.pal(9,"Spectral")
+
+opar<-par()
+par(lwd=2)
+
+plot(net,pie=South.to.North.All.sites.Matrix, labels=TRUE, font=2, cex=0.1*Diameter+0.8, show.mutation=1, size=Diameter, threshold=0, bg=c(col1), scale.ratio=0.5)
+
+par(opar)
+
+legend("topright",cex=0.7,legend=c("Barra do Una (mainland)","Gatos","Couves Sul","Toque Toque (mainland)","Sununga (mainland)","Tamandua","Prumirim","Porcos Pequena","Couves Norte"),pch=21,col=c("black"),pt.bg=c(col1),pt.cex=1.5)
+
+
+#North to South
+library(RColorBrewer)
+col2<-brewer.pal(9,"YlGnBu")
+
+opar<-par()
+par(lwd=2)
+
+plot(net,pie=North.to.South.All.sites.Matrix, labels=TRUE, font=2, cex=0.1*Diameter+0.8, show.mutation=1, size=Diameter, threshold=0, bg=c(col2), scale.ratio=0.5)
+
+par(opar)
+
+legend("topright",cex=0.7,legend=c("Couves Norte","Porcos Pequena","Prumirim","Tamandua","Sununga (mainland)","Toque Toque (mainland","Couves Sul","Gatos","Barra do Una (mainland)"),pch=21,col=c("black"),pt.bg=c(col2),pt.cex=1.5)
