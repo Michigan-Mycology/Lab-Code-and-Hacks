@@ -1,0 +1,22 @@
+#Mantel test between distance and Fst
+
+#read in site coordinates
+site.locations <- read.csv("~/Desktop/research_projects/MHC_analysis/Site.lat.lon.csv",header=TRUE)
+
+#compute distance matrix
+site.distances <- dist(cbind(site.locations$Lon, site.locations$Lat))
+as.matrix(site.distances)[1:9, 1:9]
+
+#load Fst symmetric matrix 
+#I had an Fst matrix in excel produced by the pairwise Fst script
+#I manually mirror imaged it onto itself using the paste-transpose function in excel
+#I entered 0's into the diagonal
+#No header column (first column is data, not site codes)
+#Included site codes as header row
+Fst.distances <- read.csv("~/Desktop/research_projects/MHC_analysis/Fst_matrix.csv",header=TRUE)
+
+#convert into distance matrix
+Fst.matrix <- as.dist(Fst.distances)
+
+#Mantel test with 9999 permutations
+mantel.rtest(site.distances,Fst.matrix, nrepet = 9999)
