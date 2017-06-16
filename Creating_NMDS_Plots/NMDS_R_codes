@@ -1,0 +1,16 @@
+#Read in table, make sure row names aren't considered data points.
+comm<-read.csv("F_min1000n5s40_intestines.csv", row.names = 1,check.names = FALSE)
+
+#Transform the data (switch rows and columns)
+abund_table<-t(comm)
+
+#Run MDS
+sol<-metaMDS(abund_table,distance="jaccard", k=2, trymax = 100)
+
+#Plot Sheppard, examine scatter around the regression. Large scatter is bad, dissimilarities not well preserved.
+stressplot(sol)
+
+#Plot the NMDS
+plot(sol)
+
+#That's as far as we got, next get the csv with metadata loaded and try ordiellipse, ordiplot and other commands
