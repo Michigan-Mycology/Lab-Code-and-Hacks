@@ -79,5 +79,11 @@ principal_coordinates.py -i bray_curtis_taxon_assign.txt -o beta_div_coords.txt
 make_2d_plots.py -i beta_div_coords.txt -m ../Conus_map_file.txt
 #Visualize .html created  within Beta_div/
 
+make_emperor.py -i beta_div_coords.txt -m Conus_map_file.txt -o emperor_output
+#Makes 3d emperor plot. Visualize .html created within emperor_output/
+#Other options:
+make_emperor.py -i beta_div_coords.txt -m Conus_map_file.txt --add_vectors Diet -o vecotrs
+#Draws lines connecting samples of a given category.
+
 
 
