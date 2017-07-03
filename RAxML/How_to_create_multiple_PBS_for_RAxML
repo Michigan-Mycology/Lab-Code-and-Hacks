@@ -1,0 +1,29 @@
+#Make a directory where you want the alignments.
+#Place your sequence files into that directory.
+#Move into the driectory.
+#List the fasta files and direct the output to a text file.
+
+$ ls *.fa.fasta > LIST
+
+#Translate the hard returns into tabs.
+
+ $ cat LIST | tr "\n" "\t" > tab_list.txt
+
+#Use sed to turn the tabs into a space-delimited list.
+#Create a "sed.txt" file.
+
+$ vi sed.txt
+
+#Edit it with "s/	/ /g".
+
+#Use sed.
+
+$ sed -f sed.txt tab_list.txt > space_list.txt
+
+#Open "space_list.txt" with a test editor
+
+$ vi space_list.txt
+
+#Copy the list.
+#Close "space_list.txt".
+#Open the sh script and paste the list after the "in" on line 1.
