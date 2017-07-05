@@ -1,5 +1,8 @@
+#Load your packages
+
+
 #Read in table, make sure row names aren't considered data points.
-comm<-read.csv("F_min1000n5s40_intestines.csv", row.names = 1,check.names = FALSE)
+comm<-read.csv("newF_min1000n5s40_intestines.csv", row.names = 1,check.names = FALSE)
 
 #Transform the data (switch rows and columns)
 abund_table<-t(comm)
