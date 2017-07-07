@@ -1,19 +1,55 @@
-#Load your packages
+#We followed *some* parts of this code: http://userweb.eng.gla.ac.uk/umer.ijaz/bioinformatics/ecological.html
+#Load your libraries
 
+library(vegan)
+library(BiodiversityR)
+library(MASS)
 
-#Read in table, make sure row names aren't considered data points.
-comm<-read.csv("newF_min1000n5s40_intestines.csv", row.names = 1,check.names = FALSE)
+#Change your working directory
+setwd("~/Desktop/ADG/Files")
+comm<-read.csv("new_F_min1000n5s40_intestines.csv", row.names = 1,check.names = FALSE)
+tcomm<-t(comm)
 
-#Transform the data (switch rows and columns)
-abund_table<-t(comm)
+grouping_info<-read.csv("fungal_map_nmds.csv",row.names=1,check.names=FALSE)
 
-#Run MDS
-sol<-metaMDS(abund_table,distance="jaccard", k=2, trymax = 100)
+sol<-metaMDS(tcomm,distance="jaccard", k=2, trymax = 1000)
 
-#Plot Sheppard, examine scatter around the regression. Large scatter is bad, dissimilarities not well preserved.
-stressplot(sol)
+NMDS=data.frame(x=sol$point[,1],y=sol$point[,2],Diet=(grouping_info$Diet),Region=(grouping_info$Region),Decade=(grouping_info$Decade))
 
-#Plot the NMDS
-plot(sol)
+#I didn't get this to work so well!!
+#plot.new()
+#ord<-ordiellipse(sol, as.factor(grouping_info$Diet) ,display = "sites", kind ="sd", conf = 0.95, label = T)
+#dev.off()
 
-#That's as far as we got, next get the csv with metadata loaded and try ordiellipse, ordiplot and other commands
+#Create a data frame to put elipses around your categories
+veganCovEllipse<-function (cov, center = c(0, 0), scale = 1, npoints = 100) 
+{
+  theta <- (0:npoints) * 2 * pi/npoints
+  Circle <- cbind(cos(theta), sin(theta))
+  t(center + scale * t(Circle %*% chol(cov)))
+}
+
+#Generate ellipse points
+df_ell <- data.frame()
+for(g in levels(NMDS$Diet)){
+  if(g!="" && (g %in% names(ord))){
+    
+    df_ell <- rbind(df_ell, cbind(as.data.frame(with(NMDS[NMDS$Diet==g,],
+                                                     veganCovEllipse(ord[[g]]$cov,ord[[g]]$center,ord[[g]]$scale)))
+                                  ,Diet=g))
+  }
+}
+
+head(df_ell)
+NMDS.mean=aggregate(NMDS[,1:2],list(group=NMDS$Diet),mean)
+head(NMDS.mean)
+
+ggplot(NMDS,aes(x,y,color=Diet))+
+  geom_path(data=df_ell,aes(x=NMDS1, y=NMDS2), size=1, linetype=2)+
+  annotate("text",x=NMDS.mean$x,y=NMDS.mean$y,label=NMDS.mean$group,size=4)+
+  scale_color_manual(values=c("green","purple","gray"))+
+  geom_point(size=3,aes(shape=Diet))+
+  scale_shape_manual(values=c(15,16,17))+
+  theme_bw()
+#####
+
