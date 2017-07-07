@@ -1,0 +1,49 @@
+#Load your libraries
+
+library(vegan)
+library(ggplot2)
+library(ggdendro)
+
+setwd("~/Desktop/ADG/Files")
+
+#Load the abundance table 
+abund_table<-read.csv("new_F_min1000n5s40_intestines.csv",row.names=1,check.names=FALSE)
+
+#Transpose the data to have sample names on rows
+tabund_table<-t(abund_table)
+
+#Get grouping information
+grouping_info<-read.csv("fungal_map_nmds.csv",row.names=1,check.names=FALSE)
+
+betad<-vegdist(tabund_table,method="bray")
+
+# Use Adonis to test for overall differences
+res_adonis <- adonis(betad ~ Diet, grouping_info)
+
+#Cluster the samples
+hc <- hclust(betad)
+
+#We will color the labels according to diet(group_info[,4])
+hc_d <- dendro_data(as.dendrogram(hc))
+hc_d$labels$Type<-grouping_info[as.character(hc_d$labels$label),4]
+
+#Coloring function
+gg_color_hue<-function(n){
+  hues=seq(15,375,length=n+1)
+  hcl(h=hues,l=65,c=100)[1:n]
+}
+
+cols=gg_color_hue(length(unique(hc_d$labels$Type)))
+hc_d$labels$color=cols[hc_d$labels$Type]
+
+ggplot(data = segment(hc_d)) +
+  geom_segment(aes(x=x, y=y, xend=xend, yend=yend)) +
+  coord_flip() +
+  scale_x_discrete(labels=label(hc_d)$label) + #This is the part where not having numerical labels is probably good
+  ylab("Distance (beta diversity = bray)") + 
+  theme_bw()+
+  theme(axis.text.y = element_text(color = hc_d$labels$color),axis.title.y = element_blank())+
+  geom_point(data=hc_d$label, aes(x = x, y = y, color = Type), inherit.aes =F, alpha = 0)+
+  guides(colour = guide_legend(override.aes = list(size=3, alpha = 1)))+
+  scale_color_manual(values = cols)
+
