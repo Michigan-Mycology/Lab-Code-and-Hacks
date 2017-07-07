@@ -1,3 +1,4 @@
+#We followed *some* parts of this code: http://userweb.eng.gla.ac.uk/umer.ijaz/bioinformatics/ecological.html
 #Load your libraries
 
 library(vegan)
