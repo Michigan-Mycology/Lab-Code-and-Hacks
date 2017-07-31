@@ -1,0 +1,45 @@
+Visualize your data - create an emergent self organizing map (ESOM).
+#Modified and emended from the work of Greg Dick and Jill Banfield
+#Example files and necessary scripts included in this folder as well.
+
+On the command line:
+
+1. Generate input files for ESOM.
+
+perl print_tetramer_freqs_esom.pl -s your_genome_assembly.fasta -m 1000 -w 3000 -k 4 
+
+#s = your assembly
+#m = minimum contig size to be analyzed (make this higher for faster/ less CPU intensive visualization)
+#w = window size to calculate kmer frequency (again, make this higher for faster viz)
+#k = kmer size, default is 4, longer means slower!
+
+Output, 3 files: .lrn, .names, .cls files within your directory.l
+
+On a mac, install the GUI from here: http://databionic-esom.sourceforge.net/
+
+2. Load files into ESOM gui.
+
+File -> load .lrn, then load .names, then load .cls
+
+Tools -> training.  I use default options, except: 
+   Training algorithm - K-batch
+   Number of rows in map - 200
+   Number of cols in map - 250 (product of rows x cols should be approximately 5-6x the # of windows, e.g. I have a 30,000,000 bp assembly, divide by 3000 [size of window] ) ****If ESOM training is taking too long to run (e.g. more than 24 hours), make these row and col values smaller to help out, or go back to the change the min contig or window size parameters.
+   Start value for the radius - 50
+   Number of epochs - 20
+
+Hit start - training will take minutes to hours (more common) depending on the size of your dataset.
+
+3. Vizualize output
+
+View -> UMatrix background, tiled display.
+#Use Zoom, Color, Bestmatch size to get desired view.
+
+*****At this point only your ridges and valleys and the overall structure of your data will be displayed.*****
+NOW, we can play around with adding information (annotating, if you will) those contigs (windows) that are displayed on your map.
+
+Back to the command line: 
+4. Using blastn or USEARCH, an algorithm, and Genbank nt or similar, a database, create a best blast hit for each contig. 
+#Talk about quick and dirty. Your best blastn hit could be spurious or as equally likely as the second or fourth best blastn hit, but in aggregate, we try to separate the data. For bacteria, this actually works quite well, for Eukaryotes the databases are sparser and therefore we give a best blastn hit less meaning. A top hit to ANY fungus is usually a definite for our targets, a top hit to animals (especially inverts) could still be fungal target though. I see this frequently.
+
+With this output, get only best blast hit, then reformat to look like this:
