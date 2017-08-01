@@ -1,5 +1,5 @@
 Visualize your data - create an emergent self organizing map (ESOM).
-#Modified and emended from the work of Greg Dick and Jill Banfield
+#Modified and emended from the work out of Jill Banfield's lab. Greg Dick et al. 2009 Genome Biology.
 #Example files and necessary scripts included in this folder as well.
 
 On the command line:
@@ -42,4 +42,4 @@ Back to the command line:
 4. Using blastn or USEARCH, an algorithm, and Genbank nt or similar, a database, create a best blast hit for each contig. 
 #Talk about quick and dirty. Your best blastn hit could be spurious or as equally likely as the second or fourth best blastn hit, but in aggregate, we try to separate the data. For bacteria, this actually works quite well, for Eukaryotes the databases are sparser and therefore we give a best blastn hit less meaning. A top hit to ANY fungus is usually a definite for our targets, a top hit to animals (especially inverts) could still be fungal target though. I see this frequently.
 
-With this output, get only best blast hit, then reformat to look like this:
+With this output, get only best blast hit, then reformat to look like this (just displaying top 5 lines):
