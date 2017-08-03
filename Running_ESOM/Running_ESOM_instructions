@@ -13,9 +13,9 @@ perl print_tetramer_freqs_esom.pl -s your_genome_assembly.fasta -m 1000 -w 3000 
 #w = window size to calculate kmer frequency (again, make this higher for faster viz)
 #k = kmer size, default is 4, longer means slower!
 
-Output, 3 files: .lrn, .names, .cls files within your directory.l
+Output, 3 files: .lrn, .names, .cls files within your directory.
 
-On a mac, install the GUI from here: http://databionic-esom.sourceforge.net/
+On a Mac, install the GUI from here: http://databionic-esom.sourceforge.net/
 
 2. Load files into ESOM gui.
 
