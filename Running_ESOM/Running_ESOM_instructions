@@ -39,7 +39,16 @@ View -> UMatrix background, tiled display.
 NOW, we can play around with adding information (annotating, if you will) those contigs (windows) that are displayed on your map.
 
 Back to the command line: 
-4. Using blastn or USEARCH, an algorithm, and Genbank nt or similar, a database, create a best blast hit for each contig. 
+4. Using blastn or USEARCH, an algorithm, and Genbank nt or similar, a database, create a best blast hit for each contig. Use tabular format (6) for blast output.
 #Talk about quick and dirty. Your best blastn hit could be spurious or as equally likely as the second or fourth best blastn hit, but in aggregate, we try to separate the data. For bacteria, this actually works quite well, for Eukaryotes the databases are sparser and therefore we give a best blastn hit less meaning. A top hit to ANY fungus is usually a definite for our targets, a top hit to animals (especially inverts) could still be fungal target though. I see this frequently.
 
-With this output, get only best blast hit, then reformat to look like this (just displaying top 5 lines):
+Now we have to "assign the taxonomy" based on this best blast hit. Depending on how old your blast database is, you may (or may not, if it's the newest version of genbank db) be able to us this helpful script (included in directory):
+
+perl blast_taxonomy_report.pl -blast contigs_nr.1e-8.txt -nodes nodes.dmp -names names.dmp -gi_taxid_file gi_taxid_nucl.dmp.gz
+#Download the nodes.dmp, names.dmp, and gi_taxid_nucl.dmp.gz from Genbank's ftp site here: ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/
+#Files are too big for me to upload to GitHub.
+
+With this output, we need to reformat to the "annotation" format taken by ESOM.  Here are some examples.
+
+
+5. Finally create your .annotation file, and rerun the print_tetramers script, to create a new .cls file for input into ESOM GUI.
