@@ -1,6 +1,6 @@
 Visualize your data - create an emergent self organizing map (ESOM).
 #Modified and emended from the work out of Jill Banfield's lab. Greg Dick et al. 2009 Genome Biology. And Vincent Denef's version of the print_tetramer_freqs.pl perl script has been used.
-#Example files and necessary scripts included in this folder as well.
+#Example files and necessary scripts included in this folder as well (.lrn file was too big, so I had to gzip it!).
 
 On the command line:
 
