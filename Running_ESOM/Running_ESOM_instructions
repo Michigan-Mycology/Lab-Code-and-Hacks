@@ -48,7 +48,27 @@ perl blast_taxonomy_report.pl -blast contigs_nr.1e-8.txt -nodes nodes.dmp -names
 #Download the nodes.dmp, names.dmp, and gi_taxid_nucl.dmp.gz from Genbank's ftp site here: ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/
 #Files are too big for me to upload to GitHub.
 
-With this output, we need to reformat to the "annotation" format taken by ESOM.  Here are some examples.
+With this output, we need to reformat to the "annotation" format taken by ESOM.  Here is an example of the top few lines of the annotation file.
+contig  annotation
+NODE_1147_length_2667_cov_16.2489	10
+NODE_707_length_4433_cov_14.0962	10
+NODE_329_length_11939_cov_66.1998	1
+NODE_326_length_12118_cov_62.7537	1
+NODE_2533_length_1171_cov_47.2948	1
+NODE_1903_length_1542_cov_12.076	10
+NODE_1518_length_1955_cov_17.2579	10
+NODE_989_length_3135_cov_14.3055	10
+NODE_1005_length_3078_cov_17.2253	10
+NODE_988_length_3137_cov_10.7748	10
+NODE_1225_length_2482_cov_16.2073	10
+NODE_867_length_3613_cov_15.5486	10
+NODE_1675_length_1764_cov_10.7923	10
+NODE_458_length_7907_cov_59.2615	3
 
+Save this file as your_metagenome.annotation
 
-5. Finally create your .annotation file, and rerun the print_tetramers script, to create a new .cls file for input into ESOM GUI.
+5. Finally rerun the print_tetramers script, to create a new .cls file for input into ESOM GUI.
+This time:
+perl print_tetramer_freqs_esom.pl -s your_metagenome_assembly.fas -m 1000 -w 3000 -k 4 -a your_metagenome.annotation
+
+Now load the reulting new files into the ESOM GUI.
