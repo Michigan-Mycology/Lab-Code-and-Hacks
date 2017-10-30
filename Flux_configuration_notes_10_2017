@@ -1,0 +1,9 @@
+Flux Node Configuration
+
+-56 procs on fluxm
+
+Regular flux
+-24 procs x 128 Gb on flux    (Hardest to schedule - most in demand)
+-20 procs x 96 Gb on flux     (Least demand - easiest to schedule)
+-12 procs x 48 Gb on flux
+-2 Gb overhead for any job
