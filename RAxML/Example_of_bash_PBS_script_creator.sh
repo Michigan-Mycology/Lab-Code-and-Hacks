@@ -1,7 +1,7 @@
 for file in 
 do
 echo " 
-#PBS -N raxml_$file
+#PBS -N raxml_"$file"
 #PBS -V
 #PBS -A lsa_flux
 #PBS -l qos=flux
@@ -13,5 +13,5 @@ echo "
 
 #Your Code Goes Below:
 cd 
-mpirun -np 60 raxmlHPC-MPI -f a -s $file -n tree_"$file".nex -m PROTGAMMAAUTO -x 25678 -N 500 -p 8762" > $file.pbs
+mpirun -np 60 raxmlHPC-MPI -f a -s $file -n tree_"$file".nex -m PROTGAMMAAUTO -x 25678 -N 500 -p 8762 > "$file".pbs
 done
