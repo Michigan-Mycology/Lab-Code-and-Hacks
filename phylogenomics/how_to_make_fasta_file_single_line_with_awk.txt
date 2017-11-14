@@ -1,0 +1,3 @@
+#Sometimes fasta files are wrapped; the sequence is placed on a new line after # of positions. Many programs require all of the fasta files you are working with to have # be the same, but often they are not. The easiest solution is to place the entire sequence on a single line, which can be done with the following awk.
+#change the file names and paths accordingly
+cat your_wrapped.aa.fasta | awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);}  END {printf("\n");}' > new_single_line.aa.fasta
