@@ -32,7 +32,7 @@ prefetch --option-file SraAccList.txt
 #IMPORTANT NOTE: The exact options you use with "fastq-dump" will depend on what the format the raw data was in, i.e., paired-end versus single-end.
 #The Olpidium data is paired-end Illumina data.
 
-fasta-dump -split-files SRR420852.sra
+fastq-dump -split-files SRR420852.sra
 
 If you need help, there is online documentation:
 
