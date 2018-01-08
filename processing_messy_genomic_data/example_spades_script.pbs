@@ -1,0 +1,20 @@
+#PBS -N cochlonema_spades_both
+#PBS -V
+##Because assembling genomes is memory intensive, you have to use fluxm, which has larger avaialbe memory.
+#PBS -A lsa_fluxm
+#PBS -l qos=flux
+#PBS -q fluxm
+#PBS -l nodes=1:ppn=8,mem=800gb,walltime=168:00:00
+#PBS -M [insert your email address here]
+#PBS -m abe
+#PBS -j oe
+
+#Your Code Goes Below:
+cd [insert your working directory here]
+#Since Nextseq outputs the data as 4 "lanes", you will have at least 4 libraries in spades. These are designated --pe1-1 --pe1-2 to --pe4-1 --pe4-2
+#You can have as many libraries as you need.
+#I usually run spades in normal mode. However, when dealing with possible metagenomes, it might be best to run spades normally (default) and as metaspades (--meta) and compare the results.
+#If you need more memory and/or threads, you have to tell spades how much/many with the -t and -m flags.
+#For naming the output directory, I like to use the format spades_genus/species_options_date
+
+spades.py --pe1-1 [your path/file ] --pe1-2 --pe2-1 --pe2-2 --pe3-1 --pe3-2 --pe4-1 --pe4-2 -t 8 -m 800 -o [your dir here]
