@@ -1,0 +1,13 @@
+#Open terminal
+
+$ssh [uniqid]@flux-login.arc-ts.umich.edu
+
+#When prompted, type in your password and duo number.
+
+#To transfer files
+
+$sftp [uniqid]@flux-xfer.arc-ts.umich.edu
+
+#When prompted, type in our password.
+#Use 'get' to transfer a file from the flux to your computer
+#Use 'put' tp transfer a file from your computer to the flux
