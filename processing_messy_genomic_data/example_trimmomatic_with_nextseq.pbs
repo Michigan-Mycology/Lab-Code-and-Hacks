@@ -1,4 +1,6 @@
-#PBS -N Trim_coch_e1
+##This firest block pretty much stays the same. It is innstructions for the flux queue system.
+
+#PBS -N [insert your job name]
 #PBS -V
 #PBS -A lsa_flux
 #PBS -l qos=flux
@@ -9,8 +11,21 @@
 #PBS -j oe
 
 #Your Code Goes Below:
+##The flux does not one people loading the modules in the script. I left this here but commented it out to remind me what version of the module I used.
 #module load trimmomatic/0.36
-cd /scratch/lsa_flux/daviswj/Cochlonema
+cd [insert your working directory here]
+
+#Nextseq data appears to be from 4 lanes. You can process each "lane" in the same script just as different commands resulting in 4 lines.
+#The format is java -jar /sw/lsa/centos7/trimmomatic/0.36/bin/trimmomatic-0.36.jar PE -phred33 [file path/sample_lane#_R1.fastq.gz] [file path/sample_lane#_R2.fastq.gz]
+#Trimmomatic will generate four files: all of the read 1 sequences that have a pair in the read 2 file, all of the read 1 sequences that do not have a pair in the read 2 file, and vice versa for the sequences in read 2 file.
+#You must provide names for these four files following the two input files. 
+#I find it best to use the following format: genus/species-name_sample#_lane#_read#.pe/orphan.fastq.gz
+#Next come the instructions on how to trim the sequences.
+#ILLUMINACLIP: tells it what kind of adaptors/barcodes to look for and remove.
+#In this example data, we are using the modified NexteraPE-PE.fa file that can be found in this folder. The file is modified such that trimmomatic will search for the adaptors and barcodes as palindromes. Otherwise they will not be sucessfully trimmed and they will appear in the assembly.
+#The numbers immediately following the ILLUMINACLIP:NexteraPE-PE.fa: tell trimmomatic the number of mismatches allowed, the threshold for detecting a palindrome, and the threshold for detecting the straight sequence. These have been optimized for the Nextera kit and the levels of contamination we were dealing with, but you will have to optimize them for your data.
+#For the rest, refer to the trimmomatic manual: http://www.usadellab.org/cms/?page=trimmomatic
+
 java -jar /sw/lsa/centos7/trimmomatic/0.36/bin/trimmomatic-0.36.jar PE -phred33 /scratch/lsa_flux/daviswj/Cochlonema/Sample_85232/85232_TACGCTGC-CTTAATAG_S5_L001_R1_001.fastq.gz /scratch/lsa_flux/daviswj/Cochlonema/Sample_85232/85232_TACGCTGC-CTTAATAG_S5_L001_R2_001.fastq.gz cochlonema_e1_85232_L001_r1.pe.fastq.gz cochlonema_e1_85232_L001_r1.orphan.fastq.gz cochlonema_e1_85232_L001_r2.pe.fastq.gz cochlonema_e1_85232_L001_r2.orphan.fastq.gz ILLUMINACLIP:NexteraPE-PE.fa:2:30:15:2 LEADING:15 TRAILING:15 HEADCROP:5 SLIDINGWINDOW:4:20 MINLEN:50
 
 java -jar /sw/lsa/centos7/trimmomatic/0.36/bin/trimmomatic-0.36.jar PE -phred33 /scratch/lsa_flux/daviswj/Cochlonema/Sample_85232/85232_TACGCTGC-CTTAATAG_S5_L002_R1_001.fastq.gz /scratch/lsa_flux/daviswj/Cochlonema/Sample_85232/85232_TACGCTGC-CTTAATAG_S5_L002_R2_001.fastq.gz cochlonema_e1_85232_L002_r1.pe.fastq.gz cochlonema_e1_85232_L002_r1.orphan.fastq.gz cochlonema_e1_85232_L002_r2.pe.fastq.gz cochlonema_e1_85232_L002_r2.orphan.fastq.gz ILLUMINACLIP:NexteraPE-PE.fa:2:30:15:2 LEADING:15 TRAILING:15 HEADCROP:5 SLIDINGWINDOW:4:20 MINLEN:50
