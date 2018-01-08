@@ -25,6 +25,10 @@ fastqc [file names for forward & reverse reads]
 #From this point, this guide will assume you used a Nextera kit to prepare the samples for sequencing. If you used another method, you must adjust the steps below accordingly.
 #If your data is contaminated with the Nextera transposase sequence (they will be), then you will need an edited version of the sequence fasta file.
 #An edited version is uploaded to this folder for your convience.
+#Use trimmomatic to trim your sequences.
+#Again, trimmomatic can handle compressed files.
+#If you are using Nextseq, it outputs the data as if you ran 4 lanes. This guide assumes this is how your data is. If it is not, adjust accordingly.
+
 
 
 
