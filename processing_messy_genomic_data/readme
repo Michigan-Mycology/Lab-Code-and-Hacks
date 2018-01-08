@@ -78,7 +78,11 @@ perl assemblathon_stats.pl [insert file name]
 #We will start by generating a taxonomy report.
 #Perform a megablast search of your assembly. An example pbs script of how to do so is in this folder.
 #Some important notes: You must use ncbi-blast/2.2.29 for this, otherwise you will not get a taxonomy report. 
+#[in sert notes on how to get from blast to taxonomy reporot]
 
+#Now run ESOM according to the instructions found in the folder "Running_ESOM". https://github.com/Michigan-Mycology/Lab-Code-and-Hacks/tree/master/Running_ESOM
+
+#You have your genome.
 
 
 
