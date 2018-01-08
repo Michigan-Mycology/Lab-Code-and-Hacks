@@ -1,0 +1,19 @@
+#!/bin/sh
+####IMPORTANT you must use ncbi-blast/2.2.29 for this otherwise downstream won't work!!!!!!!!!!!!
+####  PBS preamble
+#PBS -N [insert job name]
+#PBS -M [insert your email address]
+#PBS -m abe
+# Change the number of cores (ppn=4), amount of memory, and walltime
+# based on what your job will require:
+#PBS -l nodes=1:ppn=4,mem=12gb,walltime=100:00:00
+#PBS -j oe
+#PBS -V
+
+#PBS -A lsa_flux
+#PBS -q flux
+#PBS -l qos=flux
+
+####  End PBS preamble
+cd [insert your working directory]
+blastn -task megablast -query [insert your fasta file] -db nt -max_target_seqs 1 -evalue 1e-5 -out [insert your desired name for the output] -outfmt 6 -num_threads 4
