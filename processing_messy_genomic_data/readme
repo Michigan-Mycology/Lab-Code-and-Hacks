@@ -28,7 +28,19 @@ fastqc [file names for forward & reverse reads]
 #Use trimmomatic to trim your sequences.
 #Again, trimmomatic can handle compressed files.
 #If you are using Nextseq, it outputs the data as if you ran 4 lanes. This guide assumes this is how your data is. If it is not, adjust accordingly.
+#An example trimmomatic pbs script is in the folder.
+#If you need to change trimmomatic settings, the manual can be found here: http://www.usadellab.org/cms/?page=trimmomatic (It is not the best.)
+#Load trimmomatic
 
+module load trimmomatic
+
+#Make the necessary changes to the pbs script.
+
+vi trimmomatic.pbs
+
+#submit the job
+
+qsub trimmomatic.pbs
 
 
 
