@@ -45,4 +45,7 @@ qsub trimmomatic.pbs
 #Once the trimmomatic job has finished, run the output files through fastqc a second time to ensure that all of the sequences have been adequately trimmed and all of the barcodes/adaptors have been removed.
 #If the fastqc reveals the trimmomatic was not sucessful, you will have to fiddle with the trimmomatic options. If you are using something other than Nextera, you might have to modify the barcode/adpator fasta file in order to use the palindrome option.
 
+#If everything looks good, then you can proceed to assembling.
+
+
 
