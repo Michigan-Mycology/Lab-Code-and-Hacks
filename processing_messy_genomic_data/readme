@@ -1,0 +1,30 @@
+#This is a guide on how to quality control, trim, assemble, and bin dirty genomic data, i.e., metagenomic samples in which you want only one of the genomes.
+#This guide assumes you are working with illumina reads. 
+#Example pbs scripts and other scripts are available here as well as in the bioinformatics folder on the lsa server.
+#First, read the "Getting started with the flux" if you are unfamiliar with how to use the flux.
+#Upload your data to the flux.
+#Because the files are so large, it is recommended you work in /scratch/lsa-flux/[your uniq id]
+#Once you have your data uploaded and you have your file structure set, begin with getting a fast quality report of your data.
+
+#Load the latest version of the fastqc module. To check to see what the latest version is, run "module spider fastqc"
+#fastqc is compatible with .zip and .gz file formats so there is no need to unzip them
+
+module load fastqc/0.11.5
+
+#Generate a list of the files in your current working directory
+
+ll -tr
+
+fastqc [file names for forward & reverse reads]
+
+#fastqc will run directly on the command line. It will output an html report file for each fastq file.
+#Download these html files to your computer and open them in your favorite interent browser.
+#An example html file is included in this folder.
+#Use the graphs/data to determine how much to trim from the sequences and at what phred score.
+#IMPORTANT: the latest version will tell you the number of sequences that are contaminated with barcodes and what barcodes they are contaminated with. This data is necessary for trimming.
+#From this point, this guide will assume you used a Nextera kit to prepare the samples for sequencing. If you used another method, you must adjust the steps below accordingly.
+#If your data is contaminated with the Nextera transposase sequence (they will be), then you will need an edited version of the sequence fasta file.
+#An edited version is uploaded to this folder for your convience.
+
+
+
