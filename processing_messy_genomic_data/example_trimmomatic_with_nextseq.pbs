@@ -1,0 +1,20 @@
+#PBS -N Trim_coch_e1
+#PBS -V
+#PBS -A lsa_flux
+#PBS -l qos=flux
+#PBS -q flux
+#PBS -l nodes=1:ppn=1,mem=20gb,walltime=08:00:00
+#PBS -M [your email address here]
+#PBS -m abe
+#PBS -j oe
+
+#Your Code Goes Below:
+#module load trimmomatic/0.36
+cd /scratch/lsa_flux/daviswj/Cochlonema
+java -jar /sw/lsa/centos7/trimmomatic/0.36/bin/trimmomatic-0.36.jar PE -phred33 /scratch/lsa_flux/daviswj/Cochlonema/Sample_85232/85232_TACGCTGC-CTTAATAG_S5_L001_R1_001.fastq.gz /scratch/lsa_flux/daviswj/Cochlonema/Sample_85232/85232_TACGCTGC-CTTAATAG_S5_L001_R2_001.fastq.gz cochlonema_e1_85232_L001_r1.pe.fastq.gz cochlonema_e1_85232_L001_r1.orphan.fastq.gz cochlonema_e1_85232_L001_r2.pe.fastq.gz cochlonema_e1_85232_L001_r2.orphan.fastq.gz ILLUMINACLIP:NexteraPE-PE.fa:2:30:15:2 LEADING:15 TRAILING:15 HEADCROP:5 SLIDINGWINDOW:4:20 MINLEN:50
+
+java -jar /sw/lsa/centos7/trimmomatic/0.36/bin/trimmomatic-0.36.jar PE -phred33 /scratch/lsa_flux/daviswj/Cochlonema/Sample_85232/85232_TACGCTGC-CTTAATAG_S5_L002_R1_001.fastq.gz /scratch/lsa_flux/daviswj/Cochlonema/Sample_85232/85232_TACGCTGC-CTTAATAG_S5_L002_R2_001.fastq.gz cochlonema_e1_85232_L002_r1.pe.fastq.gz cochlonema_e1_85232_L002_r1.orphan.fastq.gz cochlonema_e1_85232_L002_r2.pe.fastq.gz cochlonema_e1_85232_L002_r2.orphan.fastq.gz ILLUMINACLIP:NexteraPE-PE.fa:2:30:15:2 LEADING:15 TRAILING:15 HEADCROP:5 SLIDINGWINDOW:4:20 MINLEN:50
+
+java -jar /sw/lsa/centos7/trimmomatic/0.36/bin/trimmomatic-0.36.jar PE -phred33 /scratch/lsa_flux/daviswj/Cochlonema/Sample_85232/85232_TACGCTGC-CTTAATAG_S5_L003_R1_001.fastq.gz /scratch/lsa_flux/daviswj/Cochlonema/Sample_85232/85232_TACGCTGC-CTTAATAG_S5_L003_R2_001.fastq.gz cochlonema_e1_85232_L003_r1.pe.fastq.gz cochlonema_e1_85232_L003_r1.orphan.fastq.gz cochlonema_e1_85232_L003_r2.pe.fastq.gz cochlonema_e1_85232_L003_r2.orphan.fastq.gz ILLUMINACLIP:NexteraPE-PE.fa:2:30:15:2 LEADING:15 TRAILING:15 HEADCROP:5 SLIDINGWINDOW:4:20 MINLEN:50
+
+java -jar /sw/lsa/centos7/trimmomatic/0.36/bin/trimmomatic-0.36.jar PE -phred33 /scratch/lsa_flux/daviswj/Cochlonema/Sample_85232/85232_TACGCTGC-CTTAATAG_S5_L004_R1_001.fastq.gz /scratch/lsa_flux/daviswj/Cochlonema/Sample_85232/85232_TACGCTGC-CTTAATAG_S5_L004_R2_001.fastq.gz cochlonema_e1_85232_L004_r1.pe.fastq.gz cochlonema_e1_85232_L004_r1.orphan.fastq.gz cochlonema_e1_85232_L004_r2.pe.fastq.gz cochlonema_e1_85232_L004_r2.orphan.fastq.gz ILLUMINACLIP:NexteraPE-PE.fa:2:30:15:2 LEADING:15 TRAILING:15 HEADCROP:5 SLIDINGWINDOW:4:20 MINLEN:50
