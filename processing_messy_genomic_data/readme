@@ -74,7 +74,10 @@ perl remove_small_contigs.pl 1000 scaffolds.fasta > [insert new file name]
 perl assemblathon_stats.pl [insert file name]
 
 #I do two things with this info: First, I will direct it to a new text file for sotrage. Second, I will input it in an Exel sheet or a Google Sheet so that I can compare it to other assemblies.
-
+#Once you are satisfied with the assembly, it is time to start sorting out the target genome from everything else.
+#We will start by generating a taxonomy report.
+#Perform a megablast search of your assembly. An example pbs script of how to do so is in this folder.
+#Some important notes: You must use ncbi-blast/2.2.29 for this, otherwise you will not get a taxonomy report. 
 
 
 
