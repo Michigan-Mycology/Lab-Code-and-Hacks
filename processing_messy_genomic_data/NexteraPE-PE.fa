@@ -1,3 +1,4 @@
+#In order to search for the sequences as palindromes, you have to add "Prefix" to the start of the sequence name and "/1" (for forward) or "/2" (for reverse) to the end of the sequence name.
 >PrefixNX/1
 AGATGTGTATAAGAGACAG
 >PrefixNX/2
