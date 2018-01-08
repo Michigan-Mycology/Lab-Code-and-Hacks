@@ -1,0 +1,8 @@
+#Download and install winscp: https://winscp.net/eng/download.php
+#Open winscp
+#In the prompt, type in the following url:
+
+flux-xfer.arc-ts.umich.edu
+
+#Type your uniq id and password in the appropriate fields.
+#You are sucessfully connected.
