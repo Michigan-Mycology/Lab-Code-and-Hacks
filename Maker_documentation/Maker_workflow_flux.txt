@@ -26,6 +26,7 @@ Instructions for running Maker annotation pipeline on Umich flux ( by Alisha Q):
        
 4) Edit Control files
        Using VI or another text editor, change the maker_opts.ctl to include the full paths to your genome.fas, your repeats.fas (from RepeatScout/Masker output), your assembled RNA (e.g. from Trinity), your_protein_evidence.fas, your SNAP hmm file (if using), choose a model organism for augustus and RepeatMasker, your Genemark model, etc. etc.
+       You will also need to set "protein2genome=1" under the "Gene Prediction" header and "keep_preds=1" under the "MAKER Behavior Options" header. If you do not, MAKER will not generate output files.
        
        Repeat for maker_bopts.ctl and maker_exe.ctl, if there are parameters you want to change, otherwise just leave these alone!
 
