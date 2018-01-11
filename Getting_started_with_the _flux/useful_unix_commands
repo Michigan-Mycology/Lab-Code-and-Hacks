@@ -1,0 +1,44 @@
+man [unix command]    opens the manual for a unix command
+pwd   print working directory; shows you where you are
+cd    change directory; puts you where you want to be
+mkdir make directory; creates a new "folder"
+cat   concatenate; opens a file
+grep  grabs lines containing the desired pattern
+sed   in line editor; tutorial-->http://www.grymoire.com/Unix/Sed.html#uh-0
+awk   magic tool; tutorial-->http://www.grymoire.com/Unix/Awk.html
+tr    translate; turn one character into another
+cut   keep only the desired field
+sort  sort
+uniq  show only the unique values in a list
+dos2unix    convert dos characters into unix characters
+du    disk usage; displays info related to file size etc.
+&     placed at the end of a command, it runs the command in the background so you can continue using the command line
+jobs  reveals what jobs are running in the background
+disown  detaches a job from the terminal so that it can run even when the terminal is closed
+history show all the commands you have used since time x
+echo  displays text; can be used to create files
+vi    text editor
+ll    long list; lists all the files in a directory
+ls    short list; lists all the files in a directory
+cp    copy; copies a files from one location to another
+mv    moves a file from one location to another
+rm    permanently deletes a file
+rmdir permanently deletes a directory
+chmod allows you to change who can read/write/execute a file
+gzip  compress/decompress .gz files
+tar   compress/decompress tarballs (.tar files)
+wc    word count; displays number of lines, words, & characters
+more  displays a file
+less  displays a file in smaller chunks than more; more useful than more
+head  show first n lines of a file
+tail  show the last n lines of a file
+wget  retrieve file from a url
+find  find file(s)
+|     pipe output from one command into the next
+>     redirect output to file
+>>    append output to existing file
+&>    redirect log/verbose to file
+<     input to process/command
+~     home directory
+./    current directory
+../   up one directory
