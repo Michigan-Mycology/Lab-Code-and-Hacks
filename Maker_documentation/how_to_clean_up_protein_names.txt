@@ -1,0 +1,7 @@
+#Maker out puts the sequence names in a gross fashion, example below:
+
+>Coch_06560-RA protein AED:0.15 eAED:0.16 QI:0|0|0|1|0.66|0.5|4|0|636
+
+#Most of the time, we only need the first little bit of data. So, here is how you clean it up in a neat little awk.
+
+cat Atet.all.maker.proteins.fasta | awk '{print $1}' > Atet_all_maker_proteins_final_rename_proteins.fasta
