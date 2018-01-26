@@ -16,7 +16,7 @@ head JGIfilename_single_line.aa.fasta
 ```
 sed -f sed.txt Conidiobolus_coronatus_GeneCatalog_proteins_20120213_single_line.aa.fasta | awk '{print $1,"|",$3}' | sed 's/ //g'| sed 's/\*|//g' | sed 's/JGI_abbreviation/preferred_abbreviation/g' > JGIfilename_dirty_final_names.aa.fasta
 ```
-  5.Edit the final_names.aa.fasta file to eliminate the first blank line.
+  5. Edit the final_names.aa.fasta file to eliminate the first blank line.
 ```
 vi JGIfilename_dirty_final_names.aa.fasta
 ```
