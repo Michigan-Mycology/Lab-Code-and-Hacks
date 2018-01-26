@@ -22,7 +22,6 @@ phylogenomics
   sh_scripts
   Tree
 
-
 #First, you need to clean up the sequence names in all of your amino acid fasta files. The sequence names should follow the format of >Organism_name|locus.
 #This will require different manipulations depending on where your data came from.
 #Second, this pipeline requires that all of the fasta files have the same wrap length. The easiest way to ensure this is to place the sequence on a single line.
