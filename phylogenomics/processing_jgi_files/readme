@@ -1,1 +1,10 @@
 []
+
+#Rename fasta format abbreviations of taxa by first looking at single-line file to determine abbreviation used.
+
+head Conidiobolus_coronatus_GeneCatalog_proteins_20120213_single_line.aa.fasta 
+
+#
+sed -f sed.txt Conidiobolus_coronatus_GeneCatalog_proteins_20120213_single_line.aa.fasta | awk '{print $1,"|",$3}' | sed 's/ //g'| sed 's/\*|//g' | sed 's/Conco1/Conidiobolus_coronatus/g' > Conidiobolus_coronatus_final_names.aa.fasta
+
+vi Conidiobolus_coronatus_final_names.aa.fasta
