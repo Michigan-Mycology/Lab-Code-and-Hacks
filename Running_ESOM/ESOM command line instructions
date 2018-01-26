@@ -41,7 +41,7 @@
     cp filename_blastreport_annotation.txt ./tax/
     perl print_tetramer_freqs_deg_filter_esom_VD.pl -s filename_spades_1000contigsremoved.fasta -m 1000 -w 3000 k -4 -a filename_blastreport_annotation.txt
 
-#i) Run ESOM using GitHub instructions: Lab-Code-and-Hacks/Running_ESOM/Running_ESOM_instructions
+#i) Run ESOM using GitHub instructions: https://github.com/Michigan-Mycology/Lab-Code-and-Hacks/blob/master/Running_ESOM/Running_ESOM_instructions
 
 #j) From ESOM, resulting .cls file will be putative genome/bacterial contaminant/organelle DNA/etc. To extract those contigs from the original fasta file, obtain getClassFasta.pl and run on selected .cls file
 
