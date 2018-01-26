@@ -1,5 +1,4 @@
 # Instructions on how to use scripts from the Spatafora et al. 2016 pipeline to concatenate individual gnee alignments
-----
 Scripts needed:
 1. `combine_make_superaln.sh`
 2. `make_expected_file.sh`
