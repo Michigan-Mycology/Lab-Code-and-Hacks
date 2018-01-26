@@ -108,13 +108,37 @@ sh run_sh_scripts.sh
 #Next, you need to clean up the alignments using a combination of easel (part of hmmer) and trimAl (which you will need to install).
 #Example scripts for doing this are provided in this folder.
 
-sh 
+sh esl_reformat1.sh
 
-sh
+sh esl_reformat2.sh
 
-sh
+sh trimal_1.sh
 
-sh
+sh trimal_2.sh
+
+#You now have clean alignments of all of your markers!
+#From here, you can concatenate all of the markers into one large alignment, which I explain in the "how_to_concatenate_algns" sub-folder https://github.com/Michigan-Mycology/Lab-Code-and-Hacks/tree/master/phylogenomics/how_to_concatenate_algns . Or you can infer gene trees. I recommend inferring the gene trees first so that you cna identify potential paralogues and contamination before making the concatenated alignment and infer the final tree.
+#Copy all of the *.msa.trim files into the "aln_final" directory.
+#Run the "make_lots_of_raxml_pbs.sh" script after modifying it appropriately.
+
+sh make_lots_of_raxml_pbs.sh
+
+#To infer the trees, you will need to load some modules.
+
+module load raxml gcc/5.4.0 openmpi/1.10.2/gcc/5.4.0
+
+#NOTE: It is best practice to be sure that the scripts will run/raxml is called properly before submitting all of these pbs scripts to the queue.
+#Once you are satisfied that the jobs will run without error, submit them.
+
+sh qsub_loop.sh
+
+#Once all of the gene trees have been inferred, inspect them. 
+
+[under construction]
+
+#Once you have used the gene trees to make informed decisions about the markers to keep/toss, correct paralog problems, and remove contamination (see above), it is time to concatenate the markers into one alignment.
+#More detailed instructions can be found in the 
+
 
 
 
