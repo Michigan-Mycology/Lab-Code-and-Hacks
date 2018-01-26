@@ -3,5 +3,6 @@ for M in Roz_OGFLEX_1016.hmm Roz_OGFLEX_1031.hmm Roz_OGFLEX_1072.hmm Roz_OGFLEX_
 do
 let count++
 m=${M/.hmm/}
-echo "hmmalign --trim --amino /scratch/lsa_flux/daviswj/phylogenomics_3/HMM3/"$m".hmm  /scratch/lsa_flux/daviswj/phylogenomics_3/aln3/"$m".fa > /scratch/lsa_flux/daviswj/phylogenomics_3/aln3/"$m".msa"  > /scratch/lsa_flux/daviswj/phylogenomics_3/sh_scripts2/hmm_"$m".sh
+echo "hmmalign --trim --amino[your_path]/phylogenomics/HMM3/"$m".hmm  [your_path]/phylogenomics/aln/"$m".fa > [your_path]/phylogenomics/aln/"$m".msa"  > [your_path]/phylogenomics/sh_scripts/hmm_"$m".sh
 done
+echo "Hmmalgn scripts all written!"
