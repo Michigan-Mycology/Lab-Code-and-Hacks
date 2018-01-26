@@ -1,8 +1,30 @@
 #This is how I modifed the Spatafora et al. 2016 pipeline, which can be found here: https://github.com/zygolife/Phylogenomics/tree/master/Spatafora_et_al_2016
 
+#The directory structure I work in:
+phylogenomics
+  aln
+  HMM3
+  jobs
+  messy_pep
+    genbank
+    jgi
+    Maker
+  pep
+  raxml_gene_trees
+  raxml_gene_tree_scripts
+  scripts
+    combinefasaln.pl (from Spatafora et al. 2016)
+    construct_unaln_files.pl (from Sparafora et al. 2016)
+    get_best_hmmtbl.pl (from Spatafora et al. 2016)    
+  search
+  sh_scripts
+  Tree
+
+
 #First, you need to clean up the sequence names in all of your amino acid fasta files. The sequence names should follow the format of >Organism_name|locus.
 #This will require different manipulations depending on where your data came from.
 #Second, this pipeline requires that all of the fasta files have the same wrap length. The easiest way to ensure this is to place the sequence on a single line.
+#I recommend doing this within the "messy_pep" directory with the raw files in the appropriate sub-directories (i.e., files from Genbank in the "genbank" directory).
 
 #For Maker files:
   #To clean up the sequence names from the horribleness that is Maker:
@@ -25,3 +47,22 @@ cat [genbank_name]_renamed1.aa.fasta | sed 's/>/>sp_name\|/g' > sp_name_penultim
 
   #To make it all single line, which can be done as a script.
  cat sp_name_penultimate_names.aa.fasta | awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);} END {printf("\n");}' > [organism_name]_final_names.aa.fasta
+
+#For JGI files
+
+[under construction]
+
+#Now, move all of the *final_names.aa.fasta files into the "pep" directory.
+
+
+
+
+
+
+
+
+
+
+
+
+
