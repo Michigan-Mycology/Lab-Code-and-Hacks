@@ -1,4 +1,4 @@
-for i in pep_final_names/*.aa.fasta
+for file in pep/*.aa.fasta
 do
-hmmsearch -E1e-8 --domtblout "$i".domtbl markers_3.hmmb "$i" &> "$i".log
+hmmsearch -E1e-8 --domtblout "$file".domtbl markers_3.hmmb "$file" &> "$file".log
 done
