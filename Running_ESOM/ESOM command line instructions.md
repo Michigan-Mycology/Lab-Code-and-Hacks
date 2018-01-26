@@ -1,4 +1,5 @@
-# Preparing spades output for ESOM analyses and managing ESOM output
+# ESOM (Emergent Self-Organizing Map)
+## Preparing spades output for ESOM analyses and managing ESOM output
 
 1. Make folders ESOM, ESOM/tax, and ESOM/fasta in project folder
 ```
