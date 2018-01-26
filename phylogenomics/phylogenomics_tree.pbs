@@ -1,0 +1,13 @@
+#PBS -N raxml_concatalgn
+#PBS -V
+#PBS -A tyjames_fluxod
+#PBS -l qos=flux
+#PBS -q fluxod
+#PBS -l nodes=12:ppn=5,pmem=4gb,walltime=168:00:00
+#PBS -M [your_email]
+#PBS -m abe
+#PBS -j oe
+
+#Your Code Goes Below:
+cd [your_path]/phylogenomics/Tree
+mpirun -np 60 raxmlHPC-MPI -f a -s your_concatenated_algn.fasta -n raxml_concat_tree.nex -m PROTGAMMAAUTO -x 25678 -N 500 -p 8762
