@@ -137,7 +137,16 @@ sh qsub_loop.sh
 [under construction]
 
 #Once you have used the gene trees to make informed decisions about the markers to keep/toss, correct paralog problems, and remove contamination (see above), it is time to concatenate the markers into one alignment.
-#More detailed instructions can be found in the 
+#More detailed instructions can be found here https://github.com/Michigan-Mycology/Lab-Code-and-Hacks/tree/master/phylogenomics/how_to_concatenate_algns
+
+sh combine_make_superaln.sh 
+
+#The perl script is verbose; it may spit out a bunch of lines. Many of the lines will say something about the "search" and "expect" lists are not the same length. This is to be expected; not every marker is present in envery genome.
+#I have tried to direct the stout to a log file. If that is unsucessful, just copy and paste the stout into a text file.
+
+#Move/copy the concatenated alignment into the "Tree" directory.
+#Modify the "phylogenomics_tree.pbs" script appropriately.
+#Submit and wait for your beautiful tree to appear!
 
 
 
