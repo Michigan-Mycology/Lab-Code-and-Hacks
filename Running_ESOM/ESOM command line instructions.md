@@ -1,9 +1,11 @@
-#a) Make folders ESOM, ESOM/tax, and ESOM/fasta in project folder
+# Preparing spades output for ESOM analyses and managing ESOM output
 
-    mkdir ESOM
-		mkdir ESOM/tax
-    mkdir ESOM/fasta
-
+1. Make folders ESOM, ESOM/tax, and ESOM/fasta in project folder
+```
+mkdir ESOM
+mkdir ESOM/tax
+mkdir ESOM/fasta
+```
 #b) From within ESOM folder, copy edited .fasta file from spades to ESOM folder
 
     cp ../fastqc/filename_spades_1000contigsremoved.fasta ./
