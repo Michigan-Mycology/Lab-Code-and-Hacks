@@ -6,7 +6,7 @@ mkdir ESOM
 mkdir ESOM/tax
 mkdir ESOM/fasta
 ```
-2.From within ESOM folder, copy edited .fasta file from spades to ESOM folder
+2.From within ESOM folder, copy edited .fasta file from spades output to ESOM folder
 ```
 cp ../fastqc/filename_spades_1000contigsremoved.fasta ./
 ```
