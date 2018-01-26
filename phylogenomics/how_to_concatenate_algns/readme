@@ -3,11 +3,11 @@
 #combine_make_superaln.sh
 #make_expected_file.sh
 #combine_fasaln.pl
-#Be sure to load bioperl. I find that 
+#Be sure to load bioperl.
 
 #First you need to set up your headers in the fasta files so that they follow the format "Organism_prefix|gene_name"
 #I have included examples of how to do this for both Genbank and JGI genomes.
-#Place all of the individual alignments in a folder named "aln"
+#Place all of the individual alignments in a folder named "aln_final"
 
 #The 3 Spatafora et al. scripts are set up to be in 3 different folders, but one can change that so that they are all in the same folder.
 
@@ -19,6 +19,8 @@
 #For make_expected_file.sh:
 #Change the file path after -nl to the location of your fasta files
 #NOTE: I find it works better if I make my own expected file. The expected file is simply a list of the ">Organism_prefix" header names in your files. In other words, it is a list of the linking names (>Organism_prefix) that the scripts will use to concatenate all of the genes.
+
+
 
 #For combine_make_superaln.sh:
 #Change the file paths to point to the appropriate locations of the make_expected_file.sh and combine)fasaln.pl.
