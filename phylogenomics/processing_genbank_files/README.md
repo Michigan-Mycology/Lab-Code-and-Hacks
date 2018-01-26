@@ -6,7 +6,7 @@ sh gzip_loop_genbank.sh
 ```
   2. Format the .faa files to gbacc.aa.fasta files and rename contigs with acession numbers (which will serve as the "locus" name).
 ```
-sh renametogbaccessionsloop.sh`
+sh renametogbaccessionsloop.sh
 ```
   3. Format fasta headers to lead as [organism_name]|[locus_name].
 ```
