@@ -85,8 +85,14 @@ sh make_get_best_hits.sh
 sh make_unaln.sh
 
 #This should populate the "aln" directory with non-zero fasta files--one for each marker.
+#Now you will need to align all of the markers. I could not get the script in Spatafora et al.'s github for this to work. So, I created a work around.
+#First, you will need to generate a space-delimited list of the markers in the "HMM3" directory.
 
+ls > LIST
 
+cat LIST | tr "\n" "\t" | sed 's/\t/ /g' > space_list
+
+#Using vi (or vim or nano), copy the space-delimited list into the "makehmmalgn.sh" script in this folder.
 
 
 
