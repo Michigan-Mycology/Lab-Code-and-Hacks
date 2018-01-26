@@ -1,5 +1,3 @@
-[]
-
 #Rename fasta format abbreviations of taxa by first looking at single_line.aa.fasta file to determine abbreviation used.
 
 head JGIfilename_single_line.aa.fasta 
