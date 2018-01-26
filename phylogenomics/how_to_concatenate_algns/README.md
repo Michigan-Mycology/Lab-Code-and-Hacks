@@ -21,7 +21,7 @@ First you need to set up your headers in the fasta files so that they follow the
     - -o is the name of the output file
 
 ## Step 2: 
-`'sh combine_make_superaln.sh`
+`sh combine_make_superaln.sh`
 
 
 
