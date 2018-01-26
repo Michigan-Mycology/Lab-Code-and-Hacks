@@ -20,7 +20,7 @@
 #Change the file path after -nl to the location of your fasta files
 #NOTE: I find it works better if I make my own expected file. The expected file is simply a list of the ">Organism_prefix" header names in your files. In other words, it is a list of the linking names (>Organism_prefix) that the scripts will use to concatenate all of the genes.
 
-
+cat pep/*.aa.fasta | grep "^>" | tr "|" "\t" | cut -f 1 | sort | uniq > expected
 
 #For combine_make_superaln.sh:
 #Change the file paths to point to the appropriate locations of the make_expected_file.sh and combine)fasaln.pl.
