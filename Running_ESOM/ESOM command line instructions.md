@@ -54,7 +54,7 @@ perl /home/chytrids/scripts/getClassFasta.pl -fasta filename_spades_1000contigsr
 cp filename_put_genome.fasta ../fasta/
 cp filename_put_genome.conf ../fasta/
 ```
-*Optional*
+- *Optional*
 12.a) If you wish to see GenBank accessions for selected contigs, first save list of contigs from the appropriate .conf file.
 ```
 cat filename_put_genome.conf | cut -f2 | grep "NODE" > ../filename_put_genome_contigs.txt
