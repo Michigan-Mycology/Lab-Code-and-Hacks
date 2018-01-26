@@ -22,7 +22,7 @@
 
 #For combine_make_superaln.sh:
 #Change the file paths to point to the appropriate locations of the make_expected_file.sh and combine)fasaln.pl.
-# -d should be 'aln' or whatever the directory your alignments are stored in.
+# -d should be 'aln_final' or whatever the directory your alignments are stored in.
 # -o is the name of the output file
 
 #Then run 'sh combine_make_superaln.sh".
