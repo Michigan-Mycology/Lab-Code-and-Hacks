@@ -1,8 +1,10 @@
 #This is how I modifed the Spatafora et al. 2016 pipeline, which can be found here: https://github.com/zygolife/Phylogenomics/tree/master/Spatafora_et_al_2016
+#NOTE: You will need to install trimAl from http://trimal.cgenomics.org/ as this program is not available on the flux. I installed v1.2.
 
 #The directory structure I work in:
 phylogenomics
   aln
+  aln_final
   HMM3
   jobs
   messy_pep
@@ -92,7 +94,29 @@ ls > LIST
 
 cat LIST | tr "\n" "\t" | sed 's/\t/ /g' > space_list
 
-#Using vi (or vim or nano), copy the space-delimited list into the "makehmmalgn.sh" script in this folder.
+#Using vi (or vim or nano), copy the space-delimited list into the "make_hmmalgn.sh" script in this folder.
+#Then run the "make_hmmalgn.sh" script.
+
+sh make_hmmalgn.sh
+
+#This will generate .sh files in the "sh_scripts" directory. There should be one for each .hmm file.
+#Now, run them using the "run_sh_scripts.sh" script.
+
+sh run_sh_scripts.sh
+
+#This should create an alignment of each fasta file in the "aln" directory and save it as a .msa.
+#Next, you need to clean up the alignments using a combination of easel (part of hmmer) and trimAl (which you will need to install).
+#Example scripts for doing this are provided in this folder.
+
+sh 
+
+sh
+
+sh
+
+sh
+
+
 
 
 
