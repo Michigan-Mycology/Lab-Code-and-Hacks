@@ -1,4 +1,4 @@
-# #Downloading and editing JGI protein fasta files for downstream analyses
+# Downloading and editing JGI protein fasta files for downstream analyses
 
   1. Download .aa.fasta.gz files from JGI and put them in phylogenomics/messy_pep/jgi folder. To unzip them all, obtain, edit, and run the gzip_loop_jgi.sh script, or copy the command for a single file.
 ```
