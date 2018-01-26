@@ -1,4 +1,3 @@
-
 # Intro: Phylogenomics pipeline 
 This is how I modifed the Spatafora et al. 2016 pipeline, which can be found here: https://github.com/zygolife/Phylogenomics/tree/master/Spatafora_et_al_2016
 
@@ -59,47 +58,48 @@ cat sp_name_penultimate_names.aa.fasta | awk '/^>/ {printf("\n%s\n",$0);next; } 
 
 [under construction]
 
-Finally ove all of the `*final_names.aa.fasta` files into the `/pep` directory. You will need to populate the `/HMM3` folder with the `*.hmm` files containing the markers you wish to use.  I used the markers from Spatafora et al. 2016, which can be found here https://github.com/zygolife/Phylogenomics/tree/master/Spatafora_et_al_2016/HMM/Roz200. There are other markers available for fungi here:
+
+## Step2: hmmer search
+   1. Finally move/copy all of the `*final_names.aa.fasta` files into the `/pep` directory. You will need to populate the `/HMM3` folder with the `*.hmm` files containing the markers you wish to use.  I used the markers from Spatafora et al. 2016, which can be found here https://github.com/zygolife/Phylogenomics/tree/master/Spatafora_et_al_2016/HMM/Roz200. There are other markers available for fungi here:
 - Make sure the `markers_3.hmmb` file is in the `/phylogenomics` directory.
 - You will need to load the following modules (current versions are preferable).
 ```
 module load hmmer
 module load bioperl
 ```
-## Step2: hmmer search
-  1. The next step is to perform a hmmer search for all of the markers in your genomes of interest. Hmmer uses hidden Markov models to find the markers in your genomes of interest. The page can be found here: http://hmmer.org/ I re-wrote the Spatafora et al. script for this, and it is placed in this folder.
+   2. The next step is to perform a hmmer search for all of the markers in your genomes of interest. Hmmer uses hidden Markov models to find the markers in your genomes of interest. The page can be found here: http://hmmer.org/ I re-wrote the Spatafora et al. script for this, and it is placed in this folder.
   
   ```
   sh hmmsearch_loop.sh
   ```
   
-  2. This should produce non-zero .dombtl & .log files for each of your genomes. We only want the best hit, i.e., the best match to the hmmer model, for each genome. We can get that by calling the "get_best_hmmtbl.pl" script written for the Spatafora et al. paper. This script should be placed in your `/scripts` directory. I have included my script for doing so in this folder.
+  3. This should produce non-zero .dombtl & .log files for each of your genomes. We only want the best hit, i.e., the best match to the hmmer model, for each genome. We can get that by calling the "get_best_hmmtbl.pl" script written for the Spatafora et al. paper. This script should be placed in your `/scripts` directory. I have included my script for doing so in this folder.
 
   ```
   sh make_get_best_hits.sh
   ```
-  3. This should produce non-zero .best files for each of your genomes. Move (or copy) the .best files into the `search` directory. Currently, we have a list of each marker for each genome, but we want a fasta file of each marker. To do this, we need the `construct_unaln_files.pl` from the Spatafora et al. github. Place it in your `/scripts` directory. My script for calling the `construct_unaln_files.pl` script is in this folder.
+  4. This should produce non-zero .best files for each of your genomes. Move (or copy) the .best files into the `search` directory. Currently, we have a list of each marker for each genome, but we want a fasta file of each marker. To do this, we need the `construct_unaln_files.pl` from the Spatafora et al. github. Place it in your `/scripts` directory. My script for calling the `construct_unaln_files.pl` script is in this folder.
   ```
   sh make_unaln.sh
   ```
-  4. This should populate the `/aln` directory with non-zero fasta files--one for each marker. Now you will need to align all of the markers. I could not get the script in Spatafora et al.'s github for this to work. So, I created a work around. First, you will need to generate a space-delimited list of the markers in the `/HMM3` directory.
+  5. This should populate the `/aln` directory with non-zero fasta files--one for each marker. Now you will need to align all of the markers. I could not get the script in Spatafora et al.'s github for this to work. So, I created a work around. First, you will need to generate a space-delimited list of the markers in the `/HMM3` directory.
   ```
   ls > LIST
   cat LIST | tr "\n" "\t" | sed 's/\t/ /g' > space_list
   ```
-5. Using vi (or vim or nano), copy the space-delimited list into the `make_hmmalgn.sh` script in this folder. Then run the `make_hmmalgn.sh` script.
+   6. Using vi (or vim or nano), copy the space-delimited list into the `make_hmmalgn.sh` script in this folder. Then run the `make_hmmalgn.sh` script.
   ```
   sh make_hmmalgn.sh
   ```
 This will generate .sh files in the `/sh_scripts` directory. There should be one for each `.hmm` file.
 
-6. Now, run them using the `run_sh_scripts.sh` script.
+7. Now, run them using the `run_sh_scripts.sh` script.
 ```
 sh run_sh_scripts.sh
 ```
 This should create an alignment of each fasta file in the `/aln` directory and save it as a `.msa`.
 
-7. Next, you need to clean up the alignments using a combination of easel (part of hmmer) and trimAl (which you will need to install).
+8. Next, you need to clean up the alignments using a combination of easel (part of hmmer) and trimAl (which you will need to install).
 ```
 #Example scripts for doing this are provided in this folder.
 sh esl_reformat1.sh
