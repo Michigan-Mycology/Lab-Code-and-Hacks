@@ -54,11 +54,12 @@ perl /home/chytrids/scripts/getClassFasta.pl -fasta filename_spades_1000contigsr
 cp filename_put_genome.fasta ../fasta/
 cp filename_put_genome.conf ../fasta/
 ```
-	12.a) If you wish to see GenBank accessions for selected contigs, first save list of contigs from the appropriate .conf file.
+*Optional*
+12.a) If you wish to see GenBank accessions for selected contigs, first save list of contigs from the appropriate .conf file.
 ```
 cat filename_put_genome.conf | cut -f2 | grep "NODE" > ../filename_put_genome_contigs.txt
 ```
-	12.b) Using original blastn output file, select contigs isolated with ESOM and get list of unique GenBank accessions.
+12.b) Using original blastn output file, select contigs isolated with ESOM and get list of unique GenBank accessions.
 ```
 cat filename_ntdb_evalue5 | grep -f filename_put_genome_contigs.txt | cut -f2 | tr "|" "\t" | cut -f4 | sort | uniq > filename_put_genome_contigs_gbaccessions.txt
 ```
