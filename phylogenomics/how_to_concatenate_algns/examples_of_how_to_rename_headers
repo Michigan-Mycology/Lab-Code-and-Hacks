@@ -1,3 +1,0 @@
-sed -f sed.txt Allma1_single_line_20131203.aa.fasta | awk '{print $1,"|",$2}' | sed 's/ //g' | sed 's/\*|//g' > new_file
-cat Coprinopsis_cinerea_single_line.aa.fasta | awk '{print $1,"|",$5,$6}' | sed 's/\[//g' | sed 's/ | /|/g' | tr " " "_" > Coprinopsis_cinerea_single_line_final_name.aa.fasta
-cat Ssac_single_line.aa.fasta | tr "|" "\t" | awk '{print $1}' | sed 's/>/>Ssac|/g' > Ssac_final_name.aa.fasta
