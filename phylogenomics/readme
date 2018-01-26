@@ -1,1 +1,27 @@
 #This is how I modifed the Spatafora et al. 2016 pipeline, which can be found here: https://github.com/zygolife/Phylogenomics/tree/master/Spatafora_et_al_2016
+
+#First, you need to clean up the sequence names in all of your amino acid fasta files. The sequence names should follow the format of >Organism_name|locus.
+#This will require different manipulations depending on where your data came from.
+#Second, this pipeline requires that all of the fasta files have the same wrap length. The easiest way to ensure this is to place the sequence on a single line.
+
+#For Maker files:
+  #To clean up the sequence names from the horribleness that is Maker:
+cat [protein_fasta] | awk '{print $1}' > [organism_name]_renamed_seqs.aa.fasta
+
+  #To make it single line:
+cat [organism_fasta]_renamed_seqs.aa.fasta | awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);} END {printf("\n");}' > [organism_name]_single_line.aa.fasta
+
+  #To put it in [organism_name]|[locus] format:
+cat [organism_name]_single_line.aa.fasta | sed 's/_/|/g' > [organism_name]_final_names.aa.fasta
+
+#For Genbank fastas (example scripts can be found in the "processing_genbank_files" folder https://github.com/Michigan-Mycology/Lab-Code-and-Hacks/tree/master/phylogenomics/processing_genbank_files):
+  #To get just the acession numbers (which will serve as the "locus" name).
+  #This can be run as a for loop in a shell script.
+cat  [genbank_name].fa | awk '{print $1}' | sed 's/\.1/g' > [genbank_name]_renamed1.aa.fasta
+
+  #To put the sequence names in [organism_name]|[locus_name] format:
+  #I had to do this for each file individually. If you are clever, I am sure there is a way to write it into a script.
+cat [genbank_name]_renamed1.aa.fasta | sed 's/>/>sp_name\|/g' > sp_name_penultimate_names.aa.fasta
+
+  #To make it all single line, which can be done as a script.
+ cat sp_name_penultimate_names.aa.fasta | awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);} END {printf("\n");}' > [organism_name]_final_names.aa.fasta
