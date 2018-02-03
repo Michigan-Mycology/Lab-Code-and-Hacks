@@ -39,11 +39,11 @@ Submit the job.
 `qsub trimmomatic.pbs`
 
 Once the trimmomatic job has finished, run the output files through fastqc a second time to ensure that all of the sequences have been adequately trimmed and all of the barcodes/adaptors have been removed. If the fastqc reveals the trimmomatic was not sucessful, you will have to fiddle with the trimmomatic options. If you are using something other than Nextera, you might have to modify the barcode/adpator fasta file in order to use the palindrome option. If everything looks good, then you can proceed to assembling.
-#I have been fairly sucessful using spades to assemble. There is an example spades pbs script in this folder.
+
 
 ## Assembly
 
-Usually, I run spades in the default normal mode. However, when dealing with potential/known metagenomes, it is best to run it both in normal mode and as metaspades (--meta). Then compare the results. The spades manual can be found here: http://spades.bioinf.spbau.ru/release3.10.0/manual.html
+I have been fairly sucessful using spades to assemble. There is an example spades pbs script in this folder. Usually, I run spades in the default normal mode. However, when dealing with potential/known metagenomes, it is best to run it both in normal mode and as metaspades (--meta). Then compare the results. The spades manual can be found here: http://spades.bioinf.spbau.ru/release3.10.0/manual.html
 
 NOTE: metaSpades does not allow for more than one library to be assembled at a time.
 
@@ -73,7 +73,7 @@ Now to generate some stats using a creative commons perl script, which is also i
 
 I do two things with this info: First, I will direct it to a new text file for sotrage. Second, I will input it in an Exel sheet or a Google Sheet so that I can compare it to other assemblies.
 
-##Genome Binning with ESOM
+## Genome Binning with ESOM
 
 Once you are satisfied with the assembly, it is time to start sorting out the target genome from everything else.
 
