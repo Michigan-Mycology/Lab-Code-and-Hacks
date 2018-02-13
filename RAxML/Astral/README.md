@@ -1,16 +1,18 @@
-# Downloading and editing JGI protein fasta files for downstream analyses
+# Downloading and using Astral to create a species tree from multiple unrooted gene trees
 
-  1. Download .aa.fasta.gz files from JGI and put them in phylogenomics/messy_pep/jgi folder. To unzip them all, obtain, edit, and run the gzip_loop_jgi.sh script, or copy the command for a single file.
+  1. Use RAxML to produce the standard tree outputs. Create a new folder and copy the "RAxML_bipartitions.\*.nex" files to it. 
 ```
-sh gzip_loop_jgi.sh
+mkdir astral
+cp RAxML_bipartitions.* ./astral/
 ```
-  2. JGI aa.fasta files contain wrapped sequences. To make them single_line, obtain, edit, and run the jgisingleline.sh script, or copy the command for a single file. 
+  2. Navigate to the folder, and merge all nexus files into a single newick .tre file.
 ```
-sh jgisingleline.sh
+cd astral/
+cat *.nex > astral.tre
 ```
-  3. Rename fasta format abbreviations of taxa by first looking at single_line.aa.fasta file to determine abbreviation used.
+  3. The merged file will contain different loci for the same taxa across the different trees, which will cause Astral to read only the first tree. At this point, the unnecessary data should be between a "|" and ":". Therefore, to delete the loci and retain the branch length information, run the following command line.
 ```
-head JGIfilename_single_line.aa.fasta 
+cat astral.tre | sed 's/|[^:]*:/:/g' > astral_clean.tre
 ```
   4. Obtain sed.txt file, and save it into the same folder as the single_line.aa.fasta files. In the final "sed" command, substitute the JGI abbreviation with your preferred abbreviation.
 ```
