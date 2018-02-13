@@ -15,7 +15,7 @@ cat *.nex > astral.tre
 cat astral.tre | sed 's/|[^:]*:/:/g' > astral_clean.tre
 ```
   4. Download the astral_clean.tre file onto your computer. Download the astral.5.6.1.jar file from this GitHub page, along with the "lib" folder and its contents. Place the .jar and the necessary "lib" folder into the same folder on your computer as your astral_clean.tre file.
-  5. <b>On your own computer</b>, open the command line and navigate to the folder containing astral.5.6.1.jar, and enter the following line. It should take less than one minute.
+  5. <b>On your own computer</b>, open the command prompt and navigate to the folder containing astral.5.6.1.jar, and enter the following line. Processing should take less than one minute.
 ```
 java -jar astral.5.6.1.jar -i astral_clean.tre -o astral_clean_output.tre 2> astral_clean_output.log 
 ```
