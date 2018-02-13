@@ -7,7 +7,7 @@ cp RAxML_bipartitions.* ./astral/
 ```
   2. Navigate to the folder, and merge all nexus files into a single newick .tre file.
 ```
-cd astral/
+cd astral
 cat *.nex > astral.tre
 ```
   3. The merged file will contain different loci for the same taxa across the different trees, which will cause Astral to read only the first tree. At this point, the unnecessary data should be between a "|" and ":". Therefore, to delete the loci and retain the branch length information, run the following command line.
