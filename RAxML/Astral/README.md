@@ -14,28 +14,9 @@ cat *.nex > astral.tre
 ```
 cat astral.tre | sed 's/|[^:]*:/:/g' > astral_clean.tre
 ```
-  4. Obtain sed.txt file, and save it into the same folder as the single_line.aa.fasta files. In the final "sed" command, substitute the JGI abbreviation with your preferred abbreviation.
+  4. Download the astral_clean.tre file onto your computer. Download the astral.5.6.1.jar file from this GitHub page, along with the "lib" folder and its contents. Place the .jar and the necessary "lib" folder into the same folder on your computer as your astral_clean.tre file.
+  5. <b>On your own computer</b>, open the command line and navigate to the folder containing astral.5.6.1.jar, and enter the following line. It should take less than one minute.
 ```
-sed -f sed.txt Conidiobolus_coronatus_GeneCatalog_proteins_20120213_single_line.aa.fasta | awk '{print $1,"|",$3}' | sed 's/ //g'| sed 's/\*|//g' | sed 's/JGI_abbreviation/preferred_abbreviation/g' > JGIfilename_dirty_final_names.aa.fasta
+java -jar astral.5.6.1.jar -i astral_clean.tre -o astral_clean_output.tre 2> astral_clean_output.log 
 ```
-  5. Edit the final_names.aa.fasta file to eliminate the first blank line.
-```
-vi JGIfilename_dirty_final_names.aa.fasta
-```
-  6. To remove extra symbols in contigs, obtain removeperiodsandpounds script, edit the appropriate folder and file names, and run.
-```
-sh removeperiodsandpounds.sh
-```
-  7. It is common for an extra pipe to be located at the end of the .fasta file. In order to delete these without deleting the pipe after the taxon name, first copy the file.
-```
-cp JGIfilenames_final_names.aa.fasta JGIfilename_final_names_with_pipes.aa.fasta
-```
-  8. Using the taxon abbreviation (or the last few letters), indicate that in all cases other than the pipe following the taxon, the pipes should be replaced by nothing.
-```
-cat JGIfilenames_final_names_with_pipes.aa.fasta | sed '/taxon_abbreviation|/! s/|//g' > JGIfilenames_final_names.aa.fasta
-```
-  9. Check that the number of contigs matches the number of pipes.
-```
-grep -c "^>" JGIfilenames_final_names.aa.fasta
-grep -c "|" JGIfilenames_final_names.aa.fasta
-```
+  6. Use FigTrees or a similar program to open the output consensus tree.
