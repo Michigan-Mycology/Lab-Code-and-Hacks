@@ -88,16 +88,25 @@ Once you have the output from blast, run the script "blast_taxonomy_report.pl" t
 Open the blast_taxonomy_report.txt file in Excel. Everything should be classified. What you will need to do is code the taxonomy into a numerical system and number the contigs appropriately. Example files are provided in this folder.
 
 For example:
+
 0 Unclassified
+
 1 Bacteria
+
 2 Ascomycota
+
 3 Basidiomycota
+
 etc.
 
 Your final version should look like the following:
+
 Contig1 0
+
 Contig2 3
-COntig4 1
+
+Contig4 1
+
 etc. 
 
 Save this as a tab delimited file. I reccommend a file name such as organism_taxonomy_annotation.txt This file will be used with the '-a' flag in the print tetramer frequencies script.
