@@ -1,1 +1,0 @@
-Example files and pipeline for segregating and analyzing metagenomic data, using the Emergent Self-Organizing Map (ESOM) vizualization program. Scripts available here: https://github.com/tetramerFreqs/Binning.
