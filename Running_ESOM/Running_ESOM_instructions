@@ -72,4 +72,3 @@ This time:
 perl print_tetramer_freqs_esom.pl -s your_metagenome_assembly.fas -m 1000 -w 3000 -k 4 -a your_metagenome.annotation
 
 Now load the reulting new files into the ESOM GUI.
-
