@@ -65,7 +65,7 @@ This may take up to a week. If the spades assembly stops unexpectedly, it can be
 
 Once the assembly is finished, remove small contigs using the perl script provided in this folder. We usually start with 1000. For naming the new file, I reccommend the format genus/species_assembly-method_contig-size-removed.fasta
 
-`perl remove_small_contigs.pl 1000 scaffolds.fasta > [insert new file name]`
+`perl remove_small_contigs.pl scaffolds.fasta 1000 > [insert new file name]`
 
 Now to generate some stats using a creative commons perl script, which is also in this folder.
 
