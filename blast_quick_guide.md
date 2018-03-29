@@ -1,4 +1,4 @@
-You can download blast to run locally [here](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=Download) and NCBI has decent, albeit tr;dl, documentation in the form of two books: [Blast Help}(https://www.ncbi.nlm.nih.gov/books/NBK1762/) and [Blast User Manual](https://www.ncbi.nlm.nih.gov/books/NBK279690/).
+You can download blast to run locally [here](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=Download) and NCBI has decent, albeit tr;dl, documentation in the form of two books: [Blast Help](https://www.ncbi.nlm.nih.gov/books/NBK1762/) and [Blast User Manual](https://www.ncbi.nlm.nih.gov/books/NBK279690/).
 
 To build a custom database use `makeblastdb`.
 
