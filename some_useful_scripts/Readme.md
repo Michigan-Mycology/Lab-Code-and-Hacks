@@ -6,10 +6,14 @@ This folder contains a collection of scripts that I wrote to deal with various o
 
 **Usage:** `sh better_maker_labels.sh maker_map_ids_out prefix`
 
-    The protein annotation software, *Maker*, yields a protein fasta with really abnoxious sequence labels. You can use some of the scripts that ship with *Maker* to improve these labels, but then you loose any useful information that may have been in the original sequence header. For me, I wanted to retain the contig\_id, length, and coverage information from the nucleotide contig that the protein was originally called from. So, I made this script which will retain the original label in
+The protein annotation software, *Maker*, yields a protein fasta with really abnoxious sequence labels. You can use some of the scripts that ship with *Maker* to improve these labels, but then you loose any useful information that may have been in the original sequence header. For me, I wanted to retain the contig\_id, length, and coverage information from the nucleotide contig that the protein was originally called from. So, I made this script which will retain the original label in
 addition to a new prefix that you specify. 
-    You need to provide the output from running *maker_map_ids* and the prefix you'd like to use. This script is meant to be run after *map_maker_ids* as part of the post-processing pipeline outlined [HERE](https://github.com/Michigan-Mycology/Lab-Code-and-Hacks/blob/master/Maker_documentation/Maker_workflow_flux.txt).
+You need to provide the output from running *maker_map_ids* and the prefix you'd like to use. This script is meant to be run after *map_maker_ids* as part of the post-processing pipeline outlined [HERE](https://github.com/Michigan-Mycology/Lab-Code-and-Hacks/blob/master/Maker_pipeline/Maker_workflow_flux.txt).
 
 ## *count\_dbcan\_families.py*
+
+**Usage:** `python countCazyFams.py \[.dm.ps output file\] \[output\]`
+
+Give this script your file.dm.ps output file after parsing a hmmr scan of the dbCAN cazyme database and you'll get a csv of the counts for each cazyme family. 
 
 ## *count\_merops.py*
