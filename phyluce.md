@@ -7,6 +7,6 @@ conda install phyluce
 
 Then set bin in path
 
-DO some owrk
+DO some work
 
 source deactivate
