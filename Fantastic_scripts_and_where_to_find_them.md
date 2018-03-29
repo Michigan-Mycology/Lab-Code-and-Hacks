@@ -7,5 +7,5 @@
 # Phylogenomics associated scripts
 [under construction]
 
-# List of scripts avialable in the bioinfo foler on the LSA server
+# List of scripts available in the bioinfo foler on the LSA server
 [under construction]
