@@ -14,7 +14,7 @@ You need to provide the output from running *maker_map_ids* and the prefix you'd
 
 **Usage:** `python countCazyFams.py list_dir outputs_dir`
 
-This script does a batch count of the cazymes present in genomes. Tell this script the directory where you have all your input protein fastas (list\_dir) and where you have the output folders (output\_dir). Note the file and folder names need to start with the species identifier followed by an underscore (eg **AmanitaMuscaria\_**proteins.fasta). Also note that this identifier needs to be the same between the list\_dir and output\_dir.  
+This script does a batch count of the cazymes present in genomes. Tell this script the directory where you have all your input protein fastas (list\_dir) and where you have the output folders (output\_dir). Note the file and folder names need to start with the species identifier followed by an underscore (eg **AmanitaMuscaria\_** proteins.fasta). Also note that this identifier needs to be the same between the list\_dir and output\_dir.  
 
 
 ## *count\_merops.py*
