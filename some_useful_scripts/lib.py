@@ -29,7 +29,7 @@ def pkl_fasta_in_out (path, seq_type = "nucl", contig_info = True):
     return objlist
 
 def get_sequence_range (seq_obj, start, end):
-    return seq_obj.sequence[start:end+1]
+    return seq_obj.sequence[start-1:end]
 
 def newline_to_csv (f):
     ele = []
