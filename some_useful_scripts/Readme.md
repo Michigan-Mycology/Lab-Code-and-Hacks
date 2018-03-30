@@ -41,3 +41,10 @@ This script makes it easy to create a fastortho options file without typing in a
 
 **USAGE:** `python getVennCluserNums.py taxaIDfile fastortho.end Key?(True|False)`
 
+....Description and instructions coming soon...
+
+## *get_these_contigs.py*
+
+**USAGE:** `python get_these_contigs.py labels_to_get contig_fasta`
+
+This script will pull a specific set of contigs from a contig fasta and combine them into a fasta file. All you have to do is provide a newline separated list of sequence labels and a fasta file. Prints to stdout.

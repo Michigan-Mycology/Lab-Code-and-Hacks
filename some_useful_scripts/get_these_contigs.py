@@ -11,8 +11,4 @@ allseqs = pkl_fasta_in_out(sys.argv[2],seq_type="nucl",contig_info=False)
 out = [x for x in allseqs if x.label.split(" ")[0] in wanted]
 for i in out:
     print i.outFasta()
-'''
-for seq in allseqs:
-    if seq.label.split(" ")[0] in toget:
-        print tig.outFasta()
-'''
+
