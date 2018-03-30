@@ -1,5 +1,4 @@
 import sys
-from contig import *
 import numpy
 
 def reverse (string):
