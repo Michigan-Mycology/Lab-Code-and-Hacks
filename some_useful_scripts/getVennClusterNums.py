@@ -3,9 +3,11 @@
 import sys
 import itertools
 import subprocess
-if sys.argv[1] == "-help":
-    print "Usage -- python getVennCluserNums.py [taxaIDfile(with or without tab-delimited Venn Key)] [fastortho.end file] [Key? 'True' or 'False']"
+
+if sys.argv[1] in ['-h','-help']:
+    print "Usage -- python getVennCluserNums.py [taxaIDfile] [fastortho.end] [Key?(True|False)]"
     sys.exit()
+
 def getVennClusterNums(taxafile,fastorthoOut,keys="False"):
     taxaIDs=open(taxafile).readlines()
     commandsRun=open(sys.argv[1]+".commandsRun",'w')

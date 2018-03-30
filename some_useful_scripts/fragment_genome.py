@@ -1,19 +1,18 @@
 from sequence import *
-from contig import *
 import sys
 import re
 import numpy
 
 high = 50000
 low = 10000
-frag_prefix = "MortGlom_Ag77"
+frag_prefix = "fungus"
 n = 0
 fragments = {}
 #string = "ATCGTTCGTCTATCGTCGTAGCTAGCTAGCTAGAGAGATGGTTTTCGCTCGCTCGATCGCTAGGAGGAAGATCTCTAGCTAGGGGCTCGCTGATCGCCCAACACACAGCTAGTCGCTC"
 
 ns = 0
 
-allseqs = readFasta(sys.argv[1])
+allseqs = readFasta(sys.argv[1],'nucl',False)
 #print len(allseqs)
 
 for tig in allseqs:
