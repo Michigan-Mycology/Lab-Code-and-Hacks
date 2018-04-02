@@ -33,8 +33,6 @@ This script takes a genome fasta and breaks contigs into smaller fragments of ra
 
 ## *generate_fastortho_opt_file.sh*
 
-**USAGE:**
-
 **USAGE:** `sh generate_fastortho_opt_file.sh list_dir output analysis_out_dir job_name`
 
 This script makes it easy to create a fastortho options file without typing in all the paths to the single genome fastas. Specify the directory where all your fastas are (list\_dir), the path you'd like to output the options file to (output), the working directory for the actual fastortho analysis (analysis\_out\_dir) and the name for the run (job\_name).
