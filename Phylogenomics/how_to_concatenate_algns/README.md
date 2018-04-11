@@ -2,7 +2,7 @@
 Scripts needed:
 1. `combine_make_superaln.sh`
 2. `make_expected_file.sh`
-3. `combine_fasaln.pl`
+3. `combine_fasaln.pl` **NOTE** Must download this from the [Spatafora et al repository](https://github.com/zygolife/Phylogenomics/blob/master/Spatafora_et_al_2016/scripts/combine_fasaln.pl)
 4. Be sure to load `bioperl`
 
 ## Step 1: Setting up headers of fasta files
