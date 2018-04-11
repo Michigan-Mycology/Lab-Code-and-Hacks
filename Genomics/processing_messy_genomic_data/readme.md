@@ -111,6 +111,6 @@ etc.
 
 Save this as a tab delimited file. I reccommend a file name such as organism_taxonomy_annotation.txt This file will be used with the '-a' flag in the print tetramer frequencies script.
 
-Now run ESOM according to the instructions found in the folder "Running_ESOM". https://github.com/Michigan-Mycology/Lab-Code-and-Hacks/tree/master/Running_ESOM
+Now run ESOM according to the instructions found in the folder "Running_ESOM". https://github.com/Michigan-Mycology/Lab-Code-and-Hacks/tree/master/Genomics/processing_messy_genomic_data/Running_ESOM
 
 You have your genome.
