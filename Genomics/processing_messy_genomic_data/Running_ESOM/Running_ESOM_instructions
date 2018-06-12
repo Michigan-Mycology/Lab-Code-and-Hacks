@@ -12,6 +12,7 @@ perl print_tetramer_freqs_esom.pl -s your_genome_assembly.fasta -m 1000 -w 3000 
 #m = minimum contig size to be analyzed (make this higher for faster/ less CPU intensive visualization)
 #w = window size to calculate kmer frequency (again, make this higher for faster viz)
 #k = kmer size, default is 4, longer means slower!
+NOTE: you may need to type out full path for this perl script to work if not in same directory.
 
 Output, 3 files: .lrn, .names, .cls files within your directory.
 
