@@ -17,4 +17,18 @@ cd usearch61_chimera_checked_picked_otus/
 
 pick_rep_set.py -i Crypto_seqs_chimeras_filtered_otus.txt -f ../Crypto_seqs_chimeras_filtered.fas -m most_abundant -o rep_set.fas
 
+#Assign Taxonomy and Visualize
 
+assign_taxonomy.py -i rep_set.fas -o Blast_silva_crypto -t ../../Databases/Silva/Silva_RDP.txt -r ../../Databases/Silva/Silva_108_rep_set.fna -m blast
+#-###This step takes a long time
+
+#Make your OTU table:
+
+make_otu_table.py -i ../output_otus.txt -t taxon_assign.txt -o taxon_assign.biom
+
+summarize_taxa.py -i taxon_assign.biom -a -L 2,3,4,5,6,7 -o taxonomy
+
+cd taxonomy/
+
+plot_taxa_summary.py -i ..L2.txt,..L3.txt,..etc -c bar    ##The input files (separated by commas) are the output text files from summarize_taxa.py
+#Visualize .html file created
