@@ -1,34 +1,14 @@
-pick_otus.py -i crypto_pacbio_Q40_combined.fasta -z --db_filepath=/home/qiime/sh_refs_qiime_ver7_97_s_01.12.2017.fasta -o uclust_unite97  (I tried to use usearch but install failed.)
+###By Alisha Quandt 6_2018###
+#Because Qiime 2 doesn't accpet our Pacbio output which has already been stringently filtered, demultiplexed, and concatenated, Qiime 1 was used.
+#
+#
+#Find Chimeras:
 
-cd /uclust_unite97/
+identify_chimeric_seqs.py -i crypto_q40.fasta -m usearch61 -r ../Databases/Silva/New_Silva_Euk_Crypto_Aphelid.fna -o usearch61_New_RDPfile_chimera_checking
 
-pick_rep_set.py -i crypto.pacbio.Q40.combined_otus.txt -f ../.fasta -m most_abundant -o rep_set.fas
-
-assign_taxonomy.py -i rep_set.fas -o Blast_unite97 -t /path/to/SharedFolder/Unite/unite_97.tax -r /path/to/SharedFolder/Unite/unite_97.fasta -m blast  ###You actually need to type out the path the to the Shared Folder and I have not written the exact text of the Unite directory or the 97 files. Use tab complete to locate these files and type exactly as found in file structure.
-
-make_otu_table.py -i ../output_otus.txt -t taxon_assign.txt -o taxon_assign.biom
-
-
-###Take two####
-
-assign_taxonomy.py -i rep_set.fna -o Blast_silva_crypto -t /path/to/Silva/Silva_RDP_taxa_mappying_Eukarya_Cryptomycota_species.txt -r /path/to/Silva/Silva_108_rep_set_Eukarya_Cryptos.fna -m blast
-
-make_otu_table.py -i ../output_otus.txt -t taxon_assign.txt -o taxon_assign.biom
-
-summarize_taxa.py -i taxon_assign.biom -a -L 2,3,4,5,6,7 -o taxonomy
-
-cd taxonomy/
-
-plot_taxa_summary.py -i ..L2.txt,..L3.txt,..etc -c bar    ##The input files (separated by commas) are the output text files from summarize_taxa.py
-#Visualize .html file created
-
-
-###Third try:
-#Find Chimeras and exclude:
-identify_chimeric_seqs.py -i crypto_q40.fasta -m usearch61 -r ../Databases/Silva/Silva_108_rep_set.fas -o usearch61_chimera_checking
+#Exclude chimeras from original fasta file:
 
 filter_fasta.py -f crypto.pacbio_Q40.fasta -o Crypto_seqs_chimeras_filtered.fas -s usearch61_chimera_checking/chimeras.txt -n
-
 
 #Pick OTUs and rep set
 pick_otus.py -i Crypto_seqs_chimeras_filtered.fas -z -m usearch61 -o usearch61_chimera_checked_picked otus/
@@ -36,17 +16,5 @@ pick_otus.py -i Crypto_seqs_chimeras_filtered.fas -z -m usearch61 -o usearch61_c
 cd usearch61_chimera_checked_picked_otus/
 
 pick_rep_set.py -i Crypto_seqs_chimeras_filtered_otus.txt -f ../Crypto_seqs_chimeras_filtered.fas -m most_abundant -o rep_set.fas
-
-#Assign Taxonomy and Visualize
-assign_taxonomy.py -i rep_set.fas -o Blast_silva_crypto -t ../../Databases/Silva/Silva_RDP.txt -r ../../Databases/Silva/Silva_108_rep_set.fna -m blast
-##OMG this takes forever!
-
-
-
-###FINAL
-#Find Chimeras and exclude:
-identify_chimeric_seqs.py -i crypto_q40.fasta -m usearch61 -r ../Databases/Silva/New_Silva_Euk_Crypto_Aphelid.fna -o usearch61_New_RDPfile_chimera_checking
-
-filter_fasta.py -f crypto.pacbio_Q40.fasta -o Crypto_seqs_chimeras_filtered.fas -s usearch61_chimera_checking/chimeras.txt -n
 
 
