@@ -10,9 +10,9 @@ module load raxml gcc/5.4.0 openmpi/1.10.2/gcc/5.4.0
 
 #PBS -N rax8_60proc_53prots_500bp
 #PBS -V
-#PBS -A tyjames_fluxod
+#PBS -A tyjames_flux
 #PBS -l qos=flux
-#PBS -q fluxod
+#PBS -q flux
 #PBS -l nodes=12:ppn=5,pmem=1gb,walltime=15:00:00
 #PBS -M alishaq@umich.edu
 #PBS -m abe
