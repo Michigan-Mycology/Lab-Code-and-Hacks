@@ -12,6 +12,7 @@ First you need to set up your headers in the fasta files so that they follow the
   1. For `combine_fasaln.pl`:
     - At line 10, insert whatever the file extention for your alignments is at my $ext = ''; . For example, for `aln1.fas`, you would edit it to read my $ext = 'fas'; . NOTE the absence of the '.'
     Here is what the first 10 lines of your file should look like if your files have the extension .fas, and you want the output in fasta format:
+
 #!/usr/bin/perl -w
 use strict;
 use Bio::AlignIO;
@@ -29,7 +30,7 @@ my $ext = 'msa.trim';
     - `cat pep/*.aa.fasta | grep "^>" | tr "|" "\t" | cut -f 1 | sort | uniq > expected`
   
   Optional: At this point for a superalignment, you could simply run combine_fasaln.pl as follows:
-      perl combine_fasaln.pl -o allseq.fas -of fasta -d ./Your_dir_with_Fastas/ --expected expected.txt
+  perl combine_fasaln.pl -o allseq.fas -of fasta -d ./Your_dir_with_Fastas/ --expected expected.txt
   
   3. For combine_make_superaln.sh:
     - Change the file paths to point to the appropriate locations of the `make_expected_file.sh` and `combine_fasaln.pl`.
