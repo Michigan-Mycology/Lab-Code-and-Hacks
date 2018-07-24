@@ -14,14 +14,23 @@ First you need to set up your headers in the fasta files so that they follow the
     Here is what the first 10 lines of your file should look like if your files have the extension .fas, and you want the output in fasta format:
 
 #!/usr/bin/perl -w
+
 use strict;
+
 use Bio::AlignIO;
+
 use Bio::SimpleAlign;
+
 use Bio::LocatableSeq;
+
 use Getopt::Long;
+
 my $iformat = 'fasta';
+
 my $oformat = 'fas';
+
 my $outfile = 'allseq.fas';
+
 my $ext = 'msa.trim';
     
   2. For `make_expected_file.sh`:
@@ -30,7 +39,8 @@ my $ext = 'msa.trim';
     - `cat pep/*.aa.fasta | grep "^>" | tr "|" "\t" | cut -f 1 | sort | uniq > expected`
   
   Optional: At this point for a superalignment, you could simply run combine_fasaln.pl as follows:
-  perl combine_fasaln.pl -o allseq.fas -of fasta -d ./Your_dir_with_Fastas/ --expected expected.txt
+
+perl combine_fasaln.pl -o allseq.fas -of fasta -d ./Your_dir_with_Fastas/ --expected expected.txt
   
   3. For combine_make_superaln.sh:
     - Change the file paths to point to the appropriate locations of the `make_expected_file.sh` and `combine_fasaln.pl`.
