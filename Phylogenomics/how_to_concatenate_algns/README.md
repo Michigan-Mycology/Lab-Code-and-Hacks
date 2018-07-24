@@ -14,24 +14,16 @@ First you need to set up your headers in the fasta files so that they follow the
     Here is what the first 10 lines of your file should look like if your files have the extension .fas, and you want the output in fasta format:
 
 #!/usr/bin/perl -w
-
 use strict;
-
 use Bio::AlignIO;
-
 use Bio::SimpleAlign;
-
 use Bio::LocatableSeq;
-
 use Getopt::Long;
-
 my $iformat = 'fasta';
-
 my $oformat = 'fas';
-
 my $outfile = 'allseq.fas';
-
 my $ext = 'msa.trim';
+    
     
   2. For `make_expected_file.sh`:
     - Change the file path after -nl to the location of your fasta files
