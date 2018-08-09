@@ -1,0 +1,8 @@
+##First of all, this was a PAIN to figure out without a tutorial, so, you are welcome.
+
+######Extra chimera detection in Qiime 1#######
+
+#First download an appropriate, aligned version of the Silva ARB database, somewhere here: https://www.arb-silva.de/no_cache/download/archive/
+#The latest versions are too big/ won't work within the Virtualbox of Qiime1, and an online forum said to go all the way back to version 110, using the 90% identity cutoff, also I used the 18S only for my ITS dataset. Choose the appropriate one for you (or please just update to Qiime2).
+
+align_seqs.py -i 
