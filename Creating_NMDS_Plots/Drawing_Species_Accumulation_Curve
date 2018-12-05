@@ -1,0 +1,3 @@
+#Alisha's work for species accumulation curves in R
+
+library(vegan)
