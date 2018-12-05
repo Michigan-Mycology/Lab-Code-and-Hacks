@@ -74,6 +74,27 @@ Now you know to type `module load ncbi-blast` to load the standard BLAST package
 **NOTE**: You're not supposed to run long-running commands on the "head" node (ie the shell that you are logged into following `ssh [uniquename]@flux-login.arc-ts.umich.edu`. Instead, you need to submit a job, via a PBS script, to a particular allocation on flux.
 
 ### Allocations that we're allowed to use ###
+
+**NOTE**: We are **no longer** allowed to use `lsa_flux` since we now have `tyjames_flux`. Do not submit jobs to `lsa_flux` - you'll get an email from the flux staff that you're not supposed to be using it. Change all your PBS scripts to reflect this change by changing:
+
+```
+#PBS -A lsa_flux
+#PBS -l qos=flux
+#PBS -q flux
+```
+
+... to ...
+
+```
+#PBS -A tyjames_flux
+#PBS -l qos=flux
+#PBS -q flux
+```
+
+More on PBS headers later.
+
+Here are the allocations we are currently allowed to use:
+
 * **tyjames_flux**: Our base allocation and your go-to for most jobs that you want to run on the cluster. we pay a flat rate for this every month regardless of usage, so use it! Here are the resources available to us here:
 
 	* 24 processors (CPUs/procs)
@@ -89,7 +110,7 @@ Now you know to type `module load ncbi-blast` to load the standard BLAST package
 	* 1400 Gb memory
 	* It's free, but has special resource usage policies and you'll be waiting in line.
 
-###Checking the availability of resourses on an allocation###
+### Checking the availability of resourses on an allocation
 When deciding how many resources to request for a particular job or set of jobs, it usually pays to see what is currently available on the cluster. If you request too much, you'll have to wait for the resources to free-up. If you request too little, your job may take longer-than-necessary to complete or crash due to insufficient resources (almost always due to memory constraint). Thankfully this is easy to do:
 
 This first one is pretty self-explanatory. There are currently 11/24 of our allocated processors using 50/96 Gb of memory, leaving 13/24 processors and 46/96 Gb of memory available for new jobs. 
@@ -133,6 +154,54 @@ JOBID              USERNAME      STATE PROCS     WCLIMIT            QUEUETIME
 Total jobs:  4
 
 ```
+
+### Some Notes on Multiprocessing (requesting multiple processors)
+
+Please note that: **just because you specify a large number of processors for your job to run with DOES NOT mean that it will actually be using all of them.**
+
+Very few programs will attempt to "sense" how many processors are available for it to use. So if you're not telling or able to tell you program how many processors to use, it's likely only using **one**!
+
+What this means is that if you request a bunch of processors for a job that's only using once, you're either taking up resources that aren't doing anything and aren't available to other job submitters (`lsa_fluxm` and `tyjames_flux`) or you're **paying** for processors to stay idle (`tyjames_fluxod`). Don't do it!
+
+The only way to know whether or not your program is capable of using multiple processors is to consult the program's help screen. Number of processors for a command to use is almost always explicitly specified as a command line option.
+
+For instance, here's a line from the `blastn` help screen, accessed by typing `blastn -help`:
+
+```
+ -num_threads <Integer, >=1>
+   Number of threads (CPUs) to use in the BLAST search
+   Default = `1'
+    * Incompatible with:  remote
+```
+
+Seeing something like this in the help screen lets us know that we can tell `blastn` to use multiple processors. Looking back at the example PBS script above, you can see where I explicitly specified this option to be equal to the number of processors that I requested for my job (`-num_threads 3`):
+
+```
+blastn -query ../contig.fastas/XY01851_contigs.clip.500.fasta \
+-outfmt 6 -num_threads 3 -out XY01851_blastn.out -max_target_seqs 1 \
+-db nt
+```
+
+If you're not specifying an option like this in your call to your program, it's safe to assume that it's not using multiple processors. Here's another example of a command-line option specifying the number of processors to use from the `spades` help screen:
+
+```
+-t/--threads	<int>		number of threads
+				[default: 16]
+```
+
+Note that in this example the default is 16 processors, so you could get away without specifying this option **if** you requested 16 processors for your job. Otherwise, spades either thinks it has more or less processors available to it than it really does.
+
+**So, always specify an option for threads when noted in the program's help screen and write your PBS script to match.** Otherwise, assume that it's only using one processor, and request resources as such. If you don't do this, your taking up or paying for resources that you don't need and aren't actaully using. This is going to slow everyone else down and cost us extra money. Ask someone if you have questions.
+
+### The Same Goes for Memory
+With programs that can require large amounts of memory (eg `spades`, `ESOM`), there is usually an option for specifying the amount of memory the program should assume it has available to use. From the `spades` help screen:
+
+```
+-m/--memory	<int>		RAM limit for SPAdes in Gb (terminates if exceeded)
+				[default: 250]
+```
+
+Spades will crash if it runs out and you'll have to start over. Make sure you what you set that limit as in your call to `spades` and the amount you requested in your PBS script match.
 
 ### PBS Scripts - The Header ###
 
@@ -245,54 +314,6 @@ or
 `showq -w acct=[allocation]`
 
 as described above.
-
-### Some Notes on Multiprocessing (requesting multiple processors)
-
-Please note that: **just because you specify a large number of processors for your job to run with DOES NOT mean that it will actually be using all of them.**
-
-Very few programs will attempt to "sense" how many processors are available for it to use. So if you're not telling or able to tell you program how many processors to use, it's likely only using **one**!
-
-What this means is that if you request a bunch of processors for a job that's only using once, you're either taking up resources that aren't doing anything and aren't available to other job submitters (`lsa_fluxm` and `tyjames_flux`) or you're **paying** for processors to stay idle (`tyjames_fluxod`). Don't do it!
-
-The only way to know whether or not your program is capable of using multiple processors is to consult the program's help screen. Number of processors for a command to use is almost always explicitly specified as a command line option.
-
-For instance, here's a line from the `blastn` help screen, accessed by typing `blastn -help`:
-
-```
- -num_threads <Integer, >=1>
-   Number of threads (CPUs) to use in the BLAST search
-   Default = `1'
-    * Incompatible with:  remote
-```
-
-Seeing something like this in the help screen lets us know that we can tell `blastn` to use multiple processors. Looking back at the example PBS script above, you can see where I explicitly specified this option to be equal to the number of processors that I requested for my job (`-num_threads 3`):
-
-```
-blastn -query ../contig.fastas/XY01851_contigs.clip.500.fasta \
--outfmt 6 -num_threads 3 -out XY01851_blastn.out -max_target_seqs 1 \
--db nt
-```
-
-If you're not specifying an option like this in your call to your program, it's safe to assume that it's not using multiple processors. Here's another example of a command-line option specifying the number of processors to use from the `spades` help screen:
-
-```
--t/--threads	<int>		number of threads
-				[default: 16]
-```
-
-Note that in this example the default is 16 processors, so you could get away without specifying this option **if** you requested 16 processors for your job. Otherwise, spades either thinks it has more or less processors available to it than it really does.
-
-**So, always specify an option for threads when noted in the program's help screen and write your PBS script to match.** Otherwise, assume that it's only using one processor, and request resources as such. If you don't do this, your taking up or paying for resources that you don't need and aren't actaully using. This is going to slow everyone else down and cost us extra money. Ask someone if you have questions.
-
-### The Same Goes for Memory
-With programs that can require large amounts of memory (eg `spades`, `ESOM`), there is usually an option for specifying the amount of memory the program should assume it has available to use. From the `spades` help screen:
-
-```
--m/--memory	<int>		RAM limit for SPAdes in Gb (terminates if exceeded)
-				[default: 250]
-```
-
-Spades will crash if it runs out and you'll have to start over. Make sure you what you set that limit as in your call to `spades` and the amount you requested in your PBS script match.
 	
 
 	
