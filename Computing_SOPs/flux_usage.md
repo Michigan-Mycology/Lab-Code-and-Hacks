@@ -155,6 +155,18 @@ Total jobs:  4
 
 ```
 
+Some handy aliases provided by Rob that makes remembering these, and other, commands much easier and quicker. Add them to your `.bashrc` file at `/home/[uniqname]/.bashrc` and logout/login to flux.
+
+```
+alias FX='freealloc tyjames_flux'
+alias FXS='showq -w acct=tyjames_flux'
+alias QS='qstat -u [uniqname]'
+alias INTER='qsub -I -V -A tyjames_flux -q flux -l nodes=1:ppn=1,pmem=8gb,walltime=8:00:00,qos=flux' # start interactive PBS job
+alias BM='ls -la --block-size=M'
+alias SCR='cd /scratch/tyjames_flux/[uniqname]/'
+```
+
+
 ### Some Notes on Multiprocessing (requesting multiple processors)
 
 Please note that: **just because you specify a large number of processors for your job to run with DOES NOT mean that it will actually be using all of them.**
