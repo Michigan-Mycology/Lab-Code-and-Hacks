@@ -1,4 +1,5 @@
-##James Lab flux SOP
+## James Lab flux SOP
+
 Last updated Fall 2018
 
 ### Logging into flux
