@@ -1,3 +1,61 @@
-#Alisha's work for species accumulation curves in R
+##Alisha's work for species accumulation curves in R##
 
 library(vegan)
+library(ggplot2)
+
+tsed<-read.csv("Sediment_otu_table.csv", row.names = 1,check.names = FALSE)
+sed<-t(tsed)
+
+spSed <-specaccum(sed, "random")
+plot(spSed)
+
+
+tsoil<-read.csv("soil_otu_table.csv", row.names = 1,check.names = FALSE)
+soil<-t(tsoil)
+
+spSoil <-specaccum(soil, "random")
+plot(spSoil)
+
+
+tfresh<-read.csv("freshwater_otu_table.csv", row.names = 1,check.names = FALSE)
+fresh<-t(tfresh)
+
+spFresh <-specaccum(fresh, "random")
+plot(spFresh)
+
+
+tmar<-read.csv("marine_otu_table.csv", row.names = 1,check.names = FALSE)
+marine<-t(tmar)
+
+spMarine <-specaccum(marine, "random")
+plot(spMarine)
+
+########Putting it together##########
+#plot curve_all first
+plot(spFresh, ci.type="bar", ci.col="gray", ylab="Cryptomycota OTUs", lwd=4)
+#then plot the rest
+plot(spSoil, add = TRUE, col = 2, ci.type="bar", ci.col="pink", lwd=4) 
+plot(spSed, add = TRUE, col = 3, ci.type="bar", ci.col="lightgreen", lwd=4)
+plot(spMarine, add = TRUE, col = 4, ci.type="bar", ci.col="lightblue", lwd=4)
+legend('bottomright', c('Fresh', 'Soil', 'Sed', 'Marine'), col=1:4, lty=2, 
+       bty='n', inset=0.025, lwd=4)
+
+
+plot(spFresh, ci.type="poly", ci.col="gray", ylab="Cryptomycota OTUs", lwd=4, ci.lty=3)
+#then plot the rest
+plot(spSoil, add = TRUE, col = 2, ci.type="bar", ci.col="pink", lwd=4) 
+plot(spSed, add = TRUE, col = 3, ci.type="bar", ci.col="lightgreen", lwd=4)
+plot(spMarine, add = TRUE, col = 4, ci.type="bar", ci.col="lightblue", lwd=4)
+legend('bottomright', c('Fresh', 'Soil', 'Sed', 'Marine'), col=1:4, lty=2, 
+       bty='n', inset=0.025, lwd=4)
+
+
+plot(spSoil, ci.type="bar", ci.col="gray", ylab="Cryptomycota OTUs", lwd=4)
+#then plot the rest
+plot(spFresh, add = TRUE, col = 2, ci.type="bar", ci.col="pink", lwd=4) 
+plot(spSed, add = TRUE, col = 3, ci.type="bar", ci.col="lightgreen", lwd=4)
+plot(spMarine, add = TRUE, col = 4, ci.type="bar", ci.col="lightblue", lwd=4)
+legend('bottomright', c('Soil', 'Fresh', 'Sed', 'Marine'), col=1:4, lty=2, 
+       bty='n', inset=0.025, lwd=4)
+
+
