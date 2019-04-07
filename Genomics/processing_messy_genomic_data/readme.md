@@ -114,3 +114,5 @@ Save this as a tab delimited file. I reccommend a file name such as organism_tax
 Now run ESOM according to the instructions found in the folder "Running_ESOM". https://github.com/Michigan-Mycology/Lab-Code-and-Hacks/tree/master/Genomics/processing_messy_genomic_data/Running_ESOM
 
 You have your genome.
+
+'''NOTE:''' A much better version of extracting a target genome from contamination is [scgid](https://github.com/amsesk/scgid).
