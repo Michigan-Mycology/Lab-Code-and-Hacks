@@ -115,4 +115,4 @@ Now run ESOM according to the instructions found in the folder "Running_ESOM". h
 
 You have your genome.
 
-'''NOTE:''' A much better version of extracting a target genome from contamination is [scgid](https://github.com/amsesk/scgid).
+**NOTE:** A much better version of extracting a target genome from contamination is [scgid](https://github.com/amsesk/scgid).
