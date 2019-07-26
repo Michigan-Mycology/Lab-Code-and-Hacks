@@ -31,7 +31,7 @@ my $oformat = 'fas';
 
 my $outfile = 'allseq.fas';
 
-my $ext = 'msa.trim';
+my $ext = 'fas';
     
     
   2. For `make_expected_file.sh`:
