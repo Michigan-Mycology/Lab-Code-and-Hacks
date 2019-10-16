@@ -18,6 +18,12 @@
   * You should get two particular scripts from our server before starting `remove_small_contigs.pl` and `assemblathon_stats.pl`. I can give these to you, so just ask.
 
 ##### QC and Trimming
+* Unzip read files
+
+```
+gzip -d [filename]
+```
+
 * Fastqc (I think you said you already had this done?
 * [Trimmomatic](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf) or [cutadapt](https://cutadapt.readthedocs.io/en/stable/guide.html) (both already on greatlakes)
   
