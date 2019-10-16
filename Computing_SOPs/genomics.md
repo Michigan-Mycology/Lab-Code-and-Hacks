@@ -13,6 +13,7 @@
   * Password: [Umich password]
 * Getting around and doing things:
   * Use the GreatLakes cheatsheet that was handed out in lab meeting as a reference for basic Unix commands and job submission with Slurm
+  * Decide on a text editor. Most people use [nano](https://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/) [vim](https://opensource.com/article/19/3/getting-started-vim)
   * Or ask one of us!
   * When in doubt, `[program] -h` or `[program] --help` (e.g., `spades.py -help`
   * You should get two particular scripts from our server before starting `remove_small_contigs.pl` and `assemblathon_stats.pl`. I can give these to you, so just ask.
