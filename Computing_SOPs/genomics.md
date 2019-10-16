@@ -86,7 +86,7 @@ Neo1_reverse_trimmed_orphan.fastq ILLUMINACLIP:/home/amsesk/\
 trimmomatic-0.36/adapters/NexteraPE-PE.fa:3:30:10
 ```
 
-* Example `cutadapt` batch script (for NEBNext kit, apprently the TruSeq adapters too???) [https://www.biostars.org/p/149301/](see discussion of this here)
+* Example `cutadapt` batch script (for NEBNext kit, apprently the TruSeq adapters too???) [see discussion of this here](https://www.biostars.org/p/149301/)
 
 ```
 #!/bin/bash
