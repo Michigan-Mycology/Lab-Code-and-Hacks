@@ -27,7 +27,7 @@ gzip -d [filename]
 * Fastqc (I think you said you already had this done?
 
 ```
-module load fastqc
+module load Bioinformatics fastqc
 fastqc [filename]
 ```
 
