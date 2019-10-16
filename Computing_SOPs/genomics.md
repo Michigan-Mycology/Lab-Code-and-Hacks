@@ -25,6 +25,12 @@ gzip -d [filename]
 ```
 
 * Fastqc (I think you said you already had this done?
+
+```
+module load fastqc
+fastqc [filename]
+```
+
 * [Trimmomatic](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf) or [cutadapt](https://cutadapt.readthedocs.io/en/stable/guide.html) (both already on greatlakes)
   
   ```
