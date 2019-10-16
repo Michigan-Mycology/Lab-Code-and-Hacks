@@ -27,10 +27,35 @@ gzip -d [filename]
 
 * Fastqc (I think you said you already had this done?
 
+On the login node
 ```
 module load Bioinformatics fastqc
 fastqc [filename]
 ```
+
+On a compute node (`myjob.sh`)
+
+```
+#!/bin/bash
+#SBATCH --job-name fastqc
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=1g
+#SBATCH --time=15:00:00
+#SBATCH --account=lsa
+#SBATCH --partition=standard
+#SBATCH --mail-type=BEGIN,END
+
+cd /scratch/lsa_root/lsa/kseto/raw.reads
+
+fastqc [forward_readfile]
+fastqc [reverse_readile]
+```
+
+`sbatch myjob.sh` <- submits the job
+
+`squeue -u kseto` <- show you your current jobs
+
 
 * [Trimmomatic](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf) or [cutadapt](https://cutadapt.readthedocs.io/en/stable/guide.html) (both already on greatlakes)
   
