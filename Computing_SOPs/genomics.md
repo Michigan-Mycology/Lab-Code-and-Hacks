@@ -127,7 +127,7 @@ module load Bioinformatics spades
 
 cd /scratch/tyjames_root/tyjames/amsesk/scgid_pub/mock/round2
 
-spades.py --sc --pe1-1 forward_reads.fastq --pe1-2 \
+spades.py --pe1-1 forward_reads.fastq --pe1-2 \
 reverse_reads.fastq -m 180 -t 36 -o assembly \
 -k 21,33,55,77,99 --phred-offset 33
 ```
