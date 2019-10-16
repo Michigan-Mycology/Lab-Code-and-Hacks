@@ -1,7 +1,7 @@
-#From Raw Reads to Genomics#
-######A story by Kevin Amses######
+# From Raw Reads to Genomics
+###### A story by Kevin Amses
 ***
-#####You're going to need a grealakes login#####
+##### You're going to need a grealakes login#####
 * ask Tim about this if you don't have one yet
 * which operating system are you using
   * Windows -> PuTTY terminal emulator, [setup instructions](https://arc-ts.umich.edu/greatlakes/user-guide/)
@@ -17,7 +17,7 @@
   * When in doubt, `[program] -h` or `[program] --help` (e.g., `spades.py -help`
   * You should get two particular scripts from our server before starting `remove_small_contigs.pl` and `assemblathon_stats.pl`. I can give these to you, so just ask.
 
-#####QC and Trimming#####
+##### QC and Trimming
 * Fastqc (I think you said you already had this done?
 * [Trimmomatic](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf) or [cutadapt](https://cutadapt.readthedocs.io/en/stable/guide.html) (both already on greatlakes)
   
@@ -48,7 +48,7 @@ Neo1_reverse_trimmed_orphan.fastq ILLUMINACLIP:/home/amsesk/\
 trimmomatic-0.36/adapters/NexteraPE-PE.fa:3:30:10
 ```
 
-#####*de novo* Genome Assembly#####
+##### *de novo* Genome Assembly
 
 * After trimming, it's time to assemble our short reads into contigs, representative of larger regions of the genome sequence. Since we don't have a reference genome, this is called *de novo* assembly. We're going to try to piece the thing together by aligning reads to eachother, making bigger and bigger contigs
 * Use `SPAdes` (also already on greatlakes) - this can take awhile; [the manual](http://cab.spbu.ru/files/release3.12.0/manual.html)
