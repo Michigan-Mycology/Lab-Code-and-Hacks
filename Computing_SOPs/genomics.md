@@ -86,6 +86,23 @@ Neo1_reverse_trimmed_orphan.fastq ILLUMINACLIP:/home/amsesk/\
 trimmomatic-0.36/adapters/NexteraPE-PE.fa:3:30:10
 ```
 
+* Example `cutadapt` batch script (for NEBNext kit, apprently the TruSeq adapters too???) [https://www.biostars.org/p/149301/](see discussion of this here)
+
+```
+#!/bin/bash
+#SBATCH --job-name cutadapt
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=1g
+#SBATCH --time=15:00:00
+#SBATCH --account=lsa
+#SBATCH --partition=standard
+#SBATCH --mail-type=BEGIN,END
+
+module load Bioinformatics cutadapt
+cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -o trimmed.R1.fastq.gz -a 4 -p trimmed.R2.fastq.gz reads.R1.fastq.gz reads.R2.fastq.gz
+```
+
 ##### *de novo* Genome Assembly
 
 * After trimming, it's time to assemble our short reads into contigs, representative of larger regions of the genome sequence. Since we don't have a reference genome, this is called *de novo* assembly. We're going to try to piece the thing together by aligning reads to eachother, making bigger and bigger contigs
