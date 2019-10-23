@@ -143,7 +143,7 @@ perl /path/to/assemblathon_stats.pl contigs.fasta
 
 This will print out a bunch of information about your assembly. Thinking like the number of contigs, cumulative length, GC content, etc. Check the N50 value to decide what your size cutoff should be for removing small contigs. For instance if my N50 is 1000 bp, I shouldn't be cutting off at 3000 bp - I would be tossing out tons of data.
 
-Once you've decided:
+Once you've decided >> **I've added these scripts to the lab's GitHub page [HERE]( https://github.com/Michigan-Mycology/Lab-Code-and-Hacks/tree/master/Computing_SOPs/genomics_scripts)**
 
 ```
 perl /path/to/remove_small_contigs.pl [bp_cutoff] contigs.fasta > contigs.clip.[bp_cutoff].fasta
@@ -157,5 +157,27 @@ perl /path/to/remove_small_contigs.pl 500 contigs.fasta > contigs.clip.500.fasta
 
 Ok, so now you have an draft genome assembly from your sequencing libraries. The path from here is a bit up to you depending on what you want to do. You can check for contamination and potentially refine your assembly using contamination removal techniques. There are a lot of these. Once you're happy with your assembly, you can continue on annotate and characterize it in  various ways.
 
-***...This is a work in progress...***
+##### Check Asseembly Completeness #####
+
+There are two ways that we usually do this ([CEGMA](http://korflab.ucdavis.edu/datasets/cegma/) or [BUSCO]()), although the "new" way is to use BUSCO. This apparently does not coming pre-installed on greatlakes, so let's follow the install instructions [HERE](https://gitlab.com/ezlab/busco) while we wait for them to update this for us. You should get used to installing things on the cluster for yourself anyways. You also need to download the BUSCO databases from: [https://busco.ezlab.org/](https://busco.ezlab.org/)
+
+BUSCO uses databases of Core Eukaryotic Genes and your assembly to predict the completeness of your assembly (i.e., predicted completeness increases with the number of complete core genes present in your assembly). Here's a sample SBATCH script for running BUSCO on greatlakes:
+
+```
+#!/bin/bash
+#SBATCH --job-name=busco
+#SBATCH --mail-type=BEGIN,END
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=12
+#SBATCH --mem-per-cpu=2g
+#SBATCH --time=80:00:00
+#SBATCH --account=tyjames
+#SBATCH --partition=standard
+
+cd /path/to/where/you/need/to/go
+run_BUSCO.py -o consensus -i [assembly_fasta] -l [database] -m genome -c [ncpus]
+```
+
+
 
