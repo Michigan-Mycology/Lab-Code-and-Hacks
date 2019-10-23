@@ -102,7 +102,6 @@ trimmomatic-0.36/adapters/NexteraPE-PE.fa:3:30:10
 module load Bioinformatics cutadapt
 cutadapt -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -o trimmed.R1.fastq.gz -a 4 -p trimmed.R2.fastq.gz reads.R1.fastq.gz reads.R2.fastq.gz
 ```
-
 ##### *de novo* Genome Assembly
 
 * After trimming, it's time to assemble our short reads into contigs, representative of larger regions of the genome sequence. Since we don't have a reference genome, this is called *de novo* assembly. We're going to try to piece the thing together by aligning reads to eachother, making bigger and bigger contigs
@@ -178,6 +177,43 @@ BUSCO uses databases of Core Eukaryotic Genes and your assembly to predict the c
 cd /path/to/where/you/need/to/go
 run_BUSCO.py -o consensus -i [assembly_fasta] -l [database] -m genome -c [ncpus]
 ```
+##### `barrnap` to check for rDNA contamination in contigs
+`barrnap` will try to pull rDNA out of your assembly. This can help you identify contamination as well as confirm presence of the target organism.
+
+###### Installation
+```
+cd /home/[uniqname]
+git clone https://github.com/tseemann/barrnap.git
+```
+
+Add /home/[uniqname]/barrnap/bin/ to $PATH in .bash_profile
+```
+$PATH=$PATH:/home/[uniqname]/barrnap/bin/
+```
+Open a new terminal/Putty session and confirm that installation worked with:
+```
+barrnap -h
+```
+
+###### Running `barrnap`
+Example batch script
+```
+#!/bin/bash
+#SBATCH --job-name=barrnap
+#SBATCH --mail-type=BEGIN,END
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=2g
+#SBATCH --time=20:00:00
+#SBATCH --account=tyjames
+#SBATCH --partition=standard
+
+cd /where/you/want
+
+##Example
+barrnap --kingdom euk --outseq test.outseq.fasta --threads 4 < contigs.fasta
 
 
+```
 
