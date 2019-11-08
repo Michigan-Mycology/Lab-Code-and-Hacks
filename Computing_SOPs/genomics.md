@@ -175,12 +175,17 @@ samtools view -f 77 -c [output_sam] > [put_target_reverse_reads.sam]
 #### Predict Proteins
 
 `augustus` (installed but not working - email sent to HPC), 
+
 `maker` (needs to be installed)
 
 #### Predict Protein Function
 
 `dbCAN` - carbohydrate-active enzyme database, user `hmmer` to identify proteins that have CAZY-domains
+
 `MEROPS` - protease database, `BLAST` or use `hmmer`
+
 `interproscan` - needs to be isntalled; annotate proteins with predicted functional domains
+
 `KEGG-maps` - online interfaces - submit your protein models to
+
 `orthofinder` - installed on greatlakes already; find orthologs between a set of genomes
