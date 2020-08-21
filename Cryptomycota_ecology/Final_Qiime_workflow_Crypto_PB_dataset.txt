@@ -1,0 +1,32 @@
+#######Cryptomycota Ecology paper Qiime workflow#######
+
+#Pick OTUs and Rep set
+pick_otus.py -i crypto.pacbio.Q41.combined.sizefiltered.chimerafiltered.fasta -z -m usearch61 -o Usearch61_chimera_checked_picked_otus
+
+cd Usearch61_chimera_checked_picked_otus
+
+pick_rep_set.py -i crypto.pacbio.Q41.combined.sizefiltered.chimerafiltered_otus.txt -f ../crypto.pacbio.Q41.combined.sizefiltered.chimerafiltered.fasta -m most_abundant -o rep_set.fas
+
+
+#Assign Taxonomy and Visualize
+assign_taxonomy.py -i rep_set.fas -o Blast_silva_Crypto -t ../../Databases/Silva/Updated_Silva_Cryptos_Aphelids.txt -r ../../Databases/Silva/New_Silva_Euk_Crypto_Aphelid.fna -m blast
+
+
+#Make your OTU table:
+make_otu_table.py -i ../output_otus.txt -t taxon_assign.txt -o taxon_assign.biom
+
+
+#Filter singletons only (MIN 2)
+filter_otus_from_otu_table.py -i taxon_assign.biom -n 2 -o Min2_otus_taxon.biom
+#This removed a lot of things. A little more than 1/3 remaining.
+
+filter_fasta.py -f ../rep_set.fas -b Min2_otus_taxon.biom -o min2_filtered_repset_all_seqs.fas
+
+summarize_taxa.py -i Min2_otus_taxon.biom -a -L 2,3,4,5,6,7 -o Min2_taxonomy
+
+#Now, get just Crypto, Aphelid, etc. seqs:
+filter_taxa_from_otus_table.py -i Min2_otus_taxon.biom -o Crypto_only_min2_otus.biom -p c__Cryptomycota
+
+filter_fasta.py -f ../rep_set.fas -b Crypto_only_min2_otus.biom -o crypto_only_min2_otus.fas
+
+biom convert -I Min2_otus_taxon.biom -o table_from_biom_min2_otus.txt --to-tsv
