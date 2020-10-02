@@ -30,3 +30,6 @@ filter_taxa_from_otus_table.py -i Min2_otus_taxon.biom -o Crypto_only_min2_otus.
 filter_fasta.py -f ../rep_set.fas -b Crypto_only_min2_otus.biom -o crypto_only_min2_otus.fas
 
 biom convert -I Min2_otus_taxon.biom -o table_from_biom_min2_otus.txt --to-tsv
+
+###Dendrogram creation###
+upgma_cluster.py -i bray_curtis_Crypto_only_min2_otus.txt -o beta_div_upgma_cluster_.tre
