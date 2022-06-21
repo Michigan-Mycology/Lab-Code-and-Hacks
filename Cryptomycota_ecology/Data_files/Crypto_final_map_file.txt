@@ -1,0 +1,84 @@
+#SampleID	BarcodeSequence	LinkerPrimerSequence	Location	Town	County	State	Country	Year	Month	Substrate	Type	Size range
+0175G.NorthLake			North Lake	Gregory	Washtenaw	MI	USA	2014	July	0.8 um filters	Freshwater	0.8-20um
+0196G.WoodlandLake			Woodland Lake	Brighton	Livingston	MI	USA	2014	July	0.8 um filters	Freshwater	0.8-20um
+0224G.Crooked			Crooked Lake	NA	Washtenaw	MI	USA	2014	July	0.8 um filters	Freshwater	0.8-20um
+0238G.SmithFenInlet			Smith's Fen Inlet	Pellston	Cheboygan	MI	USA	2014	August	0.8 um filters	Freshwater	0.8-20um
+0239G.SmithsFenInlet			Smith's Fen Inlet	Pellston	Cheboygan	MI	USA	2014	August	0.8 um filters	Freshwater	0.8-20um
+0242G.BurtLakefar			Burt Lake far	Pellston	Cheboygan	MI	USA	2014	August	0.8 um filters	Freshwater	0.8-20um
+0255G.PointHole3m			Point Hole 3m	Pellston	Cheboygan	MI	USA	2014	August	0.8 um filters	Freshwater	0.8-20um
+0266D.HarborSprings			Harbor Springs	Harbor Springs	Emmet	MI	USA	2014	October	Soil	Soil	
+0267D.QuandtSoil			CAQ residence	Ann Arbor	Washtenaw	MI	USA	2014	October	Soil	Soil	
+0269D.KrausCourt			Kraus Building-um Campus	Ann Arbor	Washtenaw	MI	USA	2014	October	Soil	Soil	
+0270G.NorthLake			North Lake	Gregory	Washtenaw	MI	USA	2014	October	0.8 um filters	Freshwater	0.8-20um
+0271G.BruinLake			Bruin Lake	Lyndon Township	Washtenaw	MI	USA	2014	October	0.8 um filters	Freshwater	0.8-20um
+0273G.Run2.CranePond			Crane Pond	Edwin S. George Reserve	Livingston	MI	USA	2014	October	0.8 um filters	Freshwater	0.8-20um
+0273G.Run1.CranePond			Crane Pond	Edwin S. George Reserve	Livingston	MI	USA	2014	October	0.8 um filters	Freshwater	0.8-20um
+0274G.Gosling			Gosling Lake	Putnam Township	Livingston	MI	USA	2014	October	0.8 um filters	Freshwater	0.8-20um
+0275D.NorthLake			North Lake	Gregory	Washtenaw	MI	USA	2014	October	Soil	Soil	
+0276N.NorthLake			North Lake	Gregory	Washtenaw	MI	USA	2014	October	Sediment	Sediment	
+0277D.Bruin			Bruin Lake	Lyndon Township	Washtenaw	MI	USA	2014	October	Soil	Soil	
+0278N.BruinLake			Bruin Lake	Lyndon Township	Washtenaw	MI	USA	2014	October	Sediment	Sediment	
+0279D.FishHookMarsh			Fish Hook Marsh	NA		MI	USA	2014	October	Soil	Soil	
+0280N.FishHookMarsh			Fish Hook Marsh	NA		MI	USA	2014	October	Sediment	Sediment	
+0281D.CranePond			Crane Pond	Edwin S. George Reserve	Livingston	MI	USA	2014	October	Soil	Soil	
+0283D2.Gosling			Gosling Lake	Putnam Township	Livingston	MI	USA	2014	October	Soil	Soil	
+0284N2.Gosling			Gosling Lake	Putnam Township	Livingston	MI	USA	2014	October	Sediment	Sediment	
+0285G2.Bishop			Bishop Lake	Hamburg Township	Livingston	MI	USA	2014	November	0.8 um filters	Freshwater	0.8-20um
+0286G.Appleton			Appleton Lake	Hamburg Township	Livingston	MI	USA	2014	November	0.8 um filters	Freshwater	0.8-20um
+0290D.Bishop			Bishop Lake	Hamburg Township	Livingston	MI	USA	2014	November	Soil	Soil	
+0292D2.Appleton			Appleton Lake	Hamburg Township	Livingston	MI	USA	2014	November	Soil	Soil	
+0293N.Appleton			Appleton Lake	Hamburg Township	Livingston	MI	USA	2014	November	Sediment	Sediment	
+0294D.Gosling			Gosling Lake	Putnam Township	Livingston	MI	USA	2014	November	Soil	Soil	
+0296D.Woodland			Woodland Lake	Brighton	Livingston	MI	USA	2014	November	Soil	Soil	
+0298D.Whitemore			Whitmore Lake	Whitmore Lake	Washtenaw	MI	USA	2014	November	Soil	Soil	
+0301D.LilePond			Lile Pond	Pellston	Cheboygan	MI	USA	2015	July	Soil	Soil	
+0302G.LilePond			Lile Pond	Pellston	Cheboygan	MI	USA	2015	July	0.8 um filters	Freshwater	0.8-5um
+0303P.SmithFen			Smith's Fen	Pellston	Cheboygan	MI	USA	2015	July	Plant matter	Plant	
+0304P.SmithsFen			Smith's Fen	Pellston	Cheboygan	MI	USA	2015	July	Plant matter	Plant	
+0305N.GorgeLoc1			Gorge Area Loc 1	Pellston	Cheboygan	MI	USA	2015	July	Sediment	Sediment	
+0306D.GorgeLoc1			Gorge Area Loc 1	Pellston	Cheboygan	MI	USA	2015	July	Soil	Soil	
+0309N.GorgeArea2			Gorge Area Loc 2	Pellston	Cheboygan	MI	USA	2015	July	Sediment	Sediment	
+0314N.HogbackBog			Unnamed Bog Hogback Rd.	Ann Arbor	Washtenaw	MI	USA	2015	July	Sediment	Sediment	
+0315N.HogbackBog			Unnamed Bog Hogback Rd.	Ann Arbor	Washtenaw	MI	USA	2015	July	Sediment	Sediment	
+0316G.DouglasLake			Douglas Lake	Pellston	Cheboygan	MI	USA	2015	July	0.8 um filters	Freshwater	0.8-20um
+0317N.MudLakeBog			Mud Lake Bog	Pellston	Cheboygan	MI	USA	2015	July	Sediment	Sediment	
+0318P.MudLakeBog			Mud Lake Bog	Pellston	Cheboygan	MI	USA	2015	July	Plant matter	Plant	
+0320D.BryantBog			Bryant's Bog	Pellston	Cheboygan	MI	USA	2015	July	Soil	Soil	
+0321P.BryantBog			Bryant's Bog	Pellston	Cheboygan	MI	USA	2015	July	Plant matter	Plant	
+0322G.BryantBog			Bryant's Bog	Pellston	Cheboygan	MI	USA	2015	July	0.8 um filters	Freshwater	0.8-20um
+0323G.Lancaster			Lancaster Lake	Munro Township	Cheboygan	MI	USA	2015	July	0.8 um filters	Freshwater	0.8-20um
+0324G.BryantBog.0805			Bryant's Bog edge	Pellston	Cheboygan	MI	USA	2017	June	0.8 um filters	Freshwater	0.8-5um
+0324Q.BryantBog.520			Bryant's Bog edge	Pellston	Cheboygan	MI	USA	2017	June	5 um filters	Freshwater	5-20um
+0324S.BryantBog.T			Bryant's Bog edge	Pellston	Cheboygan	MI	USA	2017	June	Triple 0.8 um filters	Freshwater	0.8-5um
+0325S.BryantBog			Bryant's Bog middle	Pellston	Cheboygan	MI	USA	2017	June	Triple 0.8 um filters	Freshwater	0.8-5um
+0326G.SmithsFen			Smith's Fen front	Pellston	Cheboygan	MI	USA	2017	June	0.8 um filters	Freshwater	0.8-5um
+0330S.HebronSwale			Hebron Swale near	NA	Cheboygan	MI	USA	2017	June	Triple 0.8 um filters	Freshwater	0.8-5um
+0334U.PescaderoVent			Pescadero Vent Z	NA	Pescadero Basin Hydrothermal Vents	Gulf of California	Mexico	2015	April	Deep sea	Marine	
+0335T.PescaderoVentZ			Pescadero Vent Z	NA	Pescadero Basin Hydrothermal Vents	Gulf of California	Mexico	2015	April	Deep sea	Marine	
+0336U.PescaderoVent			Pescadero Vent Z	NA	Pescadero Basin Hydrothermal Vents	Gulf of California	Mexico	2015	April	Deep sea	Marine	
+0338V.BirdShoal			Bird Shoal	Rachel Carson Reserve	Charteret	NC	USA	2011	November	Intertidal sand flats	Intertidal	
+0339V.BirdShoal			Bird Shoal	Rachel Carson Reserve	Charteret	NC	USA	2012	January	Intertidal sand flats	Intertidal	
+0343X.DukeMarineLab			Duke University Marine Lab Marsh	Beaufort	Charteret	NC	USA	2012	January	Intertidal wetland sediment	Intertidal	
+0344S0.Run2.CapeLookout			Cape Lookout Bight	Cape Lookout National Seashore	Charteret	NC	USA	2011	July	Benthic sediment	Marine	
+0344S0.Run1.CapeLookout			Cape Lookout Bight	Cape Lookout National Seashore	Charteret	NC	USA	2011	July	Benthic sediment	Marine	
+0344S1.CapeLookout			Cape Lookout Bight	Cape Lookout National Seashore	Charteret	NC	USA	2011	July	Benthic sediment	Marine	
+0345_S0			Cape Lookout Bight	Cape Lookout National Seashore	Charteret	NC	USA	2011	October	Benthic sediment	Marine	
+69M.Arctic			Arctic Ocean	NA				2017	July	25m depth	Marine	0.2 um
+69S.MarineSurface			Arctic Ocean	NA				2017	July	Marine surface	Marine	0.2 um
+Fj.Tromso			Arctic Ocean	Tromso	Troms		Norway	2017	July	Marine surface	Marine	0.2um
+I3.IceCore			Arctic Ocean	NA				2017	July	Ice core of lower 10m	Ice	0.2um
+KLL1.GosSed			Gosling Lake	Putnam Township	Livingston	MI	USA	2013	June	Sediment	Sediment	
+KLL2.GosFil			Gosling Lake	Putnam Township	Livingston	MI	USA	2013	June	3 um filters	Freshwater	3-20um
+KLL3.Rozella			Rozella							culture	Culture	
+KLL4.HerbFil			Herbarium Pond	Ann Arbor	Washtenaw	MI	USA	2013	June	3 um filters	Freshwater	3-20um
+KLL5.ArbSoil			Nichols Arboretum	Ann Arbor	Washtenaw	MI	USA	2013	June	Soil	Soil	
+KLL6.HuronSink			"Lake Huron sinkhole (core 0611-18, section 4)"				USA				Sinkhole	
+KLL7.Barton			Barton Pond 006-11	Ann Arbor	Washtenaw	MI	USA	2012	July	3 um filters	Freshwater	3-20um
+MA119.LakeErieWLE2			WLE2	Lake Erie			USA	2014	September	0.8 um filters	Freshwater	0.8-20um
+MA120.HuronSB2			WLE12	Lake Erie			USA	2014	September	0.8 um filters	Freshwater	0.8-20um
+MA121.LakeErieWLE4			WLE4	Lake Erie			USA	2014	September	0.8 um filters	Freshwater	0.8-20um
+MA135.WoodlandLake			Woodland Lake		Livingston	MI	USA	2014	July	0.8 um filters	Freshwater	0.8-20um
+MA138.FordLake			Ford Lake		Washtenaw	MI	USA	2014	July	0.8 um filters	Freshwater	0.8-20um
+MA139.HuronSB2			Huron_SB2	Lake Huron			USA	2014	July	0.8 um filters	Freshwater	0.8-20um
+MA140.Huron.SB14			Huron_SB14	Lake Huron			USA	2014	July	0.8 um filters	Freshwater	0.8-20um
+MA58.LakeErieWLE2			WLE2	Lake Erie			USA	2014	July	0.8 um filters	Freshwater	0.8-20um
